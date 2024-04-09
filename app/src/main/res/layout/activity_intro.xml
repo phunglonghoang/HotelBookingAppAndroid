@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="494dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/intro" />
 
@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Let's Enjoy The \nBeautiful World"
+                android:text="H2T Booking"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="35sp"
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Explorer new places in the world \nand get new experiences"
+                android:text="Đặt phòng theo yêu cầu của bạn"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp" />

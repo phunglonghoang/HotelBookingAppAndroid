@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tutorial.travel.R;
+import com.tutorial.travel.controller.LoginActivity;
 
 public class IntroActivity extends AppCompatActivity {
     private ConstraintLayout startBtn;
@@ -22,7 +23,7 @@ public class IntroActivity extends AppCompatActivity {
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(IntroActivity.this, MainActivity.class));
+                startActivity(new Intent(IntroActivity.this, LoginActivity.class));
             }
         });
     }
