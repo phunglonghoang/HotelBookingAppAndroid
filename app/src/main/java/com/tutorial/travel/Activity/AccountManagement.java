@@ -1,9 +1,11 @@
 package com.tutorial.travel.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -17,10 +19,27 @@ public class AccountManagement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_account_management);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        CardView homeCardView = findViewById(R.id.homeCardView);
+        homeCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(AccountManagement.this, AdminMainActivity.class );
+            startActivity(intent);
+            finish();
+        });
+
+        CardView listUsersCardView;
+        listUsersCardView = findViewById(R.id.listUserCardView);
+        listUsersCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(AccountManagement.this, SearchGuestUser.class );
+            startActivity(intent);
+            finish();
+        });
+
+        CardView AdminaddUser;
+        AdminaddUser = findViewById(R.id.AdminaddUser);
+        AdminaddUser.setOnClickListener(v -> {
+            Intent intent = new Intent(AccountManagement.this, addUser.class );
+            startActivity(intent);
+            finish();
         });
     }
 }
