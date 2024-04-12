@@ -33,7 +33,7 @@ public class AdminMainActivity extends AppCompatActivity {
         CardView billCardView = findViewById(R.id.billCardView);
         billCardView.setOnClickListener(v -> {
             // Chuyển hướng đến trang bill
-            Intent intent2 = new Intent(AdminMainActivity.this, BillAdmin.class);
+            Intent intent2 = new Intent(AdminMainActivity.this, ThemKhachSan.class);
             startActivity(intent2);
             finish();
         });

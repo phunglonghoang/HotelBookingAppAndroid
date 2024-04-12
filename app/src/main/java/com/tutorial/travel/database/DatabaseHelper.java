@@ -365,6 +365,46 @@ public boolean updateRoleIdForUser(String username, int roleId) {
     return rowsAffected > 0; // Trả về true nếu có ít nhất một hàng được cập nhật thành công
 }
 
-// test tốt hơn nhưng vẫn là đổi role
+// test add hotel
+    public long addHotel(String hotelName, String location, int StarRating, String imageUrl){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOTEL_NAME,hotelName);
+        values.put(COLUMN_LOCATION,location);
+        values.put(COLUMN_STAR_RATING,StarRating);
+        values.put(COLUMN_IMAGE, imageUrl);
+
+        long id = db.insert(TABLE_HOTEL,null,values);
+        db.close();
+        return id;
+    }
+
+    // test add room
+    public long addRoomType(String roomType, int numBeds, int numPeople ) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ROOM_TYPE, roomType);
+//        values.put(COLUMN_NUM_BEDS, numBeds);
+//        values.put(COLUMN_HOTEL_ID_FK, numPeople);
+        long id = db.insert(TABLE_ROOM, null, values);
+        db.close();
+        return id;
+    }
+
+    //test tiep
+    public List<String> getAllHotelNames() {
+        List<String> hotelNames = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_HOTEL_NAME + " FROM " + TABLE_HOTEL, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                hotelNames.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+        return hotelNames;
+    }
+
 
 }

@@ -68,7 +68,7 @@ public class addUser extends AppCompatActivity {
                     if (userId != -1) {
                         Toast.makeText(addUser.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(addUser.this, LoginActivity.class);
+                        Intent intent = new Intent(addUser.this, addUser.class);
                         startActivity(intent);
                         finish();
                     } else {
