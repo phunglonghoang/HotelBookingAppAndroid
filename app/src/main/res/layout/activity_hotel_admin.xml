@@ -7,7 +7,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.HotelAdmin">
+    tools:context=".Activity.List_of_Reservations">
 
 
 
@@ -28,15 +28,15 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="Reservation Data"
+                android:text="Dữ liệu đặt phòng"
                 android:textColor="#000000"
-                android:textSize="20dp" />
+                android:textSize="30dp" />
 
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="Enter Reservation Date"
+                android:hint="Ngày đặt"
                 android:ems="10"
                 android:layout_marginTop="3dp"
                 android:id="@+id/editText"
@@ -47,7 +47,7 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Room Type"
+                android:hint="Loại phòng"
                 android:gravity="center"
                 android:ems="10"
                 android:layout_below="@+id/editText"
@@ -64,7 +64,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Number of Rooms"
+                android:hint="Số phòng"
                 android:gravity="center" />
 
 
@@ -77,7 +77,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Check In Date"
+                android:hint="Ngày checkin"
                 android:gravity="center" />
 
 
@@ -90,7 +90,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Check Out Date"
+                android:hint="Ngày checkout"
                 android:gravity="center" />
 
 
@@ -102,7 +102,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter First Name"
+                android:hint="Nhập họ"
                 android:gravity="center" />
 
 
@@ -114,7 +114,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Last Name"
+                android:hint="Nhập tên"
                 android:gravity="center" />
 
             <EditText
@@ -125,7 +125,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Number of Adults"
+                android:hint="Số lượng người lớn"
                 android:gravity="center" />
 
             <EditText
@@ -136,7 +136,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Number of Children"
+                android:hint="Số lượng trẻ em"
                 android:gravity="center" />
 
 
@@ -148,7 +148,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Total Price"
+                android:hint="Giá tiền"
                 android:gravity="center" />
 
 
@@ -160,7 +160,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Hotel Name"
+                android:hint="Tên khách sạn"
                 android:gravity="center" />
 
             <EditText
@@ -171,7 +171,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Hotel Location"
+                android:hint="Địa chỉ khách sạn"
                 android:gravity="center" />
 
 
@@ -183,7 +183,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Number of Nights"
+                android:hint="Số đêm ở"
                 android:gravity="center" />
 
             <EditText
@@ -194,7 +194,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
                 android:ems="10"
-                android:hint="Enter Price per Night"
+                android:hint="Giá mỗi đêm"
                 android:gravity="center" />
 
 
@@ -204,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editText5"
                 android:layout_marginTop="4dp"
-                android:text="Save" />
+                android:text="Lưu" />
 
             <Button
                 android:id="@+id/button2"
@@ -212,15 +212,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/button"
                 android:layout_marginTop="-1dp"
-                android:text="View List of Reservation (Manager)" />
+                android:text="Xem danh sách" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/button2"
-                android:layout_marginTop="-1dp"
-                android:text="View List of Reservation (Guest)" />
+
 
         </LinearLayout>
     </ScrollView>

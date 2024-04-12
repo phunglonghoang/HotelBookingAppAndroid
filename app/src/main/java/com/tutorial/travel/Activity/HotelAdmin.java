@@ -26,7 +26,7 @@ public class HotelAdmin extends AppCompatActivity {
     String ReservationDateHolder, RoomTypeHolder, NumRoomHolder, CheckInHolder, CheckOutHolder,  SQLiteDataBaseQueryHolder;
     String FirstNameHolder, LastNameHolder, NumberOfAdultsHolder, NumberOfChildrenHolder, TotalPriceHolder;
     String HotelNameHolder, HotelLocationHolder, NumberOfNightsHolder, PricePerNightHolder;
-    Button EnterData, ButtonDisplayData, ButtonDisplayDataGuest;
+    Button EnterData, ButtonDisplayData;
     Boolean EditTextEmptyHold;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class HotelAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_hotel_admin);
         EnterData = (Button)findViewById(R.id.button);
         ButtonDisplayData = (Button)findViewById(R.id.button2);
-        ButtonDisplayDataGuest = (Button) findViewById(R.id.button3);
 
         editTextReservationDate = (EditText)findViewById(R.id.editText);
         editTextRoomType = (EditText)findViewById(R.id.editText2);

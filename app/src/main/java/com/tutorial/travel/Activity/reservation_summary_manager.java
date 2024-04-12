@@ -44,18 +44,12 @@ public class reservation_summary_manager extends AppCompatActivity   {
             public void onClick(View view) {
                 String date = EditTextDate.getText().toString();
                 String roomType = "";
+
                 int selectedRadioButtonId = RadioGroupRoomType.getCheckedRadioButtonId();
-//                switch (selectedRadioButtonId) {
-//                    case R.id.radioButtonStandard:
-//                        roomType = "Standard";
-//                        break;
-//                    case R.id.radioButtonDeluxe:
-//                        roomType = "Deluxe";
-//                        break;
-//                    case R.id.radioButtonSuite:
-//                        roomType = "Suite";
-//                        break;
-//                }
+                RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
+                if (selectedRadioButton != null) {
+                    roomType = selectedRadioButton.getText().toString();
+                }
                 if(roomType.isEmpty() || date.isEmpty()){
                     Toast.makeText(reservation_summary_manager.this,"Please fill the reservation date!", Toast.LENGTH_LONG).show();
                     return;

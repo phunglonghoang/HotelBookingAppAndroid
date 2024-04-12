@@ -50,4 +50,24 @@ public class Hotel {
     public void setImage(String image) {
         this.image = image;
     }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "hotelID='" + id + '\'' +
+                "hotelName='" + hotelName + '\'' +
+                ", hotelLocation='" + location + '\'' +
+                ", hotelManager='" + starRating + '\'' +
+                ", image ='" + image + '\'' +
+                '}';
+    }
+
+    public Hotel(int id, String hotelName, String location, int starRating, String image) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.location = location;
+        this.starRating = starRating;
+        this.image = image;
+    }
+
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -44,5 +45,20 @@ public class List_of_Reservations extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_list_of_reservations);
 
+        ButtonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(List_of_Reservations.this, MainActivity.class));
+            }
+        });
+
+
+
+        ButtonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(List_of_Reservations.this, AdminMainActivity.class));
+            }
+        });
     }
 }
