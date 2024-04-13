@@ -1,6 +1,6 @@
 package com.tutorial.travel.model;
 
-public class Hotel {
+public class HotelModel {
     private int id;
     private String hotelName;
     private String location;
@@ -8,7 +8,12 @@ public class Hotel {
     private String image;
 
 
-    public Hotel() {
+    public HotelModel(int id, String hotelName, String location, int starRating, String image) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.location = location;
+        this.starRating = starRating;
+        this.image = image;
     }
 
     public int getId() {
@@ -50,4 +55,5 @@ public class Hotel {
     public void setImage(String image) {
         this.image = image;
     }
+
 }

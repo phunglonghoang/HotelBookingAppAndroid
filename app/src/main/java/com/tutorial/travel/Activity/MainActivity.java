@@ -1,5 +1,8 @@
 package com.tutorial.travel.Activity;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -8,22 +11,37 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tutorial.travel.Adapter.CategoryAdapter;
+import com.tutorial.travel.Adapter.HotelAdapter;
 import com.tutorial.travel.Adapter.PopularAdapter;
 import com.tutorial.travel.Domain.CategoryDomain;
 import com.tutorial.travel.Domain.PopularDomain;
 import com.tutorial.travel.R;
+import com.tutorial.travel.database.DatabaseHelper;
+import com.tutorial.travel.model.HotelModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView.Adapter adapterPopular, adapterCat;
-    private RecyclerView recyclerViewPopular, recyclerViewCategory;
+    private RecyclerView recyclerViewPopular, recyclerViewCategory, recyclerView3;
+    private HotelAdapter adapter;
+    private List<HotelModel> hotelList;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        addDataToDatabase();
+        recyclerView3 = findViewById(R.id.recyclerview3);
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView3.setLayoutManager(horizontalLayoutManager);
+        hotelList = new ArrayList<>();
+        adapter = new HotelAdapter(this, hotelList);
+        recyclerView3.setAdapter(adapter);
 
+        loadHotels();
         initRecyclerView();
     }
 
@@ -62,5 +80,65 @@ public class MainActivity extends AppCompatActivity {
 
         adapterCat = new CategoryAdapter(catsList);
         recyclerViewCategory.setAdapter(adapterCat);
+    }
+    private void addDataToDatabase() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_HOTEL, null);
+        if (cursor.getCount() == 0) {
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "Hữu Nghị");
+            values.put(DatabaseHelper.COLUMN_LOCATION, "Viet Nam");
+            values.put(DatabaseHelper.COLUMN_STAR_RATING, 5);
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
+
+            values.clear();
+            values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "Mường Thanh");
+            values.put(DatabaseHelper.COLUMN_LOCATION, "Hồ Chí Minh");
+            values.put(DatabaseHelper.COLUMN_STAR_RATING, 4);
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
+
+
+            values.clear();
+            values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "Thanh Bình");
+            values.put(DatabaseHelper.COLUMN_LOCATION, "Hà Nội");
+            values.put(DatabaseHelper.COLUMN_STAR_RATING, 2);
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
+
+
+            values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "Phúc Long");
+            values.put(DatabaseHelper.COLUMN_LOCATION, "Đà Lạt");
+            values.put(DatabaseHelper.COLUMN_STAR_RATING, 1);
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
+
+        }
+        db.close();
+    }
+
+    private void loadHotels() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_HOTEL, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_ID)); // Sử dụng getColumnIndexOrThrow
+                String hotelName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_NAME)); // Sử dụng getColumnIndexOrThrow
+                String location = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_LOCATION)); // Sử dụng getColumnIndexOrThrow
+                int starRating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_STAR_RATING)); // Sử dụng getColumnIndexOrThrow
+                String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE)); // Sử dụng getColumnIndexOrThrow
+                HotelModel hotel = new HotelModel(id, hotelName, location, starRating, image);
+                hotelList.add(hotel);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        adapter.notifyDataSetChanged();
+        db.close();
     }
 }
