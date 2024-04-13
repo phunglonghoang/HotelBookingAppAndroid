@@ -1,9 +1,11 @@
 package com.tutorial.travel.Activity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import com.tutorial.travel.Adapter.PopularAdapter;
 import com.tutorial.travel.Domain.CategoryDomain;
 import com.tutorial.travel.Domain.PopularDomain;
 import com.tutorial.travel.R;
+import com.tutorial.travel.controller.RegisterActivity;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;
 
@@ -152,5 +155,9 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         adapter.notifyDataSetChanged();
         db.close();
+    }
+    public void onSettingClick(View v){
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 }

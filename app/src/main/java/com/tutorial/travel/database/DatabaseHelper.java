@@ -147,7 +147,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_EMAIL, user.getEmail());
         values.put(COLUMN_PHONE, user.getPhone());
         values.put(COLUMN_PASSWORD, PasswordUtils.hashPassword(user.getPassword()));
-        values.put(COLUMN_ROLE_ID_FK, 3);
+        values.put(COLUMN_ROLE_ID_FK, 2);
         values.put(COLUMN_DOB, user.getDOB());
         long id = db.insert(TABLE_USERS, null, values);
         db.close();
