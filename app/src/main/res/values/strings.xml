@@ -8,4 +8,14 @@
         Feel inspired by open sight lines that\n
         embrace the outdoors, crowned by stunning offered ceilings.
     </string>
+
+    <string name="choose_hotel">Choose Hotel</string>
+    <string name="register">MODIFY</string>
+    <string name="register2">REGISTER</string>
+    <string name="register3">MODIFY</string>
+    <string name="register4">DELETE</string>
+    <string name="register5">ADD</string>
+    <string name="register_now">Register</string>
+
+
 </resources>

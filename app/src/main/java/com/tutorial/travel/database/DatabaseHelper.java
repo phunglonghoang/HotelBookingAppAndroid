@@ -9,10 +9,13 @@ import androidx.annotation.Nullable;
 import com.tutorial.travel.Activity.PasswordUtils;
 import com.tutorial.travel.model.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "Hotel.db";
+    public static final String DATABASE_NAME = "Hotel.db";
     private static final int DATABASE_VERSION = 1;
 
     // role
@@ -21,14 +24,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ROLE_NAME = "roleName";
 
     // users
-    private static final String TABLE_USERS = "users";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_USERNAME = "username";
-    private static final String COLUMN_EMAIL = "email";
-    private static final String COLUMN_PHONE = "phone";
-    private static final String COLUMN_DOB = "DOB";
-    private static final String COLUMN_PASSWORD = "password";
-    private static final String COLUMN_ROLE_ID_FK = "roleId";
+    public static final String TABLE_USERS = "users";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_USERNAME = "username";
+    public static final String COLUMN_EMAIL = "email";
+    public static final String COLUMN_PHONE = "phone";
+    public static final String COLUMN_DOB = "DOB";
+    public static final String COLUMN_PASSWORD = "password";
+    public static final String COLUMN_ROLE_ID_FK = "roleId";
 
     // hotel
     public static final String TABLE_HOTEL = "hotel";
@@ -183,6 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return roleId;
     }
 
+
     private void insertRole(SQLiteDatabase db,  String roleName ) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ROLE_NAME, roleName);
@@ -223,6 +227,156 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static String getColumnDob() {
         return COLUMN_DOB;
     }
+
+
+
+
+//    public List<Hotel> getAllHotels() {
+//        List<Hotel> hotelList = new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        String[] columns = {COLUMN_HOTEL_NAME, COLUMN_LOCATION, COLUMN_STAR_RATING, COLUMN_IMAGE};
+//        Cursor cursor = db.query(TABLE_HOTEL, columns, null, null, null, null, null);
+//        if (cursor != null && cursor.moveToFirst()) {
+//            do {
+//                String hotelName = cursor.getString(cursor.getColumnIndex(COLUMN_HOTEL_NAME));
+//                String location = cursor.getString(cursor.getColumnIndex(COLUMN_LOCATION));
+//                int starRating = cursor.getInt(cursor.getColumnIndex(COLUMN_STAR_RATING));
+//                String image = cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE));
+//                Hotel hotel = new Hotel(hotelName, location, starRating, image);
+//                hotelList.add(hotel);
+//            } while (cursor.moveToNext());
+//            cursor.close();
+//        }
+//        db.close();
+//        return hotelList;
+//    }
+
+    public ArrayList<User> getAllUsers(String abc)
+    {
+        ArrayList<User>arrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String qry =  "select * from users where username = '" + abc + "' ";
+        Cursor cursor = db.rawQuery(qry,null);
+        while (cursor.moveToNext())
+        {
+            String userid = cursor.getString(0);
+            String username = cursor.getString(1);
+
+            String email = cursor.getString(3);
+            String phone = cursor.getString(4);
+
+
+
+            User user = new User(userid,username,email,phone);
+
+            arrayList.add(user);
+        }
+            return arrayList;
+    }
+
+    public User adminViewUser(String user){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String qry =  "select * from users where username = '" + user + "' ";
+        Cursor cursor = db.rawQuery(qry, null);
+
+        if(cursor!= null)
+        {
+            cursor.moveToFirst();
+        }
+        User userprofile =new User(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5));
+
+        userprofile.setUsername(cursor.getString(1));
+        userprofile.setPassword(cursor.getString(2));
+        userprofile.setEmail(cursor.getString(3));
+        userprofile.setPhone(cursor.getString(4));
+        userprofile.setDOB(cursor.getString(5));
+//        userprofile.setRoleId(cursor.getString(6));
+//        userprofile.setId(cursor.getString(0));
+
+        db.close();
+        cursor.close();
+        return userprofile;
+    }
+
+    public boolean adminUpdateProfile(User userprofile, String user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_USERNAME,userprofile.getUsername());
+        cv.put(COLUMN_PASSWORD,userprofile.getPassword());
+        cv.put(COLUMN_EMAIL,userprofile.getEmail());
+        cv.put(COLUMN_PHONE,userprofile.getPhone());
+        cv.put(COLUMN_DOB,userprofile.getDOB());
+        cv.put(COLUMN_ROLE_ID, userprofile.getRoleId());
+
+        db.update(TABLE_USERS,cv,"username = ?", new String[] {user});
+        return true;
+    }
+
+    public boolean deteleUser(String user){
+        SQLiteDatabase db =getWritableDatabase();
+        int i = db.delete(TABLE_USERS,"username = ?", new String[]{user});
+        if(i >0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+//test đổi role
+public boolean updateRoleIdForUser(String username, int roleId) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues values = new ContentValues();
+    values.put("role_id", roleId);
+
+    // Cập nhật roleId trong bảng người dùng dựa trên tên người dùng
+    int rowsAffected = db.update("users", values, "username = ?", new String[]{username});
+    db.close();
+
+    return rowsAffected > 0; // Trả về true nếu có ít nhất một hàng được cập nhật thành công
+}
+
+// test add hotel
+    public long addHotel(String hotelName, String location, int StarRating, String imageUrl){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOTEL_NAME,hotelName);
+        values.put(COLUMN_LOCATION,location);
+        values.put(COLUMN_STAR_RATING,StarRating);
+        values.put(COLUMN_IMAGE, imageUrl);
+
+        long id = db.insert(TABLE_HOTEL,null,values);
+        db.close();
+        return id;
+    }
+
+    // test add room
+    public long addRoomType(String roomType, int numBeds, int numPeople ) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ROOM_TYPE, roomType);
+//        values.put(COLUMN_NUM_BEDS, numBeds);
+//        values.put(COLUMN_HOTEL_ID_FK, numPeople);
+        long id = db.insert(TABLE_ROOM, null, values);
+        db.close();
+        return id;
+    }
+
+    //test tiep
+    public List<String> getAllHotelNames() {
+        List<String> hotelNames = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_HOTEL_NAME + " FROM " + TABLE_HOTEL, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                hotelNames.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+        return hotelNames;
+    }
+
 
 
 }
