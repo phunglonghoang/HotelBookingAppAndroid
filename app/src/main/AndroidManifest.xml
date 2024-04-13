@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -30,9 +32,9 @@
         <activity
             android:name=".Activity.reservation_summary_manager"
             android:exported="false" />
-        <activity
-            android:name=".Activity.adminProfile"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".Activity.adminProfile"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".Activity.adminViewGuestManager"
             android:exported="false" />
@@ -54,6 +56,10 @@
         <activity
             android:name=".Activity.AccountManagement"
             android:exported="false" />
+        <activity
+            android:name=".Activity.SettingActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".controller.RegisterActivity"
             android:exported="false" />

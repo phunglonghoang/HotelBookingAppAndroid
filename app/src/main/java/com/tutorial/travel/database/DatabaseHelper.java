@@ -5,18 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import androidx.annotation.Nullable;
-
-
 import com.tutorial.travel.Activity.PasswordUtils;
 import com.tutorial.travel.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -56,8 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ROOM_TYPE = "roomType";
     private static final String COLUMN_ROOM_RATE = "rate";
     private static final String COLUMN_ROOM_IMAGE = "image";
-    private static final String COLUMN_HOTEL_ID_FK = "hotelID";
-
+    private static final String COLUMN_HOTEL_ID_FK = "hotel_id";
     //booking
     private static final String TABLE_BOOKING = "booking";
     private static final String COLUMN_BOOKING_ID = "id";
@@ -102,7 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_HOTEL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_HOTEL_NAME + " TEXT, "
                 + COLUMN_LOCATION + " TEXT ,"
-                + COLUMN_STAR_RATING + " INTEGER,"  // Thêm cột star_rating
+                + COLUMN_STAR_RATING + " INTEGER,"
                 + COLUMN_IMAGE + " TEXT"
                 + ")";
         db.execSQL(CREATE_HOTEL_TABLE);
@@ -142,26 +135,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void insertData(SQLiteDatabase db) {
-        // Thêm dữ liệu mẫu cho role
         insertRole(db, "Admin");
-
         insertRole(db, "Customer");
 
-
         String hashPass = PasswordUtils.hashPassword("123");
-        // Thêm dữ liệu mẫu cho users
         insertUser(db, "Admin", "Admin@gmail.com", "086868686", hashPass, 1);
         insertUser(db, "nd", "nd@gmail.com", "321321214", hashPass, 2);
 
-
-        // Thêm dữ liệu mẫu cho hotel
-        insertHotel(db, "Hoang gia", "HCM", 5, "https://cdn.tgdd.vn/Products/Images/42/78124/iphone-7-plusgold-400x460-400x460.png\t");
-        insertHotel(db, "Thanh nghi", "HCM", 4, "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png\t");
-        insertHotel(db, "Gia LONG", "HCM", 4, "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png\t");
-        insertHotel(db, "Mường Thanh", "HCM", 2, "https://cdn.tgdd.vn/Products/Images/42/214909/samsung-galaxynote-10-lite-chi-tiet-1-400x460.png\t");
-        insertHotel(db, "Mường Thanh", "Hà Nội", 4, "https://cdn.tgdd.vn/Products/Images/42/214909/samsung-galaxynote-10-lite-chi-tiet-1-400x460.png\t");
     }
-
     public long addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -169,13 +150,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_EMAIL, user.getEmail());
         values.put(COLUMN_PHONE, user.getPhone());
         values.put(COLUMN_PASSWORD, PasswordUtils.hashPassword(user.getPassword()));
-        values.put(COLUMN_ROLE_ID_FK, 3);
+        values.put(COLUMN_ROLE_ID_FK, 2);
         values.put(COLUMN_DOB, user.getDOB());
         long id = db.insert(TABLE_USERS, null, values);
         db.close();
         return id;
     }
-
 
     public int getUserRoleId(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -224,16 +204,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    private void insertHotel(SQLiteDatabase db, String hotelName, String location, int starRating, String image) {
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_HOTEL_NAME, hotelName);
-        values.put(COLUMN_LOCATION, location);
-        values.put(COLUMN_STAR_RATING, Integer.parseInt(String.valueOf(starRating)));
-        values.put(COLUMN_IMAGE, image);
-        db.insert(TABLE_HOTEL, null, values);
-    }
-
-
     public Cursor getUserInfoById(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_ID, COLUMN_USERNAME, COLUMN_EMAIL, COLUMN_PHONE, COLUMN_DOB};
@@ -260,6 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
+
 //    public List<Hotel> getAllHotels() {
 //        List<Hotel> hotelList = new ArrayList<>();
 //        SQLiteDatabase db = this.getReadableDatabase();
@@ -280,7 +251,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        return hotelList;
 //    }
 
-    public ArrayList<User>getAllUsers(String abc)
+    public ArrayList<User> getAllUsers(String abc)
     {
         ArrayList<User>arrayList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -405,6 +376,7 @@ public boolean updateRoleIdForUser(String username, int roleId) {
         db.close();
         return hotelNames;
     }
+
 
 
 }
