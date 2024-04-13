@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,10 +30,12 @@ public class MainActivity extends AppCompatActivity {
     private HotelAdapter adapter;
     private List<HotelModel> hotelList;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         addDataToDatabase();
         recyclerView3 = findViewById(R.id.recyclerview3);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
@@ -41,8 +44,17 @@ public class MainActivity extends AppCompatActivity {
         adapter = new HotelAdapter(this, hotelList);
         recyclerView3.setAdapter(adapter);
 
+
+        TextView txtUserName = findViewById(R.id.txtUserName);
+
+        Bundle bundle = getIntent().getExtras();
+
+        String username = bundle.getString("username");
+
+
         loadHotels();
         initRecyclerView();
+        txtUserName.setText(username);
     }
 
     private void initRecyclerView() {
