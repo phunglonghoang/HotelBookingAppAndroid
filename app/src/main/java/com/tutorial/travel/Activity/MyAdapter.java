@@ -54,16 +54,16 @@ public class MyAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.custom_layout, null);
-        EditText fn = (EditText)view.findViewById(R.id.admin_fmg);
+//        EditText fn = (EditText)view.findViewById(R.id.admin_fmg);
         EditText ln = (EditText)view.findViewById(R.id.admin_lmg);
-        EditText rl = (EditText)view.findViewById(R.id.admin_rmg);
+//        EditText rl = (EditText)view.findViewById(R.id.admin_rmg);
         final EditText un = (EditText)view.findViewById(R.id.admin_umg);
         viewGM = (Button) view.findViewById(R.id.admin_viewGM);
 
         User user = arrayList.get(position);
 
         ln.setText(user.getEmail());
-        rl.setText(user.getPhone());
+//        rl.setText(user.getPhone());
         un.setText(user.getUsername());
 
         viewGM.setOnClickListener(new View.OnClickListener() {
