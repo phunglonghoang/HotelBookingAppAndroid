@@ -3,7 +3,7 @@ package com.tutorial.travel.model;
 public class HotelModel {
     private int id;
     private String hotelName;
-    private String location;
+    private static String location;
     private int starRating;
     private String image;
 
@@ -32,7 +32,7 @@ public class HotelModel {
         this.hotelName = hotelName;
     }
 
-    public String getLocation() {
+    public static String getLocation() {
         return location;
     }
 

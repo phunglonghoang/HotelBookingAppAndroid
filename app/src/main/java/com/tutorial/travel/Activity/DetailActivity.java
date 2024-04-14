@@ -72,7 +72,7 @@ public class DetailActivity extends AppCompatActivity {
         picImg = findViewById(R.id.picImg);
 
     }
-    public void onBackActivity() {
-        super.onBackPressed(); // Quay lại activity trước đó trong stack
-    }
+//    public void onBackActivity() {
+//        super.onBackPressed(); // Quay lại activity trước đó trong stack
+//    }
 }

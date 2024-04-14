@@ -97,12 +97,12 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/edtSearchLocation"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:background="@drawable/search_background"
-                        android:drawableStart="@drawable/search_icon"
+
                         android:drawablePadding="16dp"
                         android:ems="10"
                         android:hint="Search Location ..."
@@ -111,23 +111,35 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
                         android:textSize="16sp" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <ImageButton
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/setting_background">
+                        android:src="@drawable/search_icon"
+                        android:background="@color/pink"
+                        android:onClick="onSearchHotelClick"
+                        >
 
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/settings"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </ImageButton>
+
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="50dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginStart="16dp"-->
+<!--                        android:background="@color/pink">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgSearch"-->
+<!--                            android:onClick="onSearchHotelClick"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@drawable/search_icon"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintVertical_bias="0.384" />-->
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
