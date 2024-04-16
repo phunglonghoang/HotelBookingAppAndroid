@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/admin_viewTextGM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:text="View Selected Guest/Manager Screen"
+            android:textColor="#03A9F4"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/userTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:text="Username"
+            android:textColor="#000000"
+            android:textSize="16dp"/>
+        <EditText
+            android:id="@+id/admin_userGM"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp" />
+        <TextView
+            android:id="@+id/pwdTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Email"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="16dp"/>
+        <EditText
+            android:id="@+id/admin_pwdGM"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/emailTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Phone"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="16dp"/>
+        <EditText
+            android:id="@+id/admin_emailGM"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp" />
+        <TextView
+            android:id="@+id/phnTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Birth day"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="16dp"/>
+        <EditText
+            android:id="@+id/admin_phoneGM"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp" />
+        <TextView
+            android:id="@+id/creditName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Password"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="16dp"/>
+        <EditText
+            android:id="@+id/admin_roleGM"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGrRole"
+            android:layout_width="268dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:defaultFocusHighlightEnabled="true"
+                android:text="Admin" />
+
+            <RadioButton
+
+                android:id="@+id/radioButtonUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="User" />
+        </RadioGroup>
+        <Button
+            android:id="@+id/admin_modifyGM"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ff8819"
+            android:text="@string/register3"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/admin_deleteGM"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ff8819"
+            android:text="@string/register4"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/adminViewHome"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ff8819"
+            android:text="HOME"
+            android:textColor="#ffffff" />
+
+
+
+
+    </LinearLayout>
+</ScrollView>

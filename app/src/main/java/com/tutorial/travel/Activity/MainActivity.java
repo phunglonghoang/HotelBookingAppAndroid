@@ -1,6 +1,7 @@
 package com.tutorial.travel.Activity;
 
 import android.content.ContentValues;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,12 +45,21 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "abc";
     private RecyclerView.Adapter adapterPopular, adapterCat;
     private RecyclerView recyclerViewPopular, recyclerViewCategory, recyclerView3;
     private HotelAdapter adapter;
     private List<HotelModel> hotelList;
 
+
     ImageButton profileImg;
+
+    ImageView imgSearch;
+    EditText edtSearchLocation;
+    TextView txtSeeAllHotel;
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
         addDataToDatabase();
         recyclerView3 = findViewById(R.id.recyclerview3);
-        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(MainActivity.this,
+                LinearLayoutManager.HORIZONTAL, false);
         recyclerView3.setLayoutManager(horizontalLayoutManager);
         hotelList = new ArrayList<>();
         adapter = new HotelAdapter(this, hotelList, new HotelAdapter.OnItemClickListener() {
@@ -57,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         recyclerView3.setAdapter(adapter);
+
 
 
         TextView txtUserName = findViewById(R.id.userNameTxt);
@@ -73,20 +98,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-        loadHotels();
-       addRoomToHotel();
-        initRecyclerView();
-        txtUserName.setText(username);
+
+//        TextView txtUserName = findViewById(R.id.txtUserName);
+//
+//        Bundle bundle = getIntent().getExtras();
+//
+//        String username = bundle.getString("username");
+
+
+//>>>>>>> main
+//        loadHotels();
+//       addRoomToHotel();
+//        initRecyclerView();
+//        txtUserName.setText(username);
+//<<<<<<< HEAD
 
     }
+
 
     private void initRecyclerView() {
 
         ArrayList<PopularDomain> items = new ArrayList<>();
         String str = getString(R.string.description);
-        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str , 2, true, 4.9,"pic1", true, 1000));
-        items.add(new PopularDomain("Passo Rolle, TN", "Hawaii Beach", str, 2, false, 5.0,"pic2", false, 2500));
-        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.3,"pic3", true, 30000));
+        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.9, "pic1", true, 1000));
+        items.add(new PopularDomain("Passo Rolle, TN", "Hawaii Beach", str, 2, false, 5.0, "pic2", false, 2500));
+        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.3, "pic3", true, 30000));
 
         recyclerViewPopular = findViewById(R.id.recyclerview1);
         recyclerViewPopular.setLayoutManager(new LinearLayoutManager(
@@ -115,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         adapterCat = new CategoryAdapter(catsList);
         recyclerViewCategory.setAdapter(adapterCat);
     }
+
     private void addDataToDatabase() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
@@ -132,6 +169,12 @@ public class MainActivity extends AppCompatActivity {
             values.put(DatabaseHelper.COLUMN_LOCATION, "Hồ Chí Minh");
             values.put(DatabaseHelper.COLUMN_STAR_RATING, 4);
             values.put(DatabaseHelper.COLUMN_IMAGE, "https://tse3.mm.bing.net/th?id=OIP.kb-80cNd4JIUyfm0mje2SAHaE7&pid=Api&P=0&h=220");
+            db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
+
+            values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "H2T");
+            values.put(DatabaseHelper.COLUMN_LOCATION, "Hồ Chí Minh");
+            values.put(DatabaseHelper.COLUMN_STAR_RATING, 4.5);
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
             db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
 
 
@@ -173,7 +216,9 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_HOTEL+" LIMIT 3 ", null);
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_HOTEL + " LIMIT 3", null);
+
 
         if (cursor.moveToFirst()) {
             do {
@@ -192,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         db.close();
     }
+
 
     private int getRoomTypeIdByName(String roomTypeName) {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
@@ -282,4 +328,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+
+    public void onSettingClick(View v) {
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+    }
+    //hiển thị toàn bộ khách sạn
+    public void onSeeAllHotel(View v){
+        Intent intent = new Intent(this, AllHotelActivity.class);
+        startActivity(intent);
+    }
+
+    public void onSearchHotelClick(View view) {
+        edtSearchLocation = findViewById(R.id.edtSearchLocation);
+        String locations = edtSearchLocation.getText().toString().trim();
+        Log.d(TAG, "onSearchHotelClick: " + locations);
+        if (TextUtils.isEmpty(locations)) {
+            Toast.makeText(MainActivity.this,
+                    "vui lòng nhập địa điểm bạn  muốn đặt phòng",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+
+            Intent intentSearch = new Intent(this,
+                    HotelByLocationActivity.class);
+            Bundle bundle = new Bundle();
+            if (bundle != null) {
+
+                bundle.putString("locations", locations);
+                intentSearch.putExtras(bundle);
+                startActivity(intentSearch);
+
+            } else {
+                // Nếu Bundle không tồn tại, bạn có thể gán giá trị mặc định hoặc xử lý dữ liệu theo cách khác
+                Toast.makeText(this, "Đã xảy ra lỗi", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+
+    }
 }
+

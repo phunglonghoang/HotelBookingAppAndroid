@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/admin_viewTextGM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:text="Thông tin Hotel"
+            android:textColor="#03A9F4"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/userTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="Hotel Name"
+            android:textColor="#000000"
+            android:textSize="16dp"/>
+        <EditText
+            android:id="@+id/admin_HotelName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp" />
+        <TextView
+            android:id="@+id/pwdTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Location"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="16dp"/>
+        <EditText
+            android:id="@+id/admin_locationHotelAdmin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/emailTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Star Rating"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="16dp"/>
+        <EditText
+            android:id="@+id/admin_StarRatingHotelAdmin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp" />
+        <TextView
+            android:id="@+id/phnTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Image URL"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="16dp"/>
+        <EditText
+            android:id="@+id/admin_ImgURLHotelAdmin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp" />
+
+        <Button
+            android:id="@+id/admin_modifyHotelAdmin"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ff8819"
+            android:text="@string/register3"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/admin_deleteHotelAdmin"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ff8819"
+            android:text="@string/register4"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/adminViewHomeHotelAdmin"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ff8819"
+            android:text="HOME"
+            android:textColor="#ffffff" />
+
+
+
+
+    </LinearLayout>
+</ScrollView>

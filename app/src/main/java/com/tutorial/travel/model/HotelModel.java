@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class HotelModel implements Serializable {
     private int id;
     private String hotelName;
-    private String location;
+    private static String location;
     private int starRating;
     private String image;
     private double minRoomPrice;
@@ -18,6 +18,19 @@ public class HotelModel implements Serializable {
         this.starRating = starRating;
         this.image = image;
         this.minRoomPrice = minRoomPrice;
+    }
+
+    public HotelModel(int id, String hotelName, String location) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.location = location;
+    }
+
+    public HotelModel(String hotelName, String location, int starRating, String image) {
+        this.hotelName = hotelName;
+        this.location = location;
+        this.starRating = starRating;
+        this.image = image;
     }
 
     public int getId() {
@@ -36,7 +49,7 @@ public class HotelModel implements Serializable {
         this.hotelName = hotelName;
     }
 
-    public String getLocation() {
+    public static String getLocation() {
         return location;
     }
 
@@ -60,6 +73,7 @@ public class HotelModel implements Serializable {
         this.image = image;
     }
 
+
     public double getMinRoomPrice() {
         return minRoomPrice;
     }
@@ -67,4 +81,6 @@ public class HotelModel implements Serializable {
     public void setMinRoomPrice(double minRoomPrice) {
         this.minRoomPrice = minRoomPrice;
     }
+
+
 }
