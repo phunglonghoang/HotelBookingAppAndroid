@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/themKS"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30dp"
@@ -80,5 +81,11 @@
         android:layout_below="@+id/buttonUploadImage"
         android:text="Save Hotel"/>
 
-
+    <Button
+        android:id="@+id/buttonBackAddKS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/buttonSaveHotel"
+        android:text="Back"/>
 </RelativeLayout>

@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.tutorial.travel.R;
+import com.tutorial.travel.controller.LoginActivity;
 
 public class AdminMainActivity extends AppCompatActivity {
 
@@ -19,9 +21,24 @@ public class AdminMainActivity extends AppCompatActivity {
         CardView homeCardView = findViewById(R.id.homeCardView);
 
         homeCardView.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminMainActivity.this, MainActivity.class );
-            startActivity(intent);
-            finish();
+            AlertDialog.Builder builder = new AlertDialog.Builder(AdminMainActivity.this);
+
+            builder.setTitle("Xác nhận đăng xuất");
+            builder.setMessage("Bạn có chắc chắn muốn đăng xuất không?");
+            builder.setPositiveButton("Đăng xuất ", (dialog, which) -> {
+                Intent intent = new Intent(AdminMainActivity.this, LoginActivity.class );
+                startActivity(intent);
+                finish();
+            });
+
+            builder.setNegativeButton("Hủy", (dialog, which) -> {
+               dialog.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+
         });
         CardView accountCardView = findViewById(R.id.accountCardView);
         accountCardView.setOnClickListener(v -> {
@@ -57,7 +74,7 @@ public class AdminMainActivity extends AppCompatActivity {
         CardView hotelCardView = findViewById(R.id.hotelCardView);
         hotelCardView.setOnClickListener(v -> {
             // Chuyển hướng đến trang hotel
-            Intent intent5 = new Intent(AdminMainActivity.this, HotelAdmin.class);
+            Intent intent5 = new Intent(AdminMainActivity.this, AdminManagementHotel.class);
 
             startActivity(intent5);
             finish();

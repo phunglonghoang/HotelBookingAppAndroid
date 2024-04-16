@@ -25,7 +25,7 @@ public class ThemKhachSan extends AppCompatActivity {
     EditText editTextImageUrl;
     ImageView imageViewHotel;
     EditText editTextHotelName, editTextLocation, editTextStarRating;
-    Button buttonAddRoom, buttonUploadImage, buttonSaveHotel;
+    Button buttonAddRoom, buttonUploadImage, buttonSaveHotel, buttonBackAddKS;
     boolean isHotelSaved = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,8 @@ public class ThemKhachSan extends AppCompatActivity {
 
 
         });
+
+
         buttonAddRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +84,14 @@ public class ThemKhachSan extends AppCompatActivity {
 
             }
         });
+        buttonBackAddKS = findViewById(R.id.buttonBackAddKS);
+        buttonBackAddKS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ThemKhachSan.this, AdminManagementHotel.class));
+            }
+        });
+
 
     }
     private void saveHotel() {

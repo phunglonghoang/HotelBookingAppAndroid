@@ -1,5 +1,6 @@
 package com.tutorial.travel.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,7 +24,7 @@ import java.util.List;
 public class AddRoomType extends AppCompatActivity {
     private Spinner spinnerRoomType, spinnerHotel;
     private EditText editTextRoomType, editTextNumBeds, editTextNumPeople;
-    private Button buttonAddRoom;
+    private Button buttonAddRoom, buttonBackAddRoom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +47,27 @@ public class AddRoomType extends AppCompatActivity {
                 addRoomType();
             }
         });
+        buttonBackAddRoom = findViewById(R.id.buttonBackAddRoom);
+        buttonBackAddRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AddRoomType.this, AdminManagementHotel.class));
+            }
+        });
+        spinnerHotel = findViewById(R.id.spinnerHotel);
+
+        DatabaseHelper db = new DatabaseHelper(this);
+        List<String> hotelNames = db.getAllHotelNames();
+        ArrayAdapter<String> hotelAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, hotelNames);
+        hotelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerHotel.setAdapter(hotelAdapter);
 
 
     }
-    private void addRoomType(){
 
+
+    private void addRoomType(){
+       // String hotelName = spinnerHotel.getSelectedItem().toString();
         int numBeds = Integer.parseInt(editTextNumBeds.getText().toString().trim());
         int numPeople = Integer.parseInt(editTextNumPeople.getText().toString().trim());
 //        String numBeds = editTextNumBeds.getText().toString().trim();
