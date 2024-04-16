@@ -5,8 +5,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +24,7 @@ import com.tutorial.travel.Adapter.PopularAdapter;
 import com.tutorial.travel.Domain.CategoryDomain;
 import com.tutorial.travel.Domain.PopularDomain;
 import com.tutorial.travel.R;
+import com.tutorial.travel.controller.LoginActivity;
 import com.tutorial.travel.controller.RegisterActivity;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;
@@ -28,10 +34,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "abc";
     private RecyclerView.Adapter adapterPopular, adapterCat;
     private RecyclerView recyclerViewPopular, recyclerViewCategory, recyclerView3;
     private HotelAdapter adapter;
     private List<HotelModel> hotelList;
+
+    ImageView imgSearch;
+    EditText edtSearchLocation;
 
 
     @Override
@@ -41,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         addDataToDatabase();
         recyclerView3 = findViewById(R.id.recyclerview3);
-        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(MainActivity.this,
+                LinearLayoutManager.HORIZONTAL, false);
         recyclerView3.setLayoutManager(horizontalLayoutManager);
         hotelList = new ArrayList<>();
         adapter = new HotelAdapter(this, hotelList);
@@ -58,16 +69,16 @@ public class MainActivity extends AppCompatActivity {
         loadHotels();
         initRecyclerView();
         txtUserName.setText(username);
-    }
+  }
 
     private void initRecyclerView() {
 
         // For Popular RecyclerView
         ArrayList<PopularDomain> items = new ArrayList<>();
         String str = getString(R.string.description);
-        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str , 2, true, 4.9,"pic1", true, 1000));
-        items.add(new PopularDomain("Passo Rolle, TN", "Hawaii Beach", str, 2, false, 5.0,"pic2", false, 2500));
-        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.3,"pic3", true, 30000));
+        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.9, "pic1", true, 1000));
+        items.add(new PopularDomain("Passo Rolle, TN", "Hawaii Beach", str, 2, false, 5.0, "pic2", false, 2500));
+        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.3, "pic3", true, 30000));
 
         recyclerViewPopular = findViewById(R.id.recyclerview1);
         recyclerViewPopular.setLayoutManager(new LinearLayoutManager(
@@ -96,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         adapterCat = new CategoryAdapter(catsList);
         recyclerViewCategory.setAdapter(adapterCat);
     }
+
     private void addDataToDatabase() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
@@ -112,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
             values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "Mường Thanh");
             values.put(DatabaseHelper.COLUMN_LOCATION, "Hồ Chí Minh");
             values.put(DatabaseHelper.COLUMN_STAR_RATING, 4);
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
+
+            values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "H2T");
+            values.put(DatabaseHelper.COLUMN_LOCATION, "Hồ Chí Minh");
+            values.put(DatabaseHelper.COLUMN_STAR_RATING, 4.5);
             values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
             db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
 
@@ -156,8 +174,38 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         db.close();
     }
-    public void onSettingClick(View v){
+
+    public void onSettingClick(View v) {
         Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);
+    }
+
+    public void onSearchHotelClick(View view) {
+        edtSearchLocation = findViewById(R.id.edtSearchLocation);
+        String locations = edtSearchLocation.getText().toString().trim();
+        Log.d(TAG, "onSearchHotelClick: " + locations);
+        if (TextUtils.isEmpty(locations)) {
+            Toast.makeText(MainActivity.this,
+                    "vui lòng nhập địa điểm bạn  muốn đặt phòng",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+
+            Intent intentSearch = new Intent(this,
+                    HotelByLocationActivity.class);
+            Bundle bundle = new Bundle();
+            if (bundle != null) {
+
+                bundle.putString("locations", locations);
+                intentSearch.putExtras(bundle);
+                startActivity(intentSearch);
+
+            } else {
+                // Nếu Bundle không tồn tại, bạn có thể gán giá trị mặc định hoặc xử lý dữ liệu theo cách khác
+                Toast.makeText(this, "Đã xảy ra lỗi", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+
     }
 }

@@ -15,8 +15,15 @@
         android:theme="@style/Theme.Travel"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.Modify_Delete_Hotel"
-            android:exported="false" />
+
+            android:name=".Activity.HotelByLocationActivity"
+
+            android:exported="false">
+
+        </activity>
+
+<!--            android:name=".Activity.Modify_Delete_Hotel"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".Activity.SearchHotelAdmin"
             android:exported="false" />
@@ -32,6 +39,7 @@
         <activity
             android:name=".Activity.AdminManagementHotel"
             android:exported="false" />
+
         <activity
             android:name=".Activity.AddRoomType"
             android:exported="false" />
@@ -49,13 +57,13 @@
             android:exported="false" />
         <activity
             android:name=".Activity.reservation_summary_manager"
+
             android:exported="false" />
-<!--<<<<<<< HEAD-->
-<!--=======-->
-<!--&lt;!&ndash;        <activity&ndash;&gt;-->
-<!--&lt;!&ndash;            android:name=".Activity.adminProfile"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:exported="false" />&ndash;&gt;-->
-<!--&gt;>>>>>> cabb05e9628b60e642454058ab2d09b724856d23-->
+<!--         <activity -->
+<!--         android:name=".Activity.adminProfile" -->
+<!--         android:exported="false" /> -->
+
+
         <activity
             android:name=".Activity.adminViewGuestManager"
             android:exported="false" />
@@ -79,8 +87,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.SettingActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".controller.RegisterActivity"
             android:exported="false" />

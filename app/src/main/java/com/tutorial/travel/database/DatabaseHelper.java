@@ -409,6 +409,23 @@ public boolean updateRoleIdForUser(String username, int roleId) {
         return hotelNames;
     }
 
+///hoàng: LẤY  hotel theo địa chỉ
+public List<String> getHotelByLocation(String location) {
+    List<String> hoteLocation = new ArrayList<>();
+    SQLiteDatabase db = this.getWritableDatabase();
+    Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_HOTEL + " WHERE " + COLUMN_LOCATION + "=?", new String[]{location});
+    if (cursor.moveToFirst()) {
+        do {
+            String hotelloc = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION));
+            hoteLocation.add(hotelloc);
+        } while (cursor.moveToNext());
+    }
+    cursor.close();
+    db.close();
+    return hoteLocation;
+}
+
+
     // GetAllHotel nhưng hiện thêm location
     public List<HotelModel> getAllHotelNames1(){
         List<HotelModel> hotels = new ArrayList<>();
@@ -542,6 +559,7 @@ public boolean updateRoleIdForUser(String username, int roleId) {
 //        cursor.close();
 //        return hotel;
 //    }
+
 
 
 
