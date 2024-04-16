@@ -1,6 +1,6 @@
 package com.tutorial.travel.model;
 
-public class Hotel {
+public class HotelModel {
     private int id;
     private String hotelName;
     private String location;
@@ -8,7 +8,12 @@ public class Hotel {
     private String image;
 
 
-    public Hotel() {
+    public HotelModel(int id, String hotelName, String location, int starRating, String image) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.location = location;
+        this.starRating = starRating;
+        this.image = image;
     }
 
     public Hotel(int id, String hotelName, String location) {
@@ -64,23 +69,26 @@ public class Hotel {
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "hotelID='" + id + '\'' +
-                "hotelName='" + hotelName + '\'' +
-                ", hotelLocation='" + location + '\'' +
-                ", hotelManager='" + starRating + '\'' +
-                ", image ='" + image + '\'' +
-                '}';
-    }
+////<<<<<<< HEAD:app/src/main/java/com/tutorial/travel/model/Hotel.java
+//    @Override
+//    public String toString() {
+//        return "Hotel{" +
+//                "hotelID='" + id + '\'' +
+//                "hotelName='" + hotelName + '\'' +
+//                ", hotelLocation='" + location + '\'' +
+//                ", hotelManager='" + starRating + '\'' +
+//                ", image ='" + image + '\'' +
+//                '}';
+//    }
+//
+//    public Hotel(int id, String hotelName, String location, int starRating, String image) {
+//        this.id = id;
+//        this.hotelName = hotelName;
+//        this.location = location;
+//        this.starRating = starRating;
+//        this.image = image;
+//    }
 
-    public Hotel(int id, String hotelName, String location, int starRating, String image) {
-        this.id = id;
-        this.hotelName = hotelName;
-        this.location = location;
-        this.starRating = starRating;
-        this.image = image;
-    }
-
+//=======
+//>>>>>>> main:app/src/main/java/com/tutorial/travel/model/HotelModel.java
 }
