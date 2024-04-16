@@ -50,12 +50,12 @@
         <activity
             android:name=".Activity.reservation_summary_manager"
             android:exported="false" />
-<<<<<<< HEAD
-=======
-<!--        <activity-->
-<!--            android:name=".Activity.adminProfile"-->
-<!--            android:exported="false" />-->
->>>>>>> cabb05e9628b60e642454058ab2d09b724856d23
+<!--<<<<<<< HEAD-->
+<!--=======-->
+<!--&lt;!&ndash;        <activity&ndash;&gt;-->
+<!--&lt;!&ndash;            android:name=".Activity.adminProfile"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:exported="false" />&ndash;&gt;-->
+<!--&gt;>>>>>> cabb05e9628b60e642454058ab2d09b724856d23-->
         <activity
             android:name=".Activity.adminViewGuestManager"
             android:exported="false" />

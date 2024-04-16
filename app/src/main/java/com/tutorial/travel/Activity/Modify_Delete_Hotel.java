@@ -18,7 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
-import com.tutorial.travel.model.Hotel;
+import com.tutorial.travel.model.HotelModel;
 import com.tutorial.travel.model.User;
 
 public class Modify_Delete_Hotel extends AppCompatActivity {
@@ -34,48 +34,30 @@ public class Modify_Delete_Hotel extends AppCompatActivity {
         setContentView(R.layout.activity_modify_delete_hotel);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //Nút về trang Search_Hotel
-        adminViewHomeHotelAdmin.findViewById(R.id.admin_locationHotelAdmin);
-        adminViewHomeHotelAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Modify_Delete_Hotel.this, SearchHotelAdmin.class));
-            }
-        });
+//        adminViewHomeHotelAdmin.findViewById(R.id.admin_locationHotelAdmin);
+//        adminViewHomeHotelAdmin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(Modify_Delete_Hotel.this, SearchHotelAdmin.class));
+//            }
+//        });
 
-        admin_deleteHotelAdmin.findViewById(R.id.admin_deleteHotelAdmin);
-        admin_deleteHotelAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        admin_deleteHotelAdmin.findViewById(R.id.admin_deleteHotelAdmin);
+//        admin_deleteHotelAdmin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
-            }
-        });
-
-        admin_modifyHotelAdmin.findViewById(R.id.admin_modifyHotelAdmin);
-        admin_modifyHotelAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        admin_modifyHotelAdmin.findViewById(R.id.admin_modifyHotelAdmin);
+//        admin_modifyHotelAdmin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
 
     }

@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
-import com.tutorial.travel.model.Hotel;
+import com.tutorial.travel.model.HotelModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class SearchHotelAdmin extends AppCompatActivity {
     private ListView listViewSearchRS;
     private DatabaseHelper db;
     private ArrayAdapter<String> searchHotelArrayAdapter;
-    ArrayList<Hotel> arrayListht;
+    ArrayList<HotelModel> arrayListht;
     HotelAdapter htAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.tutorial.travel.controller.LoginActivity;
 import com.tutorial.travel.database.DatabaseHelper;
-import com.tutorial.travel.model.Hotel;
+import com.tutorial.travel.model.HotelModel;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +25,7 @@ public class Admin_View_RoomList extends AppCompatActivity {
     Button userHome, logoutHotel;
      ListView listViewHotels;
      DatabaseHelper databaseHelper;
-     ArrayAdapter<Hotel> hotelListAdapter;
+     ArrayAdapter<HotelModel> hotelListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -61,16 +61,16 @@ public class Admin_View_RoomList extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
 
 //        List<String> hotelNames = databaseHelper.getAllHotelNames();
-        List<Hotel> hotels = databaseHelper.getAllHotelNames1();
+        List<HotelModel> hotels = databaseHelper.getAllHotelNames1();
 
-        hotelListAdapter = new ArrayAdapter<Hotel>(this, R.layout.list_item_hotel, R.id.textViewHotelName,hotels){
+        hotelListAdapter = new ArrayAdapter<HotelModel>(this, R.layout.list_item_hotel, R.id.textViewHotelName,hotels){
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View itemView = super.getView(position, convertView, parent);
 
                 // Lấy thông tin của khách sạn tại vị trí hiện tại
-                Hotel hotel = getItem(position);
+                HotelModel hotel = getItem(position);
 
                 // Hiển thị thông tin tên khách sạn và địa điểm
                 TextView textViewHotelName = itemView.findViewById(R.id.textViewHotelName);
