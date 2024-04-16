@@ -42,6 +42,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_STAR_RATING = "star_rating";
     public static final String COLUMN_IMAGE = "image";
 
+    //roomstyle
+    public static final String TABLE_ROOMTYPE = "room_type";
+    public static final String COLUMN_ROOMTYPE_ID = "id";
+    public static final String COLUMN_ROOMTYPE_TYPE = "type";
+    public static final String COLUMN_ROOMTYPE_PRICE = "price";
+    public static final String COLUMN_ROOMTYPE_QUANTITY= "quantity";
+    public static final String COLUMN_ROOMTYPE_IMAGE = "image";
+//    public static final String COLUMN_HOTEL_ID = "hotel_id";
+
 
 
     //room
@@ -100,7 +109,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_IMAGE + " TEXT"
                 + ")";
         db.execSQL(CREATE_HOTEL_TABLE);
-
+        // TẠO bảng roomstyle
+        String CREATE_ROOMTYPE_TABLE = "CREATE TABLE " + TABLE_ROOMTYPE + "("
+                + COLUMN_ROOM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_ROOM_NAME + " TEXT,"
+                + COLUMN_ROOM_TYPE + " TEXT,"
+                + COLUMN_ROOM_RATE + " REAL,"
+                + COLUMN_ROOM_IMAGE + " TEXT"
+                + COLUMN_HOTEL_ID_FK + "INTEGER,"
+                + "FOREIGN KEY(" + COLUMN_HOTEL_ID_FK + ") REFERENCES " + TABLE_HOTEL + "(" + COLUMN_HOTEL_ID + ")"
+                + ")";
+        db.execSQL(CREATE_ROOMTYPE_TABLE);
         // tạo bảng room
         String CREATE_ROOM_TABLE = "CREATE TABLE " + TABLE_ROOM + "("
                 + COLUMN_ROOM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"

@@ -24,8 +24,6 @@ import com.tutorial.travel.Adapter.PopularAdapter;
 import com.tutorial.travel.Domain.CategoryDomain;
 import com.tutorial.travel.Domain.PopularDomain;
 import com.tutorial.travel.R;
-import com.tutorial.travel.controller.LoginActivity;
-import com.tutorial.travel.controller.RegisterActivity;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;
 
@@ -42,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imgSearch;
     EditText edtSearchLocation;
+    TextView txtSeeAllHotel;
 
 
     @Override
@@ -156,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_HOTEL, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_HOTEL + " LIMIT 3", null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -177,6 +176,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSettingClick(View v) {
         Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+    }
+    //hiển thị toàn bộ khách sạn
+    public void onSeeAllHotel(View v){
+        Intent intent = new Intent(this, AllHotelActivity.class);
         startActivity(intent);
     }
 
