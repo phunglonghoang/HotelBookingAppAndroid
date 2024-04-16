@@ -1,6 +1,6 @@
 package com.tutorial.travel.model;
 
-public class User {
+public class UserModel {
     private String id;
     private String username;
     private String email;
@@ -9,7 +9,7 @@ public class User {
     private String password;
     private String roleId;
 
-    public User() {
+    public UserModel() {
 
     }
 
@@ -62,13 +62,14 @@ public class User {
         this.phone = phone;
     }
 
-    public String getDOB() {
+    public String getDob() {
         return DOB;
     }
 
-    public void setDOB(String DOB) {
-        this.DOB = DOB;
+    public void setDob(String dob) {
+        this.DOB = dob;
     }
+
 
     public String getPassword() {
         return password;

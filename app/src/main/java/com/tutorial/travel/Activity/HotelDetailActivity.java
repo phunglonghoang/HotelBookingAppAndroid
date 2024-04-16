@@ -1,139 +1,110 @@
 package com.tutorial.travel.Activity;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 
 import com.squareup.picasso.Picasso;
 import com.tutorial.travel.R;
-import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;
-import com.tutorial.travel.model.RoomType;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class HotelDetailActivity extends AppCompatActivity {
+    TextView startTxt, hotelNameTxt, locationTxt, idHotelTxt, etCheckInDate, etCheckOutDate, priceTxt;
+    ImageView imageHotelDetail;
+    Button btnSelectRoom;
 
-    private static final String TAG = "concac";
-    private List<HotelModel> hotelList;
-    private TextView hotelNameTxt, txtRating,Txtlocation;
-    private ImageView imgMainDl;
-
+    private double minPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_hotel_detail_activity);
-        addRoomType();
+        setContentView(R.layout.activity_hotel_detail);
 
+        startTxt = findViewById(R.id.startTxt);
         hotelNameTxt = findViewById(R.id.hotelNameTxt);
-        txtRating = findViewById(R.id.txtRating);
-        Txtlocation = findViewById(R.id.Txtlocation);
-        imgMainDl = findViewById(R.id.imgMainDl);
+        locationTxt = findViewById(R.id.locationTxt);
+        imageHotelDetail = findViewById(R.id.imageHotelDetail);
+        idHotelTxt = findViewById(R.id.idHotelTxt);
+        etCheckInDate = findViewById(R.id.etCheckInDate);
+        etCheckOutDate = findViewById(R.id.etCheckOutDate);
+        priceTxt = findViewById(R.id.priceTxt);
+        btnSelectRoom = findViewById(R.id.btnSelectRoom);
 
-        Bundle bundle = getIntent().getExtras();
+        setVariable();
 
-         int hotel_id;
-        if (bundle != null) {
-            hotel_id = bundle.getInt("hotel_id");
-            Log.d(TAG, "onCreate: hotelId" + hotel_id);
-            loadHotelName(String.valueOf(hotel_id));
+        // Set sự kiện khi người dùng ấn vào etCheckInDate để chọn ngày
+        etCheckInDate.setOnClickListener(v -> showDatePickerDialog());
 
-
-        }
-
-
-
-    }
-    public void addRoomType(){
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_ROOMTYPE, null);
-        if (cursor.getCount()==0){
-            ContentValues values = new ContentValues();
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_TYPE, "Standar");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_PRICE, "100000");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_QUANTITY, "3");
-            values.put(DatabaseHelper.COLUMN_HOTEL_ID, "1");
-            db.insert(DatabaseHelper.TABLE_ROOMTYPE, null, values);
-
-
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_TYPE, "Vip1");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_PRICE, "200000");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_QUANTITY, "3");
-            values.put(DatabaseHelper.COLUMN_HOTEL_ID, "1");
-            db.insert(DatabaseHelper.TABLE_ROOMTYPE, null, values);
-
-
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_TYPE, "Vip2");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_PRICE, "300000");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_QUANTITY, "3");
-            values.put(DatabaseHelper.COLUMN_HOTEL_ID, "1");
-            db.insert(DatabaseHelper.TABLE_ROOMTYPE, null, values);
-
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_TYPE, "Standar");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_PRICE, "100000");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_QUANTITY, "3");
-            values.put(DatabaseHelper.COLUMN_HOTEL_ID, "2");
-            db.insert(DatabaseHelper.TABLE_ROOMTYPE, null, values);
-
-
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_TYPE, "Vip1");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_PRICE, "200000");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_QUANTITY, "3");
-            values.put(DatabaseHelper.COLUMN_HOTEL_ID, "3");
-            db.insert(DatabaseHelper.TABLE_ROOMTYPE, null, values);
-
-
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_TYPE, "Vip2");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_PRICE, "300000");
-            values.put(DatabaseHelper.COLUMN_ROOMTYPE_QUANTITY, "3");
-            values.put(DatabaseHelper.COLUMN_HOTEL_ID, "5");
-            db.insert(DatabaseHelper.TABLE_ROOMTYPE, null, values);
-
-        }
-
+        btnSelectRoom.setOnClickListener(v -> {
+            Intent intent = new Intent(HotelDetailActivity.this, RoomListActivity.class);
+            startActivity(intent);
+        });
     }
 
-    public void loadHotelName(String ht_id){
+    private void setVariable() {
+        HotelModel hotel = (HotelModel) getIntent().getSerializableExtra("hotel");
+        if (hotel != null) {
+            hotelNameTxt.setText(hotel.getHotelName());
+            locationTxt.setText(hotel.getLocation());
+            startTxt.setText(String.valueOf(hotel.getStarRating()));
+            Picasso.get().load(hotel.getImage()).into(imageHotelDetail);
+            idHotelTxt.setText(String.valueOf(hotel.getId()));
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+            // Lấy giá phòng rẻ nhất của khách sạn từ intent
+            minPrice = hotel.getMinRoomPrice();
+            priceTxt.setText(String.format(Locale.getDefault(), "%.2f VND", minPrice));
 
-
-        Cursor cursor = db.rawQuery("SELECT * FROM " +
-                DatabaseHelper.TABLE_HOTEL +
-                " WHERE " + DatabaseHelper.COLUMN_HOTEL_ID + "=?" ,new String[]{ht_id});
-
-        if (cursor.moveToFirst()) {
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_ID)); // Sử dụng getColumnIndexOrThrow
-            String hotelName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_NAME)); // Sử dụng getColumnIndexOrThrow
-            String location = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_LOCATION)); // Sử dụng getColumnIndexOrThrow
-            int starRating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_STAR_RATING)); // Sử dụng getColumnIndexOrThrow
-            String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE)); // Sử dụng getColumnIndexOrThrow
-            hotelNameTxt.setText(hotelName);
-            Txtlocation.setText(location);
-            txtRating.setText(String.valueOf(starRating));
-            Picasso.get().load(image).into(imgMainDl);
-
+            // Hiển thị ngày hiện tại và ngày trả phòng là ngày tiếp theo của ngày nhận phòng
+            displayCurrentDate();
         }
-        cursor.close();
-        db.close();
+    }
 
-//        imgMainDl.setImageResource(imgMainDl);
+    private void displayCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String currentDate = dateFormat.format(calendar.getTime());
+        etCheckInDate.setText(currentDate);
 
+        // Thiết lập ngày trả phòng là ngày tiếp theo của ngày nhận phòng
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        String nextDay = dateFormat.format(calendar.getTime());
+        etCheckOutDate.setText(nextDay);
+    }
 
-        }
+    private void showDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
+        // Lấy ngày hiện tại
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String currentDate = dateFormat.format(calendar.getTime());
 
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, selectedYear, selectedMonth, selectedDayOfMonth) -> {
+                    // Thiết lập ngày nhận phòng
+                    calendar.set(selectedYear, selectedMonth, selectedDayOfMonth);
+                    String selectedDate = dateFormat.format(calendar.getTime());
+                    etCheckInDate.setText(selectedDate);
 
+                    // Tăng ngày lên 1 để lấy ngày trả phòng
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                    String checkOutDate = dateFormat.format(calendar.getTime());
+                    etCheckOutDate.setText(checkOutDate);
+                }, year, month, dayOfMonth);
+
+        datePickerDialog.show();
+    }
 }

@@ -1,19 +1,23 @@
 package com.tutorial.travel.model;
 
-public class HotelModel {
+import java.io.Serializable;
+
+public class HotelModel implements Serializable {
     private int id;
     private String hotelName;
     private static String location;
     private int starRating;
     private String image;
+    private double minRoomPrice;
 
 
-    public HotelModel(int id, String hotelName, String location, int starRating, String image) {
+    public HotelModel(int id, String hotelName, String location, int starRating, String image,  double minRoomPrice) {
         this.id = id;
         this.hotelName = hotelName;
         this.location = location;
         this.starRating = starRating;
         this.image = image;
+        this.minRoomPrice = minRoomPrice;
     }
 
     public HotelModel(int id, String hotelName, String location) {
@@ -69,26 +73,14 @@ public class HotelModel {
         this.image = image;
     }
 
-////<<<<<<< HEAD:app/src/main/java/com/tutorial/travel/model/Hotel.java
-//    @Override
-//    public String toString() {
-//        return "Hotel{" +
-//                "hotelID='" + id + '\'' +
-//                "hotelName='" + hotelName + '\'' +
-//                ", hotelLocation='" + location + '\'' +
-//                ", hotelManager='" + starRating + '\'' +
-//                ", image ='" + image + '\'' +
-//                '}';
-//    }
-//
-//    public Hotel(int id, String hotelName, String location, int starRating, String image) {
-//        this.id = id;
-//        this.hotelName = hotelName;
-//        this.location = location;
-//        this.starRating = starRating;
-//        this.image = image;
-//    }
 
-//=======
-//>>>>>>> main:app/src/main/java/com/tutorial/travel/model/HotelModel.java
+    public double getMinRoomPrice() {
+        return minRoomPrice;
+    }
+
+    public void setMinRoomPrice(double minRoomPrice) {
+        this.minRoomPrice = minRoomPrice;
+    }
+
+
 }

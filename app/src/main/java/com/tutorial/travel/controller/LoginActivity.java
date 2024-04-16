@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                     case 2: // Customer
                         Intent customerIntent = new Intent(LoginActivity.this,
                                 MainActivity.class);
+
                         Bundle bundle = new Bundle();
                         bundle.putString("username", username);
                         customerIntent.putExtras(bundle);

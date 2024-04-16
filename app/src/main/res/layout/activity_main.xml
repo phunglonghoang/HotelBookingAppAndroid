@@ -53,7 +53,11 @@
                         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
                     <TextView
+<<<<<<< HEAD
+                        android:id="@+id/userNameTxt"
+=======
                         android:id="@+id/txtUserName"
+>>>>>>> main
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -84,7 +88,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Discover the Best Place\nTo Travel"
+                    android:text="Discover the best places\to go on vacation"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -151,7 +155,11 @@
                 android:orientation="horizontal">
 
                 <TextView
+<<<<<<< HEAD
+                    android:id="@+id/hotelTxt"
+=======
                     android:id="@+id/HotelTxt"
+>>>>>>> main
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -160,8 +168,12 @@
                     android:textStyle="bold" />
 
                 <TextView
+<<<<<<< HEAD
+                    android:id="@+id/seeallHotelTxt"
+=======
                     android:id="@+id/txtSeeAllHotel"
                     android:onClick="onSeeAllHotel"
+>>>>>>> main
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See all"
@@ -301,8 +313,8 @@
                     android:orientation="vertical"
                     android:paddingTop="8dp">
 
-                    <ImageView
-                        android:id="@+id/ProfileImg"
+                    <ImageButton
+                        android:id="@+id/profileImg"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
@@ -317,7 +329,32 @@
                         android:textAlignment="center" />
                 </LinearLayout>
 
+<<<<<<< HEAD
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp">
 
+                    <ImageButton
+                        android:id="@+id/forYouImg"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/star" />
+
+                    <TextView
+                        android:id="@+id/forYouTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="For you"
+                        android:textAlignment="center" />
+                </LinearLayout>
+=======
+
+>>>>>>> main
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -367,8 +404,11 @@
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.bottomappbar.BottomAppBar>
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> main
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

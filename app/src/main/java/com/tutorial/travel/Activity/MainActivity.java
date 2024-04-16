@@ -1,6 +1,17 @@
 package com.tutorial.travel.Activity;
 
 import android.content.ContentValues;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +36,7 @@ import com.tutorial.travel.Adapter.PopularAdapter;
 import com.tutorial.travel.Domain.CategoryDomain;
 import com.tutorial.travel.Domain.PopularDomain;
 import com.tutorial.travel.R;
+import com.tutorial.travel.controller.UserProfileActivity;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;
 
@@ -38,9 +51,13 @@ public class MainActivity extends AppCompatActivity {
     private HotelAdapter adapter;
     private List<HotelModel> hotelList;
 
+
+    ImageButton profileImg;
+
     ImageView imgSearch;
     EditText edtSearchLocation;
     TextView txtSeeAllHotel;
+
 
 
     @Override
@@ -54,25 +71,53 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager.HORIZONTAL, false);
         recyclerView3.setLayoutManager(horizontalLayoutManager);
         hotelList = new ArrayList<>();
-        adapter = new HotelAdapter(this, hotelList);
+        adapter = new HotelAdapter(this, hotelList, new HotelAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(HotelModel hotel) {
+                // Chuyển sang DetailActivity và truyền dữ liệu của khách sạn
+                Intent intent = new Intent(MainActivity.this, HotelDetailActivity.class);
+                intent.putExtra("hotel", hotel);
+                startActivity(intent);
+            }
+        });
         recyclerView3.setAdapter(adapter);
 
 
-        TextView txtUserName = findViewById(R.id.txtUserName);
 
+        TextView txtUserName = findViewById(R.id.userNameTxt);
         Bundle bundle = getIntent().getExtras();
-
         String username = bundle.getString("username");
 
 
-        loadHotels();
-        initRecyclerView();
-        txtUserName.setText(username);
-  }
+        profileImg = findViewById(R.id.profileImg);
+        profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MainActivity.this, UserProfileActivity.class);
+                intent1.putExtra("USERNAME", username);
+                startActivity(intent1);
+            }
+        });
+
+//        TextView txtUserName = findViewById(R.id.txtUserName);
+//
+//        Bundle bundle = getIntent().getExtras();
+//
+//        String username = bundle.getString("username");
+
+
+//>>>>>>> main
+//        loadHotels();
+//       addRoomToHotel();
+//        initRecyclerView();
+//        txtUserName.setText(username);
+//<<<<<<< HEAD
+
+    }
+
 
     private void initRecyclerView() {
 
-        // For Popular RecyclerView
         ArrayList<PopularDomain> items = new ArrayList<>();
         String str = getString(R.string.description);
         items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.9, "pic1", true, 1000));
@@ -123,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "Mường Thanh");
             values.put(DatabaseHelper.COLUMN_LOCATION, "Hồ Chí Minh");
             values.put(DatabaseHelper.COLUMN_STAR_RATING, 4);
-            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://tse3.mm.bing.net/th?id=OIP.kb-80cNd4JIUyfm0mje2SAHaE7&pid=Api&P=0&h=220");
             db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
 
             values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "H2T");
@@ -147,7 +192,23 @@ public class MainActivity extends AppCompatActivity {
             values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
             db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
 
+            ContentValues values1 = new ContentValues();
+            values1.put(DatabaseHelper.COLUMN_ROOM_TYPE_NAME, "Standard");
+            values1.put(DatabaseHelper.COLUMN_ROOMTYPE_DESCRIPTIONS, "Phòng tiêu chuẩn");
+            long roomType1Id = db.insert(DatabaseHelper.TABLE_ROOM_TYPE, null, values1);
+
+            ContentValues values2 = new ContentValues();
+            values2.put(DatabaseHelper.COLUMN_ROOM_TYPE_NAME, "Deluxe");
+            values2.put(DatabaseHelper.COLUMN_ROOMTYPE_DESCRIPTIONS, "Phòng sang trọng");
+            long roomType2Id = db.insert(DatabaseHelper.TABLE_ROOM_TYPE, null, values2);
+
+            ContentValues values3 = new ContentValues();
+            values3.put(DatabaseHelper.COLUMN_ROOM_TYPE_NAME, "Suite");
+            values3.put(DatabaseHelper.COLUMN_ROOMTYPE_DESCRIPTIONS, "Phòng hạng sang");
+            long roomType3Id = db.insert(DatabaseHelper.TABLE_ROOM_TYPE, null, values3);
+
         }
+
         db.close();
     }
 
@@ -155,7 +216,9 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
+
         Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_HOTEL + " LIMIT 3", null);
+
 
         if (cursor.moveToFirst()) {
             do {
@@ -164,7 +227,8 @@ public class MainActivity extends AppCompatActivity {
                 String location = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_LOCATION)); // Sử dụng getColumnIndexOrThrow
                 int starRating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_STAR_RATING)); // Sử dụng getColumnIndexOrThrow
                 String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE)); // Sử dụng getColumnIndexOrThrow
-                HotelModel hotel = new HotelModel(id, hotelName, location, starRating, image);
+                double minPrice = getMinRoomPriceForHotel(db, id);
+                HotelModel hotel = new HotelModel(id, hotelName, location, starRating, image,minPrice);
                 hotelList.add(hotel);
             } while (cursor.moveToNext());
         }
@@ -173,6 +237,99 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         db.close();
     }
+
+
+    private int getRoomTypeIdByName(String roomTypeName) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT " + DatabaseHelper.COLUMN_ROOM_TYPE_ID + " FROM " + DatabaseHelper.TABLE_ROOM_TYPE +
+                " WHERE " + DatabaseHelper.COLUMN_ROOM_TYPE_NAME + "=?", new String[]{roomTypeName});
+
+        int roomTypeId = -1;
+        if (cursor.moveToFirst()) {
+            try {
+                roomTypeId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ROOM_TYPE_ID));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+
+        cursor.close();
+        db.close();
+        return roomTypeId;
+    }
+    private void addRoomToHotel() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+        // Lấy ID của các loại phòng từ cơ sở dữ liệu
+        int standardRoomTypeId = getRoomTypeIdByName("Standard");
+        int deluxeRoomTypeId = getRoomTypeIdByName("Deluxe");
+        int suiteRoomTypeId = getRoomTypeIdByName("Suite");
+
+        // Thêm phòng cho loại phòng "Standard"
+        addRoomForRoomType(db, standardRoomTypeId, "P01", 100, "https://example.com/room_image.jpg", "Available", 2);
+
+        // Thêm phòng cho loại phòng "Deluxe"
+        addRoomForRoomType(db, deluxeRoomTypeId, "P02", 150, "https://example.com/room_image.jpg", "Available", 2);
+
+        // Thêm phòng cho loại phòng "Suite"
+        addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://example.com/room_image.jpg", "Available", 2);
+
+        db.close();
+    }
+
+    private void addRoomForRoomType(SQLiteDatabase db, int roomTypeId, String roomName, int price, String roomImage, String roomStatus, int hotelId) {
+        if (roomTypeId != -1) {
+            if (!isRoomExist(db, roomName)) {
+                ContentValues values = new ContentValues();
+                values.put(DatabaseHelper.COLUMN_ROOM_NAME, roomName);
+                values.put(DatabaseHelper.COLUMN_PRICE, price);
+                values.put(DatabaseHelper.COLUMN_ROOM_IMAGE, roomImage);
+                values.put(DatabaseHelper.COLUMN_ROOM_STATUS, roomStatus);
+                values.put(DatabaseHelper.COLUMN_HOTEL_ID_FK, hotelId);
+                values.put(DatabaseHelper.COLUMN_ROOM_TYPE_ID_FK, roomTypeId);
+
+                long newRowId = db.insert(DatabaseHelper.TABLE_ROOM, null, values);
+
+                if (newRowId != -1) {
+                } else {
+                }
+            } else {
+            }
+        }
+    }
+
+    private boolean isRoomExist(SQLiteDatabase db, String roomName) {
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_ROOM +
+                " WHERE " + DatabaseHelper.COLUMN_ROOM_NAME + "=?", new String[]{roomName});
+
+        boolean exist = cursor.getCount() > 0;
+
+        cursor.close();
+
+        return exist;
+    }
+
+    private double getMinRoomPriceForHotel(SQLiteDatabase db, int hotelId) {
+        double minPrice = -1;
+
+        Cursor cursor = db.rawQuery("SELECT MIN(" + DatabaseHelper.COLUMN_PRICE + ") AS min_price FROM " +
+                DatabaseHelper.TABLE_ROOM + " WHERE " + DatabaseHelper.COLUMN_HOTEL_ID_FK + "=?", new String[]{String.valueOf(hotelId)});
+
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndexOrThrow("min_price");
+            minPrice = cursor.getDouble(columnIndex);
+        }
+
+        cursor.close();
+        return minPrice;
+    }
+
+
+
+
 
     public void onSettingClick(View v) {
         Intent intent = new Intent(this, SettingActivity.class);
@@ -213,3 +370,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+

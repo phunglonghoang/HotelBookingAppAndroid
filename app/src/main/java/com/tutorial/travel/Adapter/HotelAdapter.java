@@ -19,10 +19,17 @@ import java.util.List;
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> {
     private Context context;
     private List<HotelModel> hotelList;
+    private OnItemClickListener listener;
 
-    public HotelAdapter(Context context, List<HotelModel> hotelList) {
+    public interface OnItemClickListener {
+        void onItemClick(HotelModel hotel);
+    }
+
+    public HotelAdapter(Context context, List<HotelModel> hotelList,OnItemClickListener listener) {
         this.context = context;
         this.hotelList = hotelList;
+        this.listener = listener;
+
     }
 
     @NonNull
@@ -38,7 +45,16 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
         holder.hotelNameTxt.setText(hotel.getHotelName());
         holder.locationTxt.setText(hotel.getLocation());
         holder.startTxt.setText(String.valueOf(hotel.getStarRating()));
+        holder.priceTxt.setText(String.valueOf(hotel.getMinRoomPrice()));
         Picasso.get().load(hotel.getImage()).into(holder.imageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(hotel);
+                }
+            }
+        });
     }
 
     @Override
@@ -47,7 +63,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView hotelNameTxt, locationTxt, startTxt;
+        TextView hotelNameTxt, locationTxt, startTxt, priceTxt;
         ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,6 +71,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
             locationTxt = itemView.findViewById(R.id.locationTxt);
             startTxt = itemView.findViewById(R.id.startTxt);
             imageView = itemView.findViewById(R.id.imageViewHotel);
+            priceTxt = itemView.findViewById(R.id.priceTxt);
         }
     }
 }
