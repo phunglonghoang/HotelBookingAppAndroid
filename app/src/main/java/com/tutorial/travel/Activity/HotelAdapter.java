@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 
 import com.tutorial.travel.R;
-import com.tutorial.travel.model.Hotel;
+import com.tutorial.travel.model.HotelModel;
 import android.annotation.SuppressLint;
 
 import android.view.LayoutInflater;
@@ -23,10 +23,10 @@ public class HotelAdapter extends BaseAdapter {
     SharedPreferences sharedpreferences;
 
     Context context;
-    ArrayList<Hotel> arrayListht;
+    ArrayList<HotelModel> arrayListht;
     Button viewHotelDetails;
 
-    public HotelAdapter(Context context, ArrayList<Hotel> arrayListht) {
+    public HotelAdapter(Context context, ArrayList<HotelModel> arrayListht) {
         this.context = context;
         this.arrayListht = arrayListht;
     }
@@ -53,7 +53,7 @@ public class HotelAdapter extends BaseAdapter {
         EditText starIMGEditText = (EditText)view.findViewById(R.id.admin_ImgURLHotelAdmin);
         //final EditText hotelManagerEditText = (EditText)view.findViewById(R.id.admin_ImgURLHotelAdmin);
 
-        Hotel hotel = arrayListht.get(i);
+        HotelModel hotel = arrayListht.get(i);
 
         hotelNameEditText.setText(hotel.getHotelName());
         locationEditText.setText(hotel.getLocation());

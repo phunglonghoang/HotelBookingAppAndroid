@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 import com.tutorial.travel.Activity.PasswordUtils;
-import com.tutorial.travel.model.Hotel;
+import com.tutorial.travel.model.HotelModel;
 import com.tutorial.travel.model.User;
 
 import java.util.ArrayList;
@@ -410,8 +410,8 @@ public boolean updateRoleIdForUser(String username, int roleId) {
     }
 
     // GetAllHotel nhưng hiện thêm location
-    public List<Hotel> getAllHotelNames1(){
-        List<Hotel> hotels = new ArrayList<>();
+    public List<HotelModel> getAllHotelNames1(){
+        List<HotelModel> hotels = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_HOTEL, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -420,8 +420,8 @@ public boolean updateRoleIdForUser(String username, int roleId) {
                 String hotelName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_NAME));
                 String location = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION));
                 // Khởi tạo đối tượng Hotel từ dữ liệu của cơ sở dữ liệu và thêm vào danh sách
-                Hotel hotel = new Hotel(hotelId, hotelName, location);
-                hotels.add(hotel);
+                HotelModel hotelModel = new HotelModel(hotelId, hotelName, location);
+                hotels.add(hotelModel);
             } while (cursor.moveToNext());
             cursor.close();
         }
@@ -443,25 +443,25 @@ public boolean updateRoleIdForUser(String username, int roleId) {
         return hotelId;
     }
 
-    public List<Hotel> searchHotelsByName(String hotelName){
-        List<Hotel> hotels = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM" + TABLE_HOTEL + "WHERE" + COLUMN_HOTEL_NAME + " LIKE '%" + hotelName + "%'", null);
-
-        if(cursor != null && cursor.moveToFirst()){
-            do{
-                Hotel hotel = new Hotel();
-                hotel.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_ID)));
-                hotel.setHotelName(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_NAME)));
-                hotel.setLocation(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION)));
-
-                hotels.add(hotel);
-            }while (cursor.moveToNext());
-            cursor.close();
-        }
-        db.close();
-        return hotels;
-    }
+//    public List<HotelModel> searchHotelsByName(String hotelName){
+//        List<HotelModel> hotels = new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery("SELECT * FROM" + TABLE_HOTEL + "WHERE" + COLUMN_HOTEL_NAME + " LIKE '%" + hotelName + "%'", null);
+//
+//        if(cursor != null && cursor.moveToFirst()){
+//            do{
+//                HotelModel hotel = new HotelModel();
+//                hotel.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_ID)));
+//                hotel.setHotelName(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_NAME)));
+//                hotel.setLocation(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION)));
+//
+//                hotels.add(hotel);
+//            }while (cursor.moveToNext());
+//            cursor.close();
+//        }
+//        db.close();
+//        return hotels;
+//    }
 
     public ArrayList<String> searchHotels(String searchString) {
         ArrayList<String> searchResults = new ArrayList<>();
@@ -476,7 +476,7 @@ public boolean updateRoleIdForUser(String username, int roleId) {
         return searchResults;
     }
 
-    public Hotel adminViewHotel(String hotelname){
+    public HotelModel adminViewHotel(String hotelname){
         SQLiteDatabase db = this.getReadableDatabase();
         String qry =  "select * from hotel where username = '" + hotelname + "' ";
         Cursor cursor = db.rawQuery(qry, null);
@@ -485,7 +485,7 @@ public boolean updateRoleIdForUser(String username, int roleId) {
         {
             cursor.moveToFirst();
         }
-        Hotel hotelprofile =new Hotel(cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4));
+        HotelModel hotelprofile =new HotelModel(cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4));
 
         hotelprofile.setHotelName(cursor.getString(1));
         hotelprofile.setLocation(cursor.getString(2));
@@ -500,7 +500,7 @@ public boolean updateRoleIdForUser(String username, int roleId) {
         return hotelprofile;
     }
 
-    public boolean adminUpdateHotelpf(Hotel hotelprofile, String hotels){
+    public boolean adminUpdateHotelpf(HotelModel hotelprofile, String hotels){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -524,24 +524,24 @@ public boolean updateRoleIdForUser(String username, int roleId) {
         }
     }
 
-    public Hotel getHotelByName(String hotelName) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_HOTEL, new String[]{COLUMN_HOTEL_ID, COLUMN_HOTEL_NAME, COLUMN_LOCATION, COLUMN_STAR_RATING, COLUMN_IMAGE},
-                COLUMN_HOTEL_NAME + "=?", new String[]{hotelName}, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        Hotel hotel = new Hotel();
-        hotel.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_ID)));
-        hotel.setHotelName(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_NAME)));
-        hotel.setLocation(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION)));
-        hotel.setStarRating(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_STAR_RATING)));
-        hotel.setImage(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE)));
-
-        cursor.close();
-        return hotel;
-    }
+//    public HotelModel getHotelByName(String hotelName) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.query(TABLE_HOTEL, new String[]{COLUMN_HOTEL_ID, COLUMN_HOTEL_NAME, COLUMN_LOCATION, COLUMN_STAR_RATING, COLUMN_IMAGE},
+//                COLUMN_HOTEL_NAME + "=?", new String[]{hotelName}, null, null, null, null);
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        HotelModel hotel = new HotelModel();
+//        hotel.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_ID)));
+//        hotel.setHotelName(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_NAME)));
+//        hotel.setLocation(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION)));
+//        hotel.setStarRating(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_STAR_RATING)));
+//        hotel.setImage(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE)));
+//
+//        cursor.close();
+//        return hotel;
+//    }
 
 
 
