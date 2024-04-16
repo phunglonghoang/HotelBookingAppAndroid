@@ -1,19 +1,23 @@
 package com.tutorial.travel.model;
 
-public class HotelModel {
+import java.io.Serializable;
+
+public class HotelModel implements Serializable {
     private int id;
     private String hotelName;
     private String location;
     private int starRating;
     private String image;
+    private double minRoomPrice;
 
 
-    public HotelModel(int id, String hotelName, String location, int starRating, String image) {
+    public HotelModel(int id, String hotelName, String location, int starRating, String image,  double minRoomPrice) {
         this.id = id;
         this.hotelName = hotelName;
         this.location = location;
         this.starRating = starRating;
         this.image = image;
+        this.minRoomPrice = minRoomPrice;
     }
 
     public int getId() {
@@ -56,4 +60,11 @@ public class HotelModel {
         this.image = image;
     }
 
+    public double getMinRoomPrice() {
+        return minRoomPrice;
+    }
+
+    public void setMinRoomPrice(double minRoomPrice) {
+        this.minRoomPrice = minRoomPrice;
+    }
 }

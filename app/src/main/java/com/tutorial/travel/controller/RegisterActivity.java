@@ -11,10 +11,9 @@ import android.widget.Toast;
 import android.app.DatePickerDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
-import com.tutorial.travel.model.User;
+import com.tutorial.travel.model.UserModel;
 
 import java.util.Calendar;
 
@@ -35,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         edtDOB = findViewById(R.id.edtDOB);
 
-
         dbHelper = new DatabaseHelper(this);
 
         edtDOB.setOnClickListener(new View.OnClickListener() {
@@ -52,19 +50,17 @@ public class RegisterActivity extends AppCompatActivity {
             String password = edtPassword.getText().toString().trim();
             String dob = edtDOB.getText().toString().trim();
 
-
             if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-                User user = new User();
+                UserModel user = new UserModel();
                 user.setUsername(username);
                 user.setEmail(email);
                 user.setPhone(phone);
                 user.setPassword(password);
-                user.setDOB(dob);
+                user.setDob(dob);
                 long userId = dbHelper.addUser(user);
 
                 if (userId != -1) {
                     Toast.makeText(RegisterActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
@@ -76,6 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showDatePickerDialog() {
         // Lấy ngày hiện tại
         Calendar calendar = Calendar.getInstance();
@@ -96,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                 year, month, dayOfMonth);
         datePickerDialog.show();
     }
+
     public void onLoginClick(View view){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
