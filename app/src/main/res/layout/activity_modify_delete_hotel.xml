@@ -5,25 +5,24 @@
     android:fillViewport="false">
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/admin_viewTextGM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
             android:text="Thông tin Hotel"
             android:textColor="#03A9F4"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/userTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:text="Hotel Name"
             android:textColor="#000000"
@@ -32,12 +31,12 @@
             android:id="@+id/admin_HotelName"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginStart="20dp" />
         <TextView
             android:id="@+id/pwdTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:text="Location"
             android:layout_marginTop="10dp"
             android:textColor="#000000"

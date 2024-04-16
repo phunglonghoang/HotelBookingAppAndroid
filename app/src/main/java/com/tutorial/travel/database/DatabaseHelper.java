@@ -553,5 +553,24 @@ public boolean updateRoleIdForUser(String username, int roleId) {
         }
     }
 
+    public Hotel getHotelByName(String hotelName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_HOTEL, new String[]{COLUMN_HOTEL_ID, COLUMN_HOTEL_NAME, COLUMN_LOCATION, COLUMN_STAR_RATING, COLUMN_IMAGE},
+                COLUMN_HOTEL_NAME + "=?", new String[]{hotelName}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Hotel hotel = new Hotel();
+        hotel.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_ID)));
+        hotel.setHotelName(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_NAME)));
+        hotel.setLocation(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION)));
+        hotel.setStarRating(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_STAR_RATING)));
+        hotel.setImage(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE)));
+
+        cursor.close();
+        return hotel;
+    }
+
 
 }

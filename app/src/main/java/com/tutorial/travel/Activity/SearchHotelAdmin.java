@@ -18,6 +18,7 @@ import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.Hotel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchHotelAdmin extends AppCompatActivity {
@@ -26,7 +27,8 @@ public class SearchHotelAdmin extends AppCompatActivity {
     private ListView listViewSearchRS;
     private DatabaseHelper db;
     private ArrayAdapter<String> searchHotelArrayAdapter;
-
+    ArrayList<Hotel> arrayListht;
+    HotelAdapter htAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,23 +54,22 @@ public class SearchHotelAdmin extends AppCompatActivity {
             public void onClick(View v) {
                 String hotelnames = editTXTHOTELNAME.getText().toString().trim();
                 searchHotel(hotelnames);
+//                htAdapter = new HotelAdapter(SearchHotelAdmin.this,arrayListht);
+//                listViewSearchRS.setAdapter(htAdapter);
             }
         });
 
-
-        //Phần này đang lỗi, bấm vô thì bị văng ra, có thể lỗi hàm này hoac onCreate bên Modify_Delete lỗi
         listViewSearchRS.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedHotelName = (String) parent.getItemAtPosition(position);
 
-                if (selectedHotelName != null) {
-                    Intent intent = new Intent(SearchHotelAdmin.this, Modify_Delete_Hotel.class);
-                    intent.putExtra("selectedHotelName", selectedHotelName);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(SearchHotelAdmin.this, "Error: Selected hotel not found", Toast.LENGTH_SHORT).show();
-                }
+
+                Intent intent = new Intent(SearchHotelAdmin.this, Modify_Delete_Hotel.class);
+
+                intent.putExtra("selectedHotelName", selectedHotelName);
+
+                startActivity(intent);
             }
         });
     }
