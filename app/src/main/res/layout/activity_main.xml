@@ -105,7 +105,7 @@
 
                         android:drawablePadding="16dp"
                         android:ems="10"
-                        android:hint="Search Location ..."
+                        android:hint="Search Location or Hotel Name"
                         android:inputType="text"
                         android:paddingStart="16dp"
                         android:textColor="@color/black"
@@ -160,7 +160,8 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/hotelTxt2"
+                    android:id="@+id/txtSeeAllHotel"
+                    android:onClick="onSeeAllHotel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See all"

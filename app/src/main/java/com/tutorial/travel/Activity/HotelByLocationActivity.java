@@ -1,22 +1,20 @@
 package com.tutorial.travel.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tutorial.travel.Adapter.HotelAdapter;
 import com.tutorial.travel.Adapter.HotelByLocationAdapter;
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
@@ -25,10 +23,13 @@ import com.tutorial.travel.model.HotelModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelByLocationActivity extends AppCompatActivity {
+public class HotelByLocationActivity extends AppCompatActivity implements HotelByLocationAdapter.OnHotelClickListener {
+    private static final String TAG = "abc";
     private List<HotelModel> hotelLocationList;
+
     private HotelByLocationAdapter adapter;
     private RecyclerView recyclerView;
+
    TextView txtLocationName;
 
     @Override
@@ -44,13 +45,16 @@ public class HotelByLocationActivity extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(verticalLayoutManager);
         hotelLocationList = new ArrayList<>();
-        adapter = new HotelByLocationAdapter(this, hotelLocationList);
+
+        adapter = new HotelByLocationAdapter(this, hotelLocationList, this);
+
+
         recyclerView.setAdapter(adapter);
 
         TextView txtLocationName = findViewById(R.id.txtLocationName);
         Bundle bundle = getIntent().getExtras();
         String locations = bundle.getString("locations");
-//        String location = locations.toLowerCase();
+
         txtLocationName.setText(locations);
         loadHotelByLocation(locations);
 
@@ -62,7 +66,8 @@ public class HotelByLocationActivity extends AppCompatActivity {
         Cursor cursor = db.rawQuery("SELECT * FROM " +
                 DatabaseHelper.TABLE_HOTEL +
                 " WHERE " + DatabaseHelper.COLUMN_LOCATION +
-                "=?", new String[]{loca});
+                "=? OR " + DatabaseHelper.COLUMN_HOTEL_NAME +
+                "=?", new String[]{loca, loca});
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_ID)); // Sử dụng getColumnIndexOrThrow
@@ -72,6 +77,7 @@ public class HotelByLocationActivity extends AppCompatActivity {
                 String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE)); // Sử dụng getColumnIndexOrThrow
                 HotelModel hotellocation = new HotelModel(id, hotelName, location, starRating, image);
                 hotelLocationList.add(hotellocation);
+
             } while (cursor.moveToNext());
         }
         else {
@@ -87,7 +93,7 @@ public class HotelByLocationActivity extends AppCompatActivity {
     private void showEmptyListDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Thông báo");
-        builder.setMessage("Không có khách sạn nào tại địa chỉ này.");
+        builder.setMessage("Không có khách sạn nào ");
         builder.setPositiveButton("Đóng", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -97,6 +103,19 @@ public class HotelByLocationActivity extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    // Handle hotel item click event
+    public void onHotelClick(int position) {
+        HotelModel clickedHotel = hotelLocationList.get(position);
+        Intent intent = new Intent(HotelByLocationActivity.this, HotelDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("hotel_id", clickedHotel.getId());
+
+        intent.putExtras(bundle);
+        Log.d(TAG, "onHotelClickccc: "+position);
+        Log.d(TAG, "onHotelClickccc: "+clickedHotel.getId());
+
+        startActivity(intent);
     }
 
 
