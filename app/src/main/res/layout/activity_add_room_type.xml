@@ -18,8 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Thêm loại phòng"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
-            android:textSize="24dp"
+            android:textSize="30dp"
             android:gravity="center"/>
 
 
@@ -43,12 +44,26 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:hint="Number of People" />
+        <Spinner
+            android:id="@+id/spinnerHotel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="Select Hotel" />
+
 
         <Button
             android:id="@+id/buttonSaveRoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save" />
+        <Button
+            android:id="@+id/buttonBackAddRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/buttonSaveRoom"
+            android:text="Back"/>
 
     </LinearLayout>
 

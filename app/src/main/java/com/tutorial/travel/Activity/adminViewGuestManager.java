@@ -35,7 +35,7 @@ public class adminViewGuestManager extends AppCompatActivity {
     RadioGroup radioGroupRole;
     RadioButton ButtonAdmin, ButtonUser;
     String roleId ; // Mặc định là 2 (User)
-    Button admin_modifyGM, admin_deleteGM, home, logout;
+    Button admin_modifyGM, admin_deleteGM, home;
     EditText admin_userGM, admin_roleGM, admin_pwdGM, admin_emailGM, admin_phone;
     TextView admin_title;
 
@@ -70,18 +70,12 @@ public class adminViewGuestManager extends AppCompatActivity {
 
 
         home = findViewById(R.id.adminViewHome);
-        logout = findViewById(R.id.adminViewLogout);
+
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(adminViewGuestManager.this, AdminMainActivity.class));
-            }
-        });
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(adminViewGuestManager.this, MainActivity.class));
             }
         });
 
@@ -124,7 +118,6 @@ public class adminViewGuestManager extends AppCompatActivity {
                 admin_phone.setFocusableInTouchMode(true);
                 admin_roleGM.setFocusableInTouchMode(true);
 
-                admin_title.setText("Modify Selected Guest/Manager Screen");
                 admin_deleteGM.setVisibility(View.INVISIBLE);
 
             }

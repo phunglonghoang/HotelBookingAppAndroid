@@ -4,47 +4,45 @@
     android:layout_height="wrap_content"
     android:fillViewport="false">
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/admin_viewTextGM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
-            android:text="View Selected Guest/Manager Screen"
+            android:text="Thông tin Hotel"
             android:textColor="#03A9F4"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/userTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            android:text="Username"
+            android:text="Hotel Name"
             android:textColor="#000000"
             android:textSize="16dp"/>
         <EditText
-            android:id="@+id/admin_userGM"
+            android:id="@+id/admin_HotelName"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginStart="20dp" />
         <TextView
             android:id="@+id/pwdTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Email"
+            android:layout_marginStart="20dp"
+            android:text="Location"
             android:layout_marginTop="10dp"
             android:textColor="#000000"
             android:textSize="16dp"/>
         <EditText
-            android:id="@+id/admin_pwdGM"
+            android:id="@+id/admin_locationHotelAdmin"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp" />
@@ -54,12 +52,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Phone"
+            android:text="Star Rating"
             android:layout_marginTop="10dp"
             android:textColor="#000000"
             android:textSize="16dp"/>
         <EditText
-            android:id="@+id/admin_emailGM"
+            android:id="@+id/admin_StarRatingHotelAdmin"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp" />
@@ -68,54 +66,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Birth day"
+            android:text="Image URL"
             android:layout_marginTop="10dp"
             android:textColor="#000000"
             android:textSize="16dp"/>
         <EditText
-            android:id="@+id/admin_phoneGM"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp" />
-        <TextView
-            android:id="@+id/creditName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Password"
-            android:layout_marginTop="10dp"
-            android:textColor="#000000"
-            android:textSize="16dp"/>
-        <EditText
-            android:id="@+id/admin_roleGM"
+            android:id="@+id/admin_ImgURLHotelAdmin"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp" />
 
-        <RadioGroup
-            android:id="@+id/radioGrRole"
-            android:layout_width="268dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp">
-
-            <RadioButton
-                android:id="@+id/radioButtonAdmin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:defaultFocusHighlightEnabled="true"
-                android:text="Admin" />
-
-            <RadioButton
-
-                android:id="@+id/radioButtonUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="User" />
-        </RadioGroup>
         <Button
-            android:id="@+id/admin_modifyGM"
+            android:id="@+id/admin_modifyHotelAdmin"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
@@ -126,7 +88,7 @@
             android:textColor="#ffffff" />
 
         <Button
-            android:id="@+id/admin_deleteGM"
+            android:id="@+id/admin_deleteHotelAdmin"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
@@ -137,7 +99,7 @@
             android:textColor="#ffffff" />
 
         <Button
-            android:id="@+id/adminViewHome"
+            android:id="@+id/adminViewHomeHotelAdmin"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_gravity="center"

@@ -16,6 +16,19 @@ public class HotelModel {
         this.image = image;
     }
 
+    public HotelModel(int id, String hotelName, String location) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.location = location;
+    }
+
+    public HotelModel(String hotelName, String location, int starRating, String image) {
+        this.hotelName = hotelName;
+        this.location = location;
+        this.starRating = starRating;
+        this.image = image;
+    }
+
     public int getId() {
         return id;
     }
