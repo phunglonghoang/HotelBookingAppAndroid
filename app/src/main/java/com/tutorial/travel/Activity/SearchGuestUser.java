@@ -41,7 +41,7 @@ public class SearchGuestUser extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SearchGuestUser.this,MainActivity.class));
+                startActivity(new Intent(SearchGuestUser.this,AccountManagement.class));
             }
         });
 

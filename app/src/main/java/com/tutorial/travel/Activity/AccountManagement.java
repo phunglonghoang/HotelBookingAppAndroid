@@ -41,5 +41,13 @@ public class AccountManagement extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        CardView BookingAdmin;
+        BookingAdmin = findViewById(R.id.bookingAdminCardView);
+        BookingAdmin.setOnClickListener(v -> {
+            Intent intent = new Intent(AccountManagement.this, ListUserAdmin.class );
+            startActivity(intent);
+            finish();
+        });
     }
 }
