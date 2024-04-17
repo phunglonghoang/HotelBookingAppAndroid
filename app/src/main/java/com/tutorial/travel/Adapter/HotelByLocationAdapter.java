@@ -20,8 +20,16 @@ public class HotelByLocationAdapter extends RecyclerView.Adapter<HotelByLocation
     private Context context;
     private List<HotelModel> hotelLocationList;
     private OnHotelClickListener onHotelClickListener;
+//    public interface OnHotelClickListener {
+//        void onHotelClick(int hotel_id);
+//    }
+//public HotelByLocationAdapter(Context context, List<HotelModel> hotelLocationList, OnHotelClickListener onHotelClickListener) {
+//    this.context = context;
+//    this.hotelLocationList = hotelLocationList;
+//    this.onHotelClickListener= onHotelClickListener;
+//}
     public interface OnHotelClickListener {
-        void onHotelClick(int hotel_id);
+        void onHotelClick(HotelModel hotel_id);
     }
 
     public HotelByLocationAdapter(Context context, List<HotelModel> hotelLocationList, OnHotelClickListener onHotelClickListener) {
@@ -46,11 +54,19 @@ public class HotelByLocationAdapter extends RecyclerView.Adapter<HotelByLocation
         Picasso.get().load(hotel.getImage()).into(holder.imageView);
 
         // Set click listener
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (onHotelClickListener != null) {
+//                    onHotelClickListener.onHotelClick(position);
+//                }
+//            }
+//        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 if (onHotelClickListener != null) {
-                    onHotelClickListener.onHotelClick(position);
+                    onHotelClickListener.onHotelClick(hotel);
                 }
             }
         });
@@ -65,7 +81,7 @@ public class HotelByLocationAdapter extends RecyclerView.Adapter<HotelByLocation
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        TextView hotelNameTxt, locationTxt, startTxt;
+        TextView hotelNameTxt, locationTxt, startTxt, priceTxt;
         ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,15 +89,16 @@ public class HotelByLocationAdapter extends RecyclerView.Adapter<HotelByLocation
             locationTxt = itemView.findViewById(R.id.locationTxt);
             startTxt = itemView.findViewById(R.id.startTxt);
             imageView = itemView.findViewById(R.id.imageViewHotel);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION && onHotelClickListener != null) {
-                        onHotelClickListener.onHotelClick(hotelLocationList.get(position).getId());
-                    }
-                }
-            });
+            priceTxt = itemView.findViewById(R.id.priceTxt);
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int position = getAdapterPosition();
+//                    if (position != RecyclerView.NO_POSITION && onHotelClickListener != null) {
+//                        onHotelClickListener.onHotelClick(hotelLocationList.get(position).getId());
+//                    }
+//                }
+//            });
         }
     }
 }

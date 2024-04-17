@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String username = bundle.getString("username");
         loadHotels();
-//        addRoomToHotel();
+        addRoomToHotel();
         initRecyclerView();
         txtUserName.setText(username);
 
@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
         return exist;
     }
 
-    private double getMinRoomPriceForHotel(SQLiteDatabase db, int hotelId) {
+    public static double getMinRoomPriceForHotel(SQLiteDatabase db, int hotelId) {
         double minPrice = -1;
 
         Cursor cursor = db.rawQuery("SELECT MIN(" + DatabaseHelper.COLUMN_PRICE + ") AS min_price FROM " +

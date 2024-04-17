@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tutorial.travel.Adapter.HotelAdapter;
 import com.tutorial.travel.Adapter.HotelByLocationAdapter;
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
@@ -23,7 +24,8 @@ import com.tutorial.travel.model.HotelModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelByLocationActivity extends AppCompatActivity implements HotelByLocationAdapter.OnHotelClickListener {
+public class HotelByLocationActivity extends AppCompatActivity
+        {
     private static final String TAG = "abc";
     private List<HotelModel> hotelLocationList;
 
@@ -46,8 +48,16 @@ public class HotelByLocationActivity extends AppCompatActivity implements HotelB
         recyclerView.setLayoutManager(verticalLayoutManager);
         hotelLocationList = new ArrayList<>();
 
-        adapter = new HotelByLocationAdapter(this, hotelLocationList, this);
-
+//        adapter = new HotelByLocationAdapter(this, hotelLocationList, this);
+        adapter = new HotelByLocationAdapter(this, hotelLocationList, new HotelByLocationAdapter.OnHotelClickListener() {
+            @Override
+            public void onHotelClick(HotelModel hotel) {
+                // Chuyển sang DetailActivity và truyền dữ liệu của khách sạn
+                Intent intent = new Intent(HotelByLocationActivity.this, HotelDetailActivity.class);
+                intent.putExtra("hotel", hotel);
+                startActivity(intent);
+            }
+        });
 
         recyclerView.setAdapter(adapter);
 
@@ -75,8 +85,8 @@ public class HotelByLocationActivity extends AppCompatActivity implements HotelB
                 String location = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_LOCATION.toLowerCase())); // Sử dụng getColumnIndexOrThrow
                 int starRating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_STAR_RATING)); // Sử dụng getColumnIndexOrThrow
                 String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE));
-                Double price = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PRICE));// Sử dụng getColumnIndexOrThrow
-                HotelModel hotellocation = new HotelModel(id, hotelName, location, starRating, image, price);
+                double minPrice = MainActivity.getMinRoomPriceForHotel(db, id);//Sử dụng getColumnIndexOrThrow
+                HotelModel hotellocation = new HotelModel(id, hotelName, location, starRating, image, minPrice);
                 hotelLocationList.add(hotellocation);
 
             } while (cursor.moveToNext());
@@ -118,6 +128,7 @@ public class HotelByLocationActivity extends AppCompatActivity implements HotelB
 
         startActivity(intent);
     }
+
 
 
 }
