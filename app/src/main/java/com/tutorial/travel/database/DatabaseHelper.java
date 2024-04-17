@@ -11,11 +11,18 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import com.tutorial.travel.Activity.PasswordUtils;
+
+import com.tutorial.travel.model.RoomModel;
+
 import com.tutorial.travel.model.Booking;
 import com.tutorial.travel.model.HotelModel;
 import com.tutorial.travel.model.ReviewModel;
 import com.tutorial.travel.model.RoomModel;
 import com.tutorial.travel.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +71,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_ROOM_IMAGE = "image";
     public static final String COLUMN_ROOM_STATUS = "status";
+    public static final String COLUMN_ROOM_DESCRIPTION = "description";
+
 
     public static final String COLUMN_HOTEL_ID_FK = "hotel_id";
     public static final String COLUMN_ROOM_TYPE_ID_FK = "roomTypeId";
@@ -76,6 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CHECK_IN_DATE = "checkIn";
     public static final String COLUMN_CHECK_OUT_DATE = "checkOut";
     public static final String COLUMN_IS_CONFIRMED = "isConfirmed";
+
 
     //review
     public static final  String TABLE_REVIEW = "review";
@@ -147,13 +157,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         // Tạo bảng room
-        // Tạo bảng room
         String CREATE_ROOM_TABLE = "CREATE TABLE " + TABLE_ROOM + "("
                 + COLUMN_ROOM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_ROOM_NAME + " TEXT,"
                 + COLUMN_PRICE + " INTEGER,"
                 + COLUMN_ROOM_IMAGE + " TEXT,"
                 + COLUMN_ROOM_STATUS + " TEXT,"
+                + COLUMN_ROOM_DESCRIPTION + " TEXT,"
                 + COLUMN_HOTEL_ID_FK + " INTEGER,"
                 + COLUMN_ROOM_TYPE_ID_FK + " INTEGER,"
                 + "FOREIGN KEY(" + COLUMN_HOTEL_ID_FK + ") REFERENCES " + TABLE_HOTEL + "(" + COLUMN_HOTEL_ID + "),"
@@ -719,6 +729,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return (ArrayList<Booking>) bookingList;
     }
 
+    public List<RoomModel> getRoomsByHotelId(int hotelId) {
+        List<RoomModel> roomList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM room WHERE hotel_id = ?", new String[]{String.valueOf(hotelId)});
+        if (cursor.moveToFirst()) {
+            do {
+                RoomModel room = new RoomModel();
+                room.setId(cursor.getInt(0));
+                room.setRoomName(cursor.getString(1));
+                room.setPrice(cursor.getDouble(2));
+                room.setRoomImage(cursor.getString(3));
+                room.setRoomStatus(cursor.getString(4));
+                room.setDescription(cursor.getString(5));
+
+
+                roomList.add(room);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return roomList;
+    }
 
 }
 

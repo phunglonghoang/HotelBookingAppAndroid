@@ -6,19 +6,28 @@ public class RoomModel {
     private double price;
     private String roomImage;
     private String roomStatus;
+    private String description;
     private int hotelId;
     private int roomTypeId;
 
     public RoomModel() {}
 
-    public RoomModel(int id, String roomName, double price, String roomImage, String roomStatus, int hotelId, int roomTypeId) {
+    public RoomModel(int id, String roomName, double price, String roomImage, String roomStatus, int hotelId, int roomTypeId, String description) {
         this.id = id;
         this.roomName = roomName;
         this.price = price;
         this.roomImage = roomImage;
         this.roomStatus = roomStatus;
+        this.description = description;
         this.hotelId = hotelId;
         this.roomTypeId = roomTypeId;
+    }
+
+    public RoomModel(String roomName, double price, String roomImage, String description) {
+        this.roomName = roomName;
+        this.price = price;
+        this.roomImage = roomImage;
+        this.description = description;
     }
 
     public int getId() {
@@ -77,6 +86,14 @@ public class RoomModel {
         this.roomTypeId = roomTypeId;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "RoomModel{" +
@@ -85,6 +102,7 @@ public class RoomModel {
                 ", price=" + price +
                 ", roomImage='" + roomImage + '\'' +
                 ", roomStatus='" + roomStatus + '\'' +
+                ", description='" + description + '\'' +
                 ", hotelId=" + hotelId +
                 ", roomTypeId=" + roomTypeId +
                 '}';

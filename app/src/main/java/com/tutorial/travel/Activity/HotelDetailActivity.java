@@ -59,6 +59,7 @@ public class HotelDetailActivity extends AppCompatActivity {
 
 
     private double minPrice;
+    private int hotelId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,18 +95,23 @@ public class HotelDetailActivity extends AppCompatActivity {
         });
 
         setVariable();
-
-        // Set sự kiện khi người dùng ấn vào etCheckInDate để chọn ngày
         etCheckInDate.setOnClickListener(v -> showDatePickerDialog());
 
         btnSelectRoom.setOnClickListener(v -> {
             HotelModel hotel = (HotelModel) getIntent().getSerializableExtra("hotel");
             Intent intent = new Intent(HotelDetailActivity.this, RoomListActivity.class);
+
+            intent.putExtra("hotelId", hotelId);
+            intent.putExtra("checkInDate", etCheckInDate.getText().toString());
+            intent.putExtra("checkOutDate", etCheckOutDate.getText().toString());
+
             int hotelId =hotel.getId() ;
             intent.putExtra("hotelId", hotelId);
 
+
             startActivity(intent);
         });
+
     }
 
     private void showReviewList() {
@@ -133,16 +139,15 @@ public class HotelDetailActivity extends AppCompatActivity {
             locationTxt.setText(hotel.getLocation());
             startTxt.setText(String.valueOf(hotel.getStarRating()));
             Picasso.get().load(hotel.getImage()).into(imageHotelDetail);
-            idHotelTxt.setText(String.valueOf(hotel.getId()));
-
-            // Lấy giá phòng rẻ nhất của khách sạn từ intent
+            hotelId = hotel.getId();
+            idHotelTxt.setText(String.valueOf(hotelId));
             minPrice = hotel.getMinRoomPrice();
             priceTxt.setText(String.format(Locale.getDefault(), "%.2f VND", minPrice));
 
-            // Hiển thị ngày hiện tại và ngày trả phòng là ngày tiếp theo của ngày nhận phòng
             displayCurrentDate();
         }
     }
+
 
     private void displayCurrentDate() {
         Calendar calendar = Calendar.getInstance();
@@ -162,7 +167,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Lấy ngày hiện tại
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String currentDate = dateFormat.format(calendar.getTime());
 

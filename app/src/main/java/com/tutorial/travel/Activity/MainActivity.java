@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView3.setAdapter(adapter);
 
         TextView txtUserName = findViewById(R.id.userNameTxt);
+
         Bundle bundle = getIntent().getExtras();
         String username = bundle.getString("username");
         loadHotels();
@@ -98,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
         initRecyclerView();
         txtUserName.setText(username);
 
+
+        // Lấy tên người dùng từ SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        String username = preferences.getString("username", "");
 
         profileImg = findViewById(R.id.profileImg);
         profileImg.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +115,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        loadHotels();
+        addRoomToHotel();
+        initRecyclerView();
+        txtUserName.setText(username);
 
     }
 
@@ -276,13 +285,22 @@ public class MainActivity extends AppCompatActivity {
         int suiteRoomTypeId = getRoomTypeIdByName("Suite");
 
         // Thêm phòng cho loại phòng "Standard"
-        addRoomForRoomType(db, standardRoomTypeId, "P01", 100, "https://example.com/room_image.jpg", "Available", 2);
+        addRoomForRoomType(db, standardRoomTypeId, "P01", 100, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available", "Xịn xò",2);
 
         // Thêm phòng cho loại phòng "Deluxe"
-        addRoomForRoomType(db, deluxeRoomTypeId, "P02", 150, "https://example.com/room_image.jpg", "Available", 2);
+        addRoomForRoomType(db, deluxeRoomTypeId, "P02", 150, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available","Xịn xò", 2);
 
         // Thêm phòng cho loại phòng "Suite"
-        addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://example.com/room_image.jpg", "Available", 2);
+        addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Confirmed","Xịn xò", 2);
+
+
+        addRoomForRoomType(db, standardRoomTypeId, "Phòng đơn", 100, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available", "Xịn xò",1);
+
+        // Thêm phòng cho loại phòng "Deluxe"
+        addRoomForRoomType(db, deluxeRoomTypeId, "Phòng đôi", 150, "https://gachxinh.com/wp-content/uploads/2021/06/Picture19-14.jpg", "Confirmed","Xịn xò", 1);
+
+        // Thêm phòng cho loại phòng "Suite"
+        addRoomForRoomType(db, suiteRoomTypeId, "Phòng đẹp", 200, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available","Xịn xò", 1);
 
         // Thêm phòng cho loại phòng "Standard"
         addRoomForRoomType(db, standardRoomTypeId, "P01", 100, "https://example.com/room_image.jpg", "Available", 1);
@@ -293,10 +311,11 @@ public class MainActivity extends AppCompatActivity {
         // Thêm phòng cho loại phòng "Suite"
         addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://example.com/room_image.jpg", "Available", 1);
 
+
         db.close();
     }
 
-    private void addRoomForRoomType(SQLiteDatabase db, int roomTypeId, String roomName, int price, String roomImage, String roomStatus, int hotelId) {
+    private void addRoomForRoomType(SQLiteDatabase db, int roomTypeId, String roomName, int price, String roomImage, String roomStatus, String description, int hotelId) {
         if (roomTypeId != -1) {
             if (!isRoomExist(db, roomName)) {
                 ContentValues values = new ContentValues();
@@ -304,16 +323,25 @@ public class MainActivity extends AppCompatActivity {
                 values.put(DatabaseHelper.COLUMN_PRICE, price);
                 values.put(DatabaseHelper.COLUMN_ROOM_IMAGE, roomImage);
                 values.put(DatabaseHelper.COLUMN_ROOM_STATUS, roomStatus);
+                values.put(DatabaseHelper.COLUMN_ROOM_DESCRIPTION, description);
                 values.put(DatabaseHelper.COLUMN_HOTEL_ID_FK, hotelId);
                 values.put(DatabaseHelper.COLUMN_ROOM_TYPE_ID_FK, roomTypeId);
 
                 long newRowId = db.insert(DatabaseHelper.TABLE_ROOM, null, values);
 
                 if (newRowId != -1) {
+                    // Thêm mới thành công
+                    Log.d("addRoomForRoomType", "Thêm mới phòng thành công");
                 } else {
+                    Log.e("addRoomForRoomType", "Thêm mới phòng không thành công");
                 }
             } else {
+                // Phòng đã tồn tại
+                Log.w("addRoomForRoomType", "Phòng đã tồn tại");
             }
+        } else {
+            // Loại phòng không hợp lệ
+            Log.e("addRoomForRoomType", "Loại phòng không hợp lệ");
         }
     }
 
