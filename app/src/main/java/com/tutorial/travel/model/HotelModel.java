@@ -10,14 +10,36 @@ public class HotelModel implements Serializable {
     private String image;
     private double minRoomPrice;
 
+    public HotelModel(int id, String hotelName, int starRating, String image) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.starRating = starRating;
+        this.image = image;
+    }
 
-    public HotelModel(int id, String hotelName, String location, int starRating, String image,  double minRoomPrice) {
+    public HotelModel(int id, String hotelName, String location, int starRating, String image, double minRoomPrice) {
         this.id = id;
         this.hotelName = hotelName;
         this.location = location;
         this.starRating = starRating;
         this.image = image;
         this.minRoomPrice = minRoomPrice;
+    }
+
+    public HotelModel(int id, String hotelName, String location) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.location = location;
+    }
+
+    public HotelModel(String hotelName, String location, int starRating, String image) {
+        this.hotelName = hotelName;
+        this.location = location;
+        this.starRating = starRating;
+        this.image = image;
+    }
+
+    public HotelModel(int hotelId, String hotelName, String location, int starRating, String imageUrl) {
     }
 
     public int getId() {
@@ -36,12 +58,9 @@ public class HotelModel implements Serializable {
         this.hotelName = hotelName;
     }
 
-    public String getLocation() {
-        return location;
-    }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getLocation(){
+        return location;
     }
 
     public int getStarRating() {
@@ -60,6 +79,7 @@ public class HotelModel implements Serializable {
         this.image = image;
     }
 
+
     public double getMinRoomPrice() {
         return minRoomPrice;
     }
@@ -67,4 +87,6 @@ public class HotelModel implements Serializable {
     public void setMinRoomPrice(double minRoomPrice) {
         this.minRoomPrice = minRoomPrice;
     }
+
+
 }

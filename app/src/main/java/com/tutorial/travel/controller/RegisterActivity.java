@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
-import com.tutorial.travel.model.UserModel;
+import com.tutorial.travel.model.User;
 
 import java.util.Calendar;
 
@@ -51,12 +51,12 @@ public class RegisterActivity extends AppCompatActivity {
             String dob = edtDOB.getText().toString().trim();
 
             if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-                UserModel user = new UserModel();
+                User user = new User();
                 user.setUsername(username);
                 user.setEmail(email);
                 user.setPhone(phone);
                 user.setPassword(password);
-                user.setDob(dob);
+                user.setDOB(dob);
                 long userId = dbHelper.addUser(user);
 
                 if (userId != -1) {

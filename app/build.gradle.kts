@@ -50,9 +50,10 @@ android {
 }
 
 dependencies {
+
     implementation("org.mindrot:jbcrypt:0.4")
     implementation("com.cloudinary:cloudinary-android:2.7.1")
-    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.squareup.picasso:picasso:2.8")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.material:material:1.11.0")
     implementation("com.github.bumptech.glide:glide:4.15.1")
