@@ -19,6 +19,10 @@ public class Booking {
         this.isConfirmed = isConfirmed;
     }
 
+    public Booking() {
+
+    }
+
     public String getId() {
         return id;
     }

@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+
     implementation("org.mindrot:jbcrypt:0.4")
     implementation("com.cloudinary:cloudinary-android:2.7.1")
     implementation("com.squareup.picasso:picasso:2.8")

@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Thêm loại phòng"
+            android:text="Thêm phòng"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
             android:textSize="30dp"
@@ -32,26 +32,48 @@
             android:hint="Select Room Type" />
 
         <EditText
-            android:id="@+id/editTextNumBeds"
+            android:id="@+id/editTextRoomName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:hint="Number of Beds" />
+            android:hint="RoomName" />
 
         <EditText
-            android:id="@+id/editTextNumPeople"
+            android:id="@+id/editTextGia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:hint="Number of People" />
+            android:hint="Price" />
+
+
         <Spinner
             android:id="@+id/spinnerHotel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:hint="Select Hotel" />
+        <EditText
+            android:id="@+id/editTextImageUrlRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextStarRating"
+            android:hint="Image URL"/>
 
-
+        <ImageView
+            android:id="@+id/imageViewHotelRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/editTextImageUrl"
+            android:layout_marginBottom="20dp"
+            android:scaleType="centerCrop"/>
+        <Button
+            android:id="@+id/buttonUploadImageRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonAddRoom"
+            android:layout_marginBottom="20dp"
+            android:text="Upload Image"/>
         <Button
             android:id="@+id/buttonSaveRoom"
             android:layout_width="wrap_content"

@@ -19,6 +19,7 @@
         android:layout_below="@+id/textViewHotelName"
         android:textSize="28dp"/>
 
+
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
@@ -26,4 +27,6 @@
         android:layout_below="@id/textViewHotelLocation"
         android:layout_marginTop="8dp" />
 
+
 </LinearLayout>
+

@@ -23,9 +23,9 @@ import java.util.List;
 
 public class Admin_View_RoomList extends AppCompatActivity {
     Button userHome, logoutHotel;
-     ListView listViewHotels;
-     DatabaseHelper databaseHelper;
-     ArrayAdapter<HotelModel> hotelListAdapter;
+    ListView listViewHotels;
+    DatabaseHelper databaseHelper;
+    ArrayAdapter<HotelModel> hotelListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -86,8 +86,8 @@ public class Admin_View_RoomList extends AppCompatActivity {
         };
         // Đặt adapter cho ListView
         listViewHotels.setAdapter(hotelListAdapter);
-        }
     }
+}
 
 
 

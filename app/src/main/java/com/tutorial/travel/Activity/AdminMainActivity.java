@@ -50,7 +50,7 @@ public class AdminMainActivity extends AppCompatActivity {
         CardView billCardView = findViewById(R.id.billCardView);
         billCardView.setOnClickListener(v -> {
             // Chuyển hướng đến trang bill
-            Intent intent2 = new Intent(AdminMainActivity.this, ThemKhachSan.class);
+            Intent intent2 = new Intent(AdminMainActivity.this, DonateAdmin.class);
             startActivity(intent2);
             finish();
         });
@@ -58,7 +58,7 @@ public class AdminMainActivity extends AppCompatActivity {
         CardView bookingCardView = findViewById(R.id.bookingCardView);
         bookingCardView.setOnClickListener(v -> {
             // Chuyển hướng đến trang booking
-            Intent intent3 = new Intent(AdminMainActivity.this, BookingAdmin.class);
+            Intent intent3 = new Intent(AdminMainActivity.this, Booking_Management.class);
             startActivity(intent3);
             finish();
         });
