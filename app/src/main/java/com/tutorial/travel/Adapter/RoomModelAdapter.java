@@ -4,23 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.tutorial.travel.R;
-
 import com.tutorial.travel.model.RoomModel;
 
 import java.util.List;
 
-class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
+public class RoomModelAdapter extends RecyclerView.Adapter<RoomModelAdapter.RoomViewHolder> {
 
     private List<RoomModel> roomList;
     private Context context;
 
-    public RoomAdapter(Context context, List<RoomModel> roomList) {
+    public RoomModelAdapter(Context context, List<RoomModel> roomList) {
         this.context = context;
         this.roomList = roomList;
     }
@@ -35,9 +36,13 @@ class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         RoomModel room = roomList.get(position);
-        holder.roomTypeTxt.setText(room.getRoomTypeId());
-//        holder.roomDescriptionTxt.setText(room.ge());
-        holder.roomPriceTxt.setText(String.format("%s VND", room.getPrice()));
+
+        holder.roomNameTxt.setText(room.getRoomName());
+        holder.priceTxt.setText(String.format("%s VND", room.getPrice()));
+//        holder.descriptionTxt.setText(room.getDescription());
+
+        // Load hình ảnh bằng Picasso
+        Picasso.get().load(room.getRoomImage()).placeholder(R.drawable.pic2).into(holder.roomImage);
     }
 
     @Override
@@ -45,14 +50,17 @@ class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
         return roomList.size();
     }
 
-    static class RoomViewHolder extends RecyclerView.ViewHolder {
-        TextView roomTypeTxt, roomDescriptionTxt, roomPriceTxt;
+    public static class RoomViewHolder extends RecyclerView.ViewHolder {
+        ImageView roomImage;
+        TextView roomNameTxt, priceTxt, descriptionTxt;
 
-        RoomViewHolder(@NonNull View itemView) {
+        public RoomViewHolder(@NonNull View itemView) {
             super(itemView);
-            roomTypeTxt = itemView.findViewById(R.id.roomTypeTxt);
-            roomDescriptionTxt = itemView.findViewById(R.id.tvRoomDescription);
-            roomPriceTxt = itemView.findViewById(R.id.priceTxt);
+
+            roomImage = itemView.findViewById(R.id.roomImage);
+            roomNameTxt = itemView.findViewById(R.id.roomNameTxt);
+            priceTxt = itemView.findViewById(R.id.priceTxt);
+            descriptionTxt = itemView.findViewById(R.id.descriptionTxt);
         }
     }
 }

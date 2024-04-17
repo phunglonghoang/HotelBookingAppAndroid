@@ -47,7 +47,14 @@ public class HotelDetailActivity extends AppCompatActivity {
         etCheckInDate.setOnClickListener(v -> showDatePickerDialog());
 
         btnSelectRoom.setOnClickListener(v -> {
+            HotelModel hotel = (HotelModel) getIntent().getSerializableExtra("hotel");
             Intent intent = new Intent(HotelDetailActivity.this, RoomListActivity.class);
+            int hotelId =hotel.getId() ;
+
+
+
+            intent.putExtra("hotelId", hotelId);
+
             startActivity(intent);
         });
     }

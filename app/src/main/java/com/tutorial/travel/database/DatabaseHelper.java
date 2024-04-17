@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 import com.tutorial.travel.Activity.PasswordUtils;
 import com.tutorial.travel.model.HotelModel;
+import com.tutorial.travel.model.RoomModel;
 import com.tutorial.travel.model.User;
 
 import java.util.ArrayList;
@@ -450,5 +451,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return searchResults;
+
+
+    }
+    public List<RoomModel> getRoomsByHotelId(int hotelId) {
+        List<RoomModel> roomList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM room WHERE hotel_id = ?", new String[]{String.valueOf(hotelId)});
+        if (cursor.moveToFirst()) {
+            do {
+                RoomModel room = new RoomModel();
+                room.setId(cursor.getInt(0));
+                room.setRoomName(cursor.getString(1));
+                room.setPrice(cursor.getDouble(2));
+                roomList.add(room);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return roomList;
     }
 }

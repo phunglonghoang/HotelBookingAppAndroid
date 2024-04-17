@@ -276,6 +276,15 @@ public class MainActivity extends AppCompatActivity {
         // Thêm phòng cho loại phòng "Suite"
         addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://example.com/room_image.jpg", "Available", 2);
 
+        // Thêm phòng cho loại phòng "Standard"
+        addRoomForRoomType(db, standardRoomTypeId, "P01", 100, "https://example.com/room_image.jpg", "Available", 1);
+
+        // Thêm phòng cho loại phòng "Deluxe"
+        addRoomForRoomType(db, deluxeRoomTypeId, "P02", 150, "https://example.com/room_image.jpg", "Available", 1);
+
+        // Thêm phòng cho loại phòng "Suite"
+        addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://example.com/room_image.jpg", "Available", 1);
+
         db.close();
     }
 

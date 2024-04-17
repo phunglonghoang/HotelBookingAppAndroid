@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.tutorial.travel.R;
 import com.tutorial.travel.model.Room;
+import com.tutorial.travel.model.RoomModel;
 
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class RoomAdapter extends ArrayAdapter<Room> {
         mresource = resource;
 
     }
+
+
+
 
     @NonNull
     @Override
