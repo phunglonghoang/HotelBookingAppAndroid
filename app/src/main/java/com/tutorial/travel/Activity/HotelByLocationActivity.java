@@ -74,8 +74,9 @@ public class HotelByLocationActivity extends AppCompatActivity implements HotelB
                 String hotelName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_NAME)); // Sử dụng getColumnIndexOrThrow
                 String location = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_LOCATION.toLowerCase())); // Sử dụng getColumnIndexOrThrow
                 int starRating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_STAR_RATING)); // Sử dụng getColumnIndexOrThrow
-                String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE)); // Sử dụng getColumnIndexOrThrow
-                HotelModel hotellocation = new HotelModel(id, hotelName, location, starRating, image);
+                String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE));
+                Double price = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PRICE));// Sử dụng getColumnIndexOrThrow
+                HotelModel hotellocation = new HotelModel(id, hotelName, location, starRating, image, price);
                 hotelLocationList.add(hotellocation);
 
             } while (cursor.moveToNext());

@@ -1,5 +1,6 @@
 package com.tutorial.travel.Activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -37,7 +38,16 @@ public class AllHotelActivity extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(horizontalLayoutManager);
         hotelList = new ArrayList<>();
-        adapter = new HotelAdapter(this, hotelList);
+        adapter = new HotelAdapter(this, hotelList,new HotelAdapter.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(HotelModel hotel) {
+                Intent intent = new Intent(AllHotelActivity.this, HotelDetailActivity.class);
+                intent.putExtra("hotel", hotel);
+                startActivity(intent);
+
+            }
+        });
         recyclerView.setAdapter(adapter);
         loadHotels();
     }
@@ -53,8 +63,9 @@ public class AllHotelActivity extends AppCompatActivity {
                 String hotelName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_NAME)); // Sử dụng getColumnIndexOrThrow
                 String location = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_LOCATION)); // Sử dụng getColumnIndexOrThrow
                 int starRating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_STAR_RATING)); // Sử dụng getColumnIndexOrThrow
-                String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE)); // Sử dụng getColumnIndexOrThrow
-                HotelModel hotel = new HotelModel(id, hotelName, location, starRating, image);
+                String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE));
+                double price = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PRICE));
+                HotelModel hotel = new HotelModel(id, hotelName, location, starRating, image,  price);
                 hotelList.add(hotel);
             } while (cursor.moveToNext());
         }

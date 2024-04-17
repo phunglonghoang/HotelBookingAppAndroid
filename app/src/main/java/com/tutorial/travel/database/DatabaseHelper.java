@@ -7,11 +7,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 import com.tutorial.travel.Activity.PasswordUtils;
-import com.tutorial.travel.model.UserModel;
+import com.tutorial.travel.model.HotelModel;
+import com.tutorial.travel.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "Hotel.db";
+    public static final String DATABASE_NAME ="Hotel.db" ;
+//    private static final String DATABASE_NAME = "Hotel.db";
     private static final int DATABASE_VERSION = 1;
 
     // role
@@ -161,7 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public long addUser(UserModel user) {
+    public long addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_USERNAME, user.getUsername());
@@ -169,7 +174,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_PHONE, user.getPhone());
         values.put(COLUMN_PASSWORD, PasswordUtils.hashPassword(user.getPassword()));
         values.put(COLUMN_ROLE_ID_FK, 2);
-        values.put(COLUMN_DOB, user.getDob()); // Change from "getDOB()" to "getDob()"
+        values.put(COLUMN_DOB, user.getDOB()); // Change from "getDOB()" to "getDob()"
         long id = db.insert(TABLE_USERS, null, values);
         db.close();
         return id;
@@ -227,6 +232,223 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {String.valueOf(userId)};
         return db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
     }
+    public static String getColumnUsername() {
+        return COLUMN_USERNAME;
+    }
+
+    public static String getColumnEmail() {
+        return COLUMN_EMAIL;
+    }
+
+    public static String getColumnPhone() {
+        return COLUMN_PHONE;
+    }
+
+    public static String getColumnDob() {
+        return COLUMN_DOB;
+    }
+    public ArrayList<User> getAllUsers(String abc)
+    {
+        ArrayList<User>arrayList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String qry =  "select * from users where username = '" + abc + "' ";
+        Cursor cursor = db.rawQuery(qry,null);
+        while (cursor.moveToNext())
+        {
+            String userid = cursor.getString(0);
+            String username = cursor.getString(1);
+
+            String email = cursor.getString(3);
+            String phone = cursor.getString(4);
 
 
+
+            User user = new User(userid,username,email,phone);
+
+            arrayList.add(user);
+        }
+        return arrayList;
+    }
+
+    public ArrayList<User> getAllUsersNO() {
+        ArrayList<User> userList = new ArrayList<>();
+        // Select tất cả các cột từ bảng Users
+        String selectQuery = "SELECT * FROM " + TABLE_USERS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Duyệt qua tất cả các hàng và thêm vào danh sách người dùng
+        if (cursor.moveToFirst()) {
+            do {
+                String userId = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID));
+                String username = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL));
+                String phone = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE));
+
+                User user = new User(userId, username, email, phone);
+                userList.add(user);
+            } while (cursor.moveToNext());
+        }
+
+        // Đóng con trỏ và database khi không cần thiết nữa
+        cursor.close();
+        db.close();
+
+        return userList;
+    }
+
+    public User adminViewUser(String user){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String qry =  "select * from users where username = '" + user + "' ";
+        Cursor cursor = db.rawQuery(qry, null);
+
+        if(cursor!= null)
+        {
+            cursor.moveToFirst();
+        }
+        User userprofile =new User(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5));
+
+        userprofile.setUsername(cursor.getString(1));
+        userprofile.setPassword(cursor.getString(2));
+        userprofile.setEmail(cursor.getString(3));
+        userprofile.setPhone(cursor.getString(4));
+        userprofile.setDOB(cursor.getString(5));
+//        userprofile.setRoleId(cursor.getString(6));
+//        userprofile.setId(cursor.getString(0));
+
+        db.close();
+        cursor.close();
+        return userprofile;
+    }
+
+    public boolean adminUpdateProfile(User userprofile, String user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_USERNAME,userprofile.getUsername());
+        cv.put(COLUMN_PASSWORD,userprofile.getPassword());
+        cv.put(COLUMN_EMAIL,userprofile.getEmail());
+        cv.put(COLUMN_PHONE,userprofile.getPhone());
+        cv.put(COLUMN_DOB,userprofile.getDOB());
+        cv.put(COLUMN_ROLE_ID, userprofile.getRoleId());
+
+        db.update(TABLE_USERS,cv,"username = ?", new String[] {user});
+        return true;
+    }
+
+    public boolean deteleUser(String user){
+        SQLiteDatabase db =getWritableDatabase();
+        int i = db.delete(TABLE_USERS,"username = ?", new String[]{user});
+        if(i >0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //test đổi role
+    public boolean updateRoleIdForUser(String username, int roleId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("role_id", roleId);
+
+        // Cập nhật roleId trong bảng người dùng dựa trên tên người dùng
+        int rowsAffected = db.update("users", values, "username = ?", new String[]{username});
+        db.close();
+
+        return rowsAffected > 0; // Trả về true nếu có ít nhất một hàng được cập nhật thành công
+    }
+
+    // test add hotel
+    public long addHotel(String hotelName, String location, int StarRating, String imageUrl){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HOTEL_NAME,hotelName);
+        values.put(COLUMN_LOCATION,location);
+        values.put(COLUMN_STAR_RATING,StarRating);
+        values.put(COLUMN_IMAGE, imageUrl);
+
+        long id = db.insert(TABLE_HOTEL,null,values);
+        db.close();
+        return id;
+    }
+
+    // test add room
+    public long addRoomType(String roomType, int numBeds, int numPeople) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ROOM_TYPE_NAME, roomType);
+//        values.put(COLUMN_HOTEL_ID_FK, hotelid);
+//        values.put(COLUMN_NUM_BEDS, numBeds);
+//        values.put(COLUMN_HOTEL_ID_FK, numPeople);
+        // values.put(COLUMN_ROOM_NAME, numPeople);
+        //        values.put(COLUMN_ROOM_RATE, numBeds);
+        long id = db.insert(TABLE_ROOM, null, values);
+        db.close();
+        return id;
+    }
+
+    //test tiep
+    public List<String> getAllHotelNames() {
+        List<String> hotelNames = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_HOTEL_NAME + " FROM " + TABLE_HOTEL, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                hotelNames.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+        return hotelNames;
+    }
+
+    // GetAllHotel nhưng hiện thêm location
+    public List<HotelModel> getAllHotelNames1(){
+        List<HotelModel> hotels = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_HOTEL, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int hotelId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_ID));
+                String hotelName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_NAME));
+                String location = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION));
+                // Khởi tạo đối tượng Hotel từ dữ liệu của cơ sở dữ liệu và thêm vào danh sách
+                HotelModel hotelModel = new HotelModel(hotelId, hotelName, location);
+                hotels.add(hotelModel);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+        return hotels;
+    }
+    private long getHotelIdByName(String hotelName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_HOTEL_ID};
+        String selection = COLUMN_HOTEL_NAME + "=?";
+        String[] selectionArgs = {hotelName};
+        Cursor cursor = db.query(TABLE_HOTEL, columns, selection, selectionArgs, null, null, null);
+        long hotelId = -1;
+        if (cursor != null && cursor.moveToFirst()) {
+            hotelId = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_ID));
+            cursor.close();
+        }
+        db.close();
+        return hotelId;
+    }
+
+
+    public ArrayList<String> searchHotels(String searchString) {
+        ArrayList<String> searchResults = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM hotel WHERE hotelName LIKE ?", new String[]{"%" + searchString + "%"});
+        if (cursor.moveToFirst()) {
+            do {
+                searchResults.add(cursor.getString(cursor.getColumnIndexOrThrow("hotelName")));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return searchResults;
+    }
 }

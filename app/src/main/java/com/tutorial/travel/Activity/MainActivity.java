@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager.HORIZONTAL, false);
         recyclerView3.setLayoutManager(horizontalLayoutManager);
         hotelList = new ArrayList<>();
+
         adapter = new HotelAdapter(this, hotelList, new HotelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(HotelModel hotel) {
@@ -87,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
         TextView txtUserName = findViewById(R.id.userNameTxt);
         Bundle bundle = getIntent().getExtras();
         String username = bundle.getString("username");
+        loadHotels();
+//        addRoomToHotel();
+        initRecyclerView();
+        txtUserName.setText(username);
 
 
         profileImg = findViewById(R.id.profileImg);
@@ -99,19 +104,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        TextView txtUserName = findViewById(R.id.txtUserName);
-//
-//        Bundle bundle = getIntent().getExtras();
-//
-//        String username = bundle.getString("username");
 
 
-//>>>>>>> main
-//        loadHotels();
-//       addRoomToHotel();
-//        initRecyclerView();
-//        txtUserName.setText(username);
-//<<<<<<< HEAD
+
+
+
+
+
 
     }
 

@@ -15,7 +15,7 @@ import com.tutorial.travel.model.RoomModel;
 
 import java.util.List;
 
-public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
+class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
 
     private List<RoomModel> roomList;
     private Context context;
