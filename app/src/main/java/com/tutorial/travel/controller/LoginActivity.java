@@ -1,6 +1,7 @@
 package com.tutorial.travel.controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -14,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 
 import com.tutorial.travel.Activity.AdminMainActivity;
 import com.tutorial.travel.Activity.MainActivity;
@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
                 String username = editTextUsername.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
 
-                // Kiểm tra xem người dùng đã nhập đủ thông tin đăng nhập hay chưa
                 if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginActivity.this, "Vui lòng nhập tên người dùng và mật khẩu", Toast.LENGTH_SHORT).show();
                     return;
@@ -72,10 +71,14 @@ public class LoginActivity extends AppCompatActivity {
                         break;
 
                     case 2: // Customer
+                        // Lưu tên người dùng vào SharedPreferences
+                        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("username", username);
+                        editor.apply();
+
+                        // Chuyển đến MainActivity và gửi tên người dùng dùng SharedPreferences
                         Intent customerIntent = new Intent(LoginActivity.this, MainActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("username", username);
-                        customerIntent.putExtras(bundle);
                         startActivity(customerIntent);
                         break;
                     default:
@@ -86,12 +89,9 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
     public void onRegisterClick(View view){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
-
-
 }
