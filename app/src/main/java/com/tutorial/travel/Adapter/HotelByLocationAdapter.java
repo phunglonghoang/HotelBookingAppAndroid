@@ -81,6 +81,7 @@ public class HotelByLocationAdapter extends RecyclerView.Adapter<HotelByLocation
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
+
         TextView hotelNameTxt, locationTxt, startTxt, priceTxt;
         ImageView imageView;
         public ViewHolder(@NonNull View itemView) {

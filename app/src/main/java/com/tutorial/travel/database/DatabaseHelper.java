@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import com.tutorial.travel.Activity.PasswordUtils;
 import com.tutorial.travel.model.Booking;
 import com.tutorial.travel.model.HotelModel;
+import com.tutorial.travel.model.ReviewModel;
+import com.tutorial.travel.model.RoomModel;
 import com.tutorial.travel.model.User;
 
 import java.util.ArrayList;
@@ -21,7 +23,8 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME ="Hotel.db" ;
-//    private static final String DATABASE_NAME = "Hotel.db";
+
+    //    private static final String DATABASE_NAME = "Hotel.db";
     private static final int DATABASE_VERSION = 1;
 
     // role
@@ -74,9 +77,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CHECK_OUT_DATE = "checkOut";
     public static final String COLUMN_IS_CONFIRMED = "isConfirmed";
 
+    //review
+    public static final  String TABLE_REVIEW = "review";
+    public static final String COLUMN_REVIEW_ID = "rvId";
+
+    public static final String COLUMN_REVIEW_DETAIL = "rvDetail";
+    public static final String COLUMN_RATING = "rating";
+
+
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -86,6 +99,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_ROLE_NAME + " TEXT"
                 + ")";
         db.execSQL(CREATE_ROLE_TABLE);
+        //Tạo bảng REVIEW
+        String CREATE_REVIEW_TABLE = "CREATE TABLE " + TABLE_REVIEW + "("
+                + COLUMN_REVIEW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_REVIEW_DETAIL + " TEXT,"
+                + COLUMN_RATING + " INTEGER,"
+                + COLUMN_HOTEL_ID_FK + " INTEGER,"
+                + COLUMN_USER_ID_FK + " INTEGER,"
+                + "FOREIGN KEY(" + COLUMN_HOTEL_ID_FK + ") REFERENCES " + TABLE_HOTEL + "(" + COLUMN_HOTEL_ID + "),"
+                + "FOREIGN KEY(" + COLUMN_USER_ID_FK + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_ID + ")"
+                + ")";
+        db.execSQL(CREATE_REVIEW_TABLE);
+
+
 
         // Tạo bảng users
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
@@ -169,6 +195,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertUser(db, "Admin", "Admin@gmail.com", "086868686", hashPass, 1);
         insertUser(db, "nd", "nd@gmail.com", "321321214", hashPass, 2);
 
+
+
     }
 
     public long addUser(User user) {
@@ -218,6 +246,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ROLE_NAME, roleName);
         db.insert(TABLE_ROLE, null, values);
+
+
     }
 
     public void insertUser(SQLiteDatabase db, String username, String email, String phone, String password, int roleId) {
@@ -230,12 +260,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_USERS, null, values);
     }
 
-    public Cursor getUserInfoById(int userId) {
+    ///thêm đánh giá
+    public void addReview(ReviewModel review) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_REVIEW_DETAIL, review.getReviewDetail());
+        values.put(COLUMN_RATING, review.getRating());
+        values.put(COLUMN_HOTEL_ID_FK, review.getHotel_id());
+        values.put(COLUMN_USER_ID_FK, review.getUser_id());
+
+
+
+        db.insert(TABLE_REVIEW, null, values);
+        db.close();
+
+
+
+    }
+
+
+
+
+
+
+
+    public  User getUserInfoById(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_ID, COLUMN_USERNAME, COLUMN_EMAIL, COLUMN_PHONE, COLUMN_DOB};
         String selection = COLUMN_ID + "=?";
         String[] selectionArgs = {String.valueOf(userId)};
-        return db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+        return (User) db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
     }
     public static String getColumnUsername() {
         return COLUMN_USERNAME;
@@ -275,33 +329,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
-    public ArrayList<User> getAllUsersNO() {
-        ArrayList<User> userList = new ArrayList<>();
-        // Select tất cả các cột từ bảng Users
-        String selectQuery = "SELECT * FROM " + TABLE_USERS;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // Duyệt qua tất cả các hàng và thêm vào danh sách người dùng
-        if (cursor.moveToFirst()) {
-            do {
-                String userId = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID));
-                String username = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME));
-                String email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL));
-                String phone = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE));
-
-                User user = new User(userId, username, email, phone);
-                userList.add(user);
-            } while (cursor.moveToNext());
-        }
-
-        // Đóng con trỏ và database khi không cần thiết nữa
-        cursor.close();
-        db.close();
-
-        return userList;
-    }
 
     public User adminViewUser(String user){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -431,7 +458,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return hotels;
     }
-    public long getHotelIdByName(String hotelName) {
+
+
+    public int getIdByUsername(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_USERS +
+                " WHERE " + COLUMN_USERNAME + " = ?";
+
+        int userId = -1; // Giá trị mặc định nếu không tìm thấy người dùng
+
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
+        }
+
+        cursor.close();
+        db.close();
+
+        return userId;
+    }
+    private long getHotelIdByName(String hotelName) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_HOTEL_ID};
         String selection = COLUMN_HOTEL_NAME + "=?";
@@ -458,7 +505,76 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return searchResults;
+
+
     }
+    public List<RoomModel> getRoomsByHotelId(int hotelId) {
+        List<RoomModel> roomList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM room WHERE hotel_id = ?", new String[]{String.valueOf(hotelId)});
+        if (cursor.moveToFirst()) {
+            do {
+                RoomModel room = new RoomModel();
+                room.setId(cursor.getInt(0));
+                room.setRoomName(cursor.getString(1));
+                room.setPrice(cursor.getDouble(2));
+                roomList.add(room);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return roomList;
+    }
+//    public ArrayList<ReviewModel> getReviewbyHotelId(String hotelId) {
+//        ArrayList<ReviewModel> rvList = new ArrayList<>();
+//        SQLiteDatabase db = this.getWritableDatabase();
+////        "SELECT * FROM review WHERE hotel_id = ?", new String[]{String.valueOf(hotelId)}
+//        Cursor cursor = db.rawQuery("SELECT * FROM " +
+//                DatabaseHelper.TABLE_REVIEW +
+//                " WHERE " + DatabaseHelper.COLUMN_HOTEL_ID +
+//
+//                "=?", new String[]{hotelId});
+//        if (cursor.moveToFirst()) {
+//            do {
+//                ReviewModel rv = new ReviewModel();
+//
+//                rv.setId(cursor.getInt(0));
+//                rv.setReviewDetail(cursor.getString(1));
+//                rv.setRating(cursor.getDouble(2));
+//
+//                rvList.add(rv);
+//            } while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        return rvList;
+//    }
+    public ArrayList<User> getAllUsersNO() {
+        ArrayList<User> userList = new ArrayList<>();
+        // Select tất cả các cột từ bảng Users
+        String selectQuery = "SELECT * FROM " + TABLE_USERS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Duyệt qua tất cả các hàng và thêm vào danh sách người dùng
+        if (cursor.moveToFirst()) {
+            do {
+                String userId = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID));
+                String username = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL));
+                String phone = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE));
+
+                User user = new User(userId, username, email, phone);
+                userList.add(user);
+            } while (cursor.moveToNext());
+        }
+
+        // Đóng con trỏ và database khi không cần thiết nữa
+        cursor.close();
+        db.close();
+
+        return userList;
+    }
+
 
     public long getRoomTypeIdByName(String roomTypeName) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -605,3 +721,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 }
+

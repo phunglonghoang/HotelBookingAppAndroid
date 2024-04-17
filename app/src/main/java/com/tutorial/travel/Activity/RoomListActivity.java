@@ -1,26 +1,45 @@
 package com.tutorial.travel.Activity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+
+import com.tutorial.travel.Adapter.RoomModelAdapter;
 import com.tutorial.travel.R;
+import com.tutorial.travel.database.DatabaseHelper;
+import com.tutorial.travel.model.RoomModel;
+
+import java.util.List;
 
 public class RoomListActivity extends AppCompatActivity {
-
+    private RecyclerView recyclerView;
+    private RoomModelAdapter roomAdapter;
+    private int hotelId;
+    TextView hotelIdTextView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_room_list_activity);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        setContentView(R.layout.activity_room_list);
+
+        hotelId = getIntent().getIntExtra("hotelId", -1);
+        TextView hotelIdTextView = findViewById(R.id.hotelIdTextView);
+        hotelIdTextView.setText("Hotel ID: " + hotelId);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        showRoomList();
+    }
+
+    private void showRoomList() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        List<RoomModel> roomList = databaseHelper.getRoomsByHotelId(hotelId);
+
+        // Khởi tạo và thiết lập adapter cho RecyclerView
+        roomAdapter = new RoomModelAdapter(this, roomList);
+        recyclerView.setAdapter(roomAdapter);
     }
 }

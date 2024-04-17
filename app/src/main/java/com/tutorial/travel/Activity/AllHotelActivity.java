@@ -55,7 +55,9 @@ public class AllHotelActivity extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_HOTEL, null);
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_HOTEL , null);
+
 
         if (cursor.moveToFirst()) {
             do {
@@ -63,9 +65,9 @@ public class AllHotelActivity extends AppCompatActivity {
                 String hotelName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_NAME)); // Sử dụng getColumnIndexOrThrow
                 String location = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_LOCATION)); // Sử dụng getColumnIndexOrThrow
                 int starRating = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_STAR_RATING)); // Sử dụng getColumnIndexOrThrow
-                String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE));
-                double price = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_PRICE));
-                HotelModel hotel = new HotelModel(id, hotelName, location, starRating, image,  price);
+                String image = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_IMAGE)); // Sử dụng getColumnIndexOrThrow
+                double minPrice =MainActivity.getMinRoomPriceForHotel(db, id);
+                HotelModel hotel = new HotelModel(id, hotelName, location, starRating, image,minPrice);
                 hotelList.add(hotel);
             } while (cursor.moveToNext());
         }
@@ -74,4 +76,5 @@ public class AllHotelActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         db.close();
     }
+
 }

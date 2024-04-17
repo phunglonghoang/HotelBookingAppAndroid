@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                         bundle.putString("username", username);
                         customerIntent.putExtras(bundle);
                         startActivity(customerIntent);
+
                         break;
                     default:
                         // Xử lý trường hợp không chính xác

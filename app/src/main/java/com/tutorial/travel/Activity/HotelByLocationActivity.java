@@ -70,6 +70,7 @@ public class HotelByLocationActivity extends AppCompatActivity
 
     }
 
+
     public void loadHotelByLocation(String loca) {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
