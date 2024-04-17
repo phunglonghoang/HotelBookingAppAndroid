@@ -36,9 +36,11 @@ import com.tutorial.travel.Adapter.PopularAdapter;
 import com.tutorial.travel.Domain.CategoryDomain;
 import com.tutorial.travel.Domain.PopularDomain;
 import com.tutorial.travel.R;
+import com.tutorial.travel.controller.LoginActivity;
 import com.tutorial.travel.controller.UserProfileActivity;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;
+import com.tutorial.travel.model.ReviewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,21 +77,24 @@ public class MainActivity extends AppCompatActivity {
         adapter = new HotelAdapter(this, hotelList, new HotelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(HotelModel hotel) {
+
+
                 // Chuyển sang DetailActivity và truyền dữ liệu của khách sạn
                 Intent intent = new Intent(MainActivity.this, HotelDetailActivity.class);
                 intent.putExtra("hotel", hotel);
                 startActivity(intent);
+
+
             }
         });
         recyclerView3.setAdapter(adapter);
-
-
 
         TextView txtUserName = findViewById(R.id.userNameTxt);
         Bundle bundle = getIntent().getExtras();
         String username = bundle.getString("username");
         loadHotels();
         addRoomToHotel();
+        addReviewToData();
         initRecyclerView();
         txtUserName.setText(username);
 
@@ -103,12 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-
-
-
-
-
-
 
 
 
@@ -149,6 +148,15 @@ public class MainActivity extends AppCompatActivity {
 
         adapterCat = new CategoryAdapter(catsList);
         recyclerViewCategory.setAdapter(adapterCat);
+    }
+    private  void   addReviewToData(){
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ReviewModel review1 = new ReviewModel(1,"Great hotel!", 5.0, 1, 2);
+        databaseHelper.addReview(review1);
+
+        ReviewModel review2 = new ReviewModel(2,"Needs improvement", 3.5, 2, 2);
+        databaseHelper.addReview(review2);
     }
 
     private void addDataToDatabase() {

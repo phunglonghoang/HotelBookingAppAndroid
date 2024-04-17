@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+import com.tutorial.travel.Activity.HotelDetailActivity;
 import com.tutorial.travel.R;
+import com.tutorial.travel.model.ReviewModel;
 import com.tutorial.travel.model.RoomModel;
 
 import java.util.List;
@@ -25,6 +27,7 @@ public class RoomModelAdapter extends RecyclerView.Adapter<RoomModelAdapter.Room
         this.context = context;
         this.roomList = roomList;
     }
+
 
     @NonNull
     @Override
