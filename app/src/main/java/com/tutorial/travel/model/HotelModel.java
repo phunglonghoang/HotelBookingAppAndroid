@@ -5,13 +5,19 @@ import java.io.Serializable;
 public class HotelModel implements Serializable {
     private int id;
     private String hotelName;
-    private static String location;
+    private String location;
     private int starRating;
     private String image;
     private double minRoomPrice;
 
+    public HotelModel(int id, String hotelName, int starRating, String image) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.starRating = starRating;
+        this.image = image;
+    }
 
-    public HotelModel(int id, String hotelName, String location, int starRating, String image,  double minRoomPrice) {
+    public HotelModel(int id, String hotelName, String location, int starRating, String image, double minRoomPrice) {
         this.id = id;
         this.hotelName = hotelName;
         this.location = location;
@@ -33,6 +39,9 @@ public class HotelModel implements Serializable {
         this.image = image;
     }
 
+    public HotelModel(int hotelId, String hotelName, String location, int starRating, String imageUrl) {
+    }
+
     public int getId() {
         return id;
     }
@@ -49,12 +58,9 @@ public class HotelModel implements Serializable {
         this.hotelName = hotelName;
     }
 
-    public static String getLocation() {
-        return location;
-    }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getLocation(){
+        return location;
     }
 
     public int getStarRating() {

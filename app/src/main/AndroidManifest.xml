@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,30 +15,44 @@
         android:theme="@style/Theme.Travel"
         tools:targetApi="31">
         <activity
-
+            android:name=".Activity.EditDeleteBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.SearchBookingAdminView"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.BookingListAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ListBookingAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.DonateAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.SearchBookingAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AddBookingAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ModifyDeleteHotelAdmin"
+            android:exported="false" />
+        <activity
             android:name=".Activity.RoomListActivity"
-
-
             android:exported="false" />
         <activity
             android:name=".Activity.HotelDetailActivity"
             android:exported="false" />
-
         <activity
             android:name=".Activity.AllHotelActivity"
             android:exported="false" />
         <activity
-
             android:name=".controller.UserProfileActivity"
-
-
             android:exported="false" />
-        <activity android:name=".Activity.HotelByLocationActivity"
+        <activity
+            android:name=".Activity.HotelByLocationActivity"
             android:exported="false" />
-
-
-
-
         <activity
             android:name=".Activity.SearchHotelAdmin"
             android:exported="false" />
@@ -55,8 +68,6 @@
         <activity
             android:name=".Activity.AdminManagementHotel"
             android:exported="false" />
-
-
         <activity
             android:name=".Activity.AddRoomType"
             android:exported="false" />
@@ -74,13 +85,9 @@
             android:exported="false" />
         <activity
             android:name=".Activity.reservation_summary_manager"
-
-            android:exported="false" />
-<!--         <activity -->
-<!--         android:name=".Activity.adminProfile" -->
-<!--         android:exported="false" /> -->
-
-
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".Activity.adminProfile" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".Activity.adminViewGuestManager"
             android:exported="false" />

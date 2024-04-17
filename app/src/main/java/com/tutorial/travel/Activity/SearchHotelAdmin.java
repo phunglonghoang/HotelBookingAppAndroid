@@ -65,7 +65,7 @@ public class SearchHotelAdmin extends AppCompatActivity {
                 String selectedHotelName = (String) parent.getItemAtPosition(position);
 
 
-                Intent intent = new Intent(SearchHotelAdmin.this, Modify_Delete_Hotel.class);
+                Intent intent = new Intent(SearchHotelAdmin.this, ModifyDeleteHotelAdmin.class);
 
                 intent.putExtra("selectedHotelName", selectedHotelName);
 
