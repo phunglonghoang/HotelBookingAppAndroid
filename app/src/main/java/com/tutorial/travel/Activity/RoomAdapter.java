@@ -28,8 +28,6 @@ public class RoomAdapter extends ArrayAdapter<Room> {
     }
 
 
-
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

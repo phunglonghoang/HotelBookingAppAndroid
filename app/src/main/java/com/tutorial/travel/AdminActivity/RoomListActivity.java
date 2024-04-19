@@ -1,6 +1,7 @@
 package com.tutorial.travel.AdminActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,9 @@ public class RoomListActivity extends AppCompatActivity {
     private void showRoomList() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         List<RoomModel> roomList = databaseHelper.getRoomsByHotelId(hotelId);
-        RoomAdapter = new RoomModelAdapter(this, roomList, checkInDate, checkOutDate);
+        RoomAdapter = new RoomModelAdapter(this, roomList, checkInDate, checkOutDate, hotelId);
+        Log.d("TAG", "showRoomList: id hotel............: "+ hotelId);
         recyclerView.setAdapter(RoomAdapter);
     }
+
 }
