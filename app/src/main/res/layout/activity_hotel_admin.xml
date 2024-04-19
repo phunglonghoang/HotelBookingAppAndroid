@@ -7,7 +7,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.List_of_Reservations">
+    tools:context=".AdminActivity.List_of_Reservations">
 
 
 

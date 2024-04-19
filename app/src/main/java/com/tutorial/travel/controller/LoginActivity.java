@@ -16,7 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.tutorial.travel.Activity.AdminMainActivity;
+import com.tutorial.travel.AdminActivity.AdminMainActivity;
 import com.tutorial.travel.Activity.MainActivity;
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;

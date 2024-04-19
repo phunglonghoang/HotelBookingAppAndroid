@@ -1,17 +1,13 @@
-package com.tutorial.travel.Activity;
+package com.tutorial.travel.AdminActivity;
 
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,15 +16,12 @@ import android.widget.TextView;
 import com.tutorial.travel.controller.LoginActivity;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.Booking;
-import androidx.activity.EdgeToEdge;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.Nullable;
 
 import com.tutorial.travel.R;
 import java.util.List;
-
-import com.tutorial.travel.R;
 
 public class BookingListAdmin extends AppCompatActivity {
     Button userHome, logoutHotel;

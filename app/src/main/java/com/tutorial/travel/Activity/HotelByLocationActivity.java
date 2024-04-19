@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tutorial.travel.Adapter.HotelAdapter;
 import com.tutorial.travel.Adapter.HotelByLocationAdapter;
+import com.tutorial.travel.AdminActivity.HotelDetailActivity;
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;

@@ -1,4 +1,4 @@
-package com.tutorial.travel.Activity;
+package com.tutorial.travel.AdminActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;

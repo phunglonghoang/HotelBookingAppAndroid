@@ -1,4 +1,4 @@
-package com.tutorial.travel.Activity;
+package com.tutorial.travel.AdminActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Stastistical extends AppCompatActivity {
     private TextView priceCountTextView,userCountTextView, bookingCountTextView, hotelCountTextView, roomCountTextView;

@@ -1,4 +1,4 @@
-package com.tutorial.travel.Activity;
+package com.tutorial.travel.AdminActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 
+import com.tutorial.travel.AdminActivity.Modify_Delete_Hotel;
 import com.tutorial.travel.R;
 import com.tutorial.travel.model.HotelModel;
 import android.annotation.SuppressLint;

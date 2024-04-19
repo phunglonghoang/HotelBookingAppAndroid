@@ -1,11 +1,10 @@
 package com.tutorial.travel.Activity;
 
 import android.content.ContentValues;
-<<<<<<< HEAD
-=======
 
-import android.content.Context;
->>>>>>> 77f9e4154963482019db3852267261318d2b9ea8
+
+
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -16,16 +15,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -37,10 +29,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tutorial.travel.Adapter.CategoryAdapter;
 import com.tutorial.travel.Adapter.HotelAdapter;
 import com.tutorial.travel.Adapter.PopularAdapter;
+import com.tutorial.travel.AdminActivity.HotelDetailActivity;
 import com.tutorial.travel.Domain.CategoryDomain;
 import com.tutorial.travel.Domain.PopularDomain;
 import com.tutorial.travel.R;
-import com.tutorial.travel.controller.LoginActivity;
 import com.tutorial.travel.controller.UserProfileActivity;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;

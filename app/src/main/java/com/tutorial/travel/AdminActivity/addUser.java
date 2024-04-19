@@ -1,4 +1,4 @@
-package com.tutorial.travel.Activity;
+package com.tutorial.travel.AdminActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +10,8 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.tutorial.travel.R;
-import com.tutorial.travel.controller.LoginActivity;
-import com.tutorial.travel.controller.RegisterActivity;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.User;
 
@@ -42,7 +37,7 @@ public class addUser extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(addUser.this,AccountManagement.class));
+                startActivity(new Intent(addUser.this, AccountManagement.class));
 
             }
         });

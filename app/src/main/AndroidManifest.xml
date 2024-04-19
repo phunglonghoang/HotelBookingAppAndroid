@@ -23,32 +23,32 @@
             android:name=".Activity.EditDeleteBookingActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.SearchBookingAdminView"
+            android:name=".AdminActivity.SearchBookingAdminView"
             android:exported="false" />
         <activity
-            android:name=".Activity.BookingListAdmin"
+            android:name=".AdminActivity.BookingListAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.ListBookingAdmin"
+            android:name=".AdminActivity.ListBookingAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.DonateAdmin"
+            android:name=".AdminActivity.DonateAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.SearchBookingAdmin"
+            android:name=".AdminActivity.SearchBookingAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.AddBookingAdmin"
+            android:name=".AdminActivity.AddBookingAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.ModifyDeleteHotelAdmin"
+            android:name=".AdminActivity.ModifyDeleteHotelAdmin"
             />
 
         <activity
-            android:name=".Activity.RoomListActivity"
+            android:name=".AdminActivity.RoomListActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.HotelDetailActivity"
+            android:name=".AdminActivity.HotelDetailActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.AllHotelActivity"
@@ -60,60 +60,60 @@
             android:name=".Activity.HotelByLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.SearchHotelAdmin"
+            android:name=".AdminActivity.SearchHotelAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.ListUserAdmin"
+            android:name=".AdminActivity.ListUserAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.Admin_View_RoomList"
+            android:name=".AdminActivity.Admin_View_RoomList"
             android:exported="false" />
         <activity
-            android:name=".Activity.Booking_Management"
+            android:name=".AdminActivity.Booking_Management"
             android:exported="false" />
         <activity
-            android:name=".Activity.AdminManagementHotel"
+            android:name=".AdminActivity.AdminManagementHotel"
             android:exported="false" />
         <activity
-            android:name=".Activity.AddRoomType"
+            android:name=".AdminActivity.AddRoomType"
             android:exported="false" />
         <activity
-            android:name=".Activity.ThemKhachSan"
+            android:name=".AdminActivity.ThemKhachSan"
             android:exported="false" />
         <activity
-            android:name=".Activity.addUser"
+            android:name=".AdminActivity.addUser"
             android:exported="false" />
         <activity
-            android:name=".Activity.Details_of_Reservation"
+            android:name=".AdminActivity.Details_of_Reservation"
             android:exported="false" />
         <activity
-            android:name=".Activity.List_of_Reservations"
+            android:name=".AdminActivity.List_of_Reservations"
             android:exported="false" />
         <activity
-            android:name=".Activity.reservation_summary_manager"
+            android:name=".AdminActivity.reservation_summary_manager"
             android:exported="false" /> <!-- <activity -->
         <!-- android:name=".Activity.adminProfile" -->
         <!-- android:exported="false" /> -->
         <activity
-            android:name=".Activity.adminViewGuestManager"
+            android:name=".AdminActivity.adminViewGuestManager"
             android:exported="false" />
         <activity
-            android:name=".Activity.SearchGuestUser"
+            android:name=".AdminActivity.SearchGuestUser"
             android:exported="false" />
         <activity
-            android:name=".Activity.HotelAdmin"
+            android:name=".AdminActivity.HotelAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.Stastistical"
+            android:name=".AdminActivity.Stastistical"
             android:exported="false" />
         <activity
-            android:name=".Activity.BookingAdmin"
+            android:name=".AdminActivity.BookingAdmin"
             android:exported="false" />
         <activity
             android:name=".Activity.BillAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.AccountManagement"
+            android:name=".AdminActivity.AccountManagement"
             android:exported="false" />
         <activity
             android:name=".Activity.SettingActivity"
@@ -122,7 +122,7 @@
             android:name=".controller.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.AdminMainActivity"
+            android:name=".AdminActivity.AdminMainActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.PasswordUtils"

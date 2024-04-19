@@ -7,13 +7,11 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tutorial.travel.Adapter.HotelAdapter;
+import com.tutorial.travel.AdminActivity.HotelDetailActivity;
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;

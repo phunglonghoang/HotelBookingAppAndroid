@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tutorial.travel.AdminActivity.Details_of_Reservation;
 import com.tutorial.travel.R;
 
 import java.util.ArrayList;

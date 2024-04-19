@@ -1,4 +1,4 @@
-package com.tutorial.travel.Activity;
+package com.tutorial.travel.AdminActivity;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tutorial.travel.Activity.BookingListAdapter;
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.Booking;

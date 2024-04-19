@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.tutorial.travel.AdminActivity.adminViewGuestManager;
 import com.tutorial.travel.R;
 import com.tutorial.travel.model.User;
 
@@ -75,7 +76,7 @@ public class MyAdapter extends BaseAdapter {
                 session.putString(Key_un, un.getText().toString());
                 session.apply();
 
-                Intent intent = new Intent(view.getContext(),adminViewGuestManager.class);
+                Intent intent = new Intent(view.getContext(), adminViewGuestManager.class);
                 view.getContext().startActivity(intent);
 
 
