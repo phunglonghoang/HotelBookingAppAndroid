@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Travel"
         tools:targetApi="31">
         <activity
-            android:name=".AdminActivity.EditBookingAdmin"
+            android:name=".controller.HistoryBookingActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.BookingActivity"
