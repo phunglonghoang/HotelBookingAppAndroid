@@ -31,7 +31,7 @@ public class adminViewGuestManager extends AppCompatActivity {
     RadioButton ButtonAdmin, ButtonUser;
     String roleId ; // Mặc định là 2 (User)
     Button admin_modifyGM, admin_deleteGM, home;
-    EditText admin_userGM, admin_roleGM, admin_pwdGM, admin_emailGM, admin_phone;
+    EditText admin_userGM, admin_pwdGM, admin_emailGM, admin_phone;
     TextView admin_title;
 
     @Override
@@ -56,7 +56,7 @@ public class adminViewGuestManager extends AppCompatActivity {
         admin_pwdGM = findViewById(R.id.admin_pwdGM); //email
         admin_emailGM = findViewById(R.id.admin_emailGM); //phone
         admin_phone = findViewById(R.id.admin_phoneGM);//birthday
-        admin_roleGM = findViewById(R.id.admin_roleGM);//password
+//        admin_roleGM = findViewById(R.id.admin_roleGM);//password
 
         //button
         admin_modifyGM = findViewById(R.id.admin_modifyGM);
@@ -82,13 +82,13 @@ public class adminViewGuestManager extends AppCompatActivity {
         admin_pwdGM.setText(user.getPassword());
         admin_emailGM.setText(user.getEmail());
         admin_phone.setText(user.getPhone());
-        admin_roleGM.setText(user.getDOB());
+//        admin_roleGM.setText(user.getDOB());
 
         admin_userGM.setFocusableInTouchMode(true);
         admin_pwdGM.setFocusableInTouchMode(true);
         admin_emailGM.setFocusableInTouchMode(true);
         admin_phone.setFocusableInTouchMode(true);
-        admin_roleGM.setFocusableInTouchMode(true);
+//        admin_roleGM.setFocusableInTouchMode(true);
 
         radioGroupRole.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -111,7 +111,7 @@ public class adminViewGuestManager extends AppCompatActivity {
                 admin_pwdGM.setFocusableInTouchMode(true);
                 admin_emailGM.setFocusableInTouchMode(true);
                 admin_phone.setFocusableInTouchMode(true);
-                admin_roleGM.setFocusableInTouchMode(true);
+//                admin_roleGM.setFocusableInTouchMode(true);
 
                 admin_deleteGM.setVisibility(View.INVISIBLE);
 
@@ -133,7 +133,7 @@ public class adminViewGuestManager extends AppCompatActivity {
 
 
                 DatabaseHelper db = new DatabaseHelper(adminViewGuestManager.this);
-                User user = new User(admin_userGM.getText().toString(), admin_pwdGM.getText().toString(), admin_emailGM.getText().toString(), admin_phone.getText().toString(), admin_roleGM.getText().toString());
+                User user = new User(admin_userGM.getText().toString(), admin_pwdGM.getText().toString(), admin_emailGM.getText().toString(), admin_phone.getText().toString());
                 user.setRoleId(newRoleId);
                 final boolean uppdateResult = db.adminUpdateProfile(user, keyUserName);
                 AlertDialog.Builder builder = new AlertDialog.Builder(adminViewGuestManager.this);

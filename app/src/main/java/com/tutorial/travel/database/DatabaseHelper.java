@@ -753,5 +753,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return roomList;
     }
 
+    ///Tìm kiếm booking
+    public List<Booking> getBookingsByDate(String date) {
+        List<Booking> bookingList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_BOOKING + " WHERE " + COLUMN_CHECK_IN_DATE + " = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{date});
+        // Duyệt qua các hàng của kết quả truy vấn
+        if (cursor.moveToFirst()) {
+            do {
+                Booking booking = new Booking();
+                booking.setId(cursor.getString(0));
+                booking.setRoomId(cursor.getString(1));
+                booking.setUserId(cursor.getString(2));
+                booking.setCheckInDate(cursor.getString(3));
+                booking.setCheckOutDate(cursor.getString(4));
+                booking.setIsConfirmed(Integer.parseInt(cursor.getString(5)));
+                // Thêm booking vào danh sách
+                bookingList.add(booking);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return bookingList;
+    }
+
+    public boolean deleteBooking(String bookingId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete(TABLE_BOOKING, COLUMN_BOOKING_ID + " = ?", new String[]{bookingId});
+        db.close();
+        return result > 0;
+    }
+    public boolean updateBooking(String bookingId, String roomId, String userId, String checkInDate, String checkOutDate, int isConfirmed) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ROOM_ID_FK, roomId);
+        values.put(COLUMN_USER_ID_FK, userId);
+        values.put(COLUMN_CHECK_IN_DATE, checkInDate);
+        values.put(COLUMN_CHECK_OUT_DATE, checkOutDate);
+        values.put(COLUMN_IS_CONFIRMED, isConfirmed);
+
+        int result = db.update(TABLE_BOOKING, values, COLUMN_BOOKING_ID + " = ?", new String[]{bookingId});
+        db.close();
+
+        return result > 0;
+    }
+
+
+
 }
 

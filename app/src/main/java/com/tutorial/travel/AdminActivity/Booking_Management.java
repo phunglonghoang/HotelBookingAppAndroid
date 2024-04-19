@@ -51,7 +51,7 @@ public class Booking_Management extends AppCompatActivity {
         bookingAdminCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Booking_Management.this, SearchBookingAdminView.class);
+                Intent intent = new Intent(Booking_Management.this, reservation_summary_manager.class);
                 startActivity(intent);
             }
         });

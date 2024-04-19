@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,13 +8,11 @@
     android:orientation="vertical"
     tools:context=".AdminActivity.reservation_summary_manager">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
-
 
         <Button
             android:id="@+id/button_home"
@@ -34,7 +31,6 @@
             android:layout_marginLeft="188dp"
             android:gravity="end"
             android:text="Logout" />
-
 
     </LinearLayout>
 
@@ -69,66 +65,22 @@
         android:inputType="date"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:text="Room Type:"
-        android:textStyle="bold" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="268dp"
-        android:layout_height="139dp"
-        android:layout_marginLeft="10dp">
-
-        <RadioButton
-            android:id="@+id/radioButtonStandard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:defaultFocusHighlightEnabled="true"
-            android:checked="true"
-            android:text="Standard" />
-
-        <RadioButton
-            android:id="@+id/radioButtonDeluxe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Deluxe" />
-
-        <RadioButton
-            android:id="@+id/radioButtonSuite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Suite" />
-    </RadioGroup>
-
     <Button
         android:id="@+id/buttonListView"
         android:layout_width="242dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="view list" />
+        android:text="View List" />
 
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/listViewBookingAdmin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal">
-
-
-
-    </LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
 
 
 
 
 </LinearLayout>
-
-
