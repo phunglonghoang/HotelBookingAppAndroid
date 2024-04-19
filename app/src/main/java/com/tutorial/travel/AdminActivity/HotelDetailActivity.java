@@ -3,8 +3,10 @@ package com.tutorial.travel.AdminActivity;
 import static android.content.ContentValues.TAG;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -41,7 +43,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class HotelDetailActivity extends AppCompatActivity {
-    TextView startTxt, hotelNameTxt, locationTxt, idHotelTxt, etCheckInDate, etCheckOutDate, priceTxt;
+    TextView startTxt, hotelNameTxt, locationTxt, idHotelTxt, etCheckInDate,
+            etCheckOutDate, priceTxt, countReview;
     ImageView imageHotelDetail;
     Button btnSelectRoom, btnreview;
     EditText txtReview;
@@ -77,11 +80,12 @@ public class HotelDetailActivity extends AppCompatActivity {
         btnSelectRoom = findViewById(R.id.btnSelectRoom);
         btnreview = findViewById(R.id.btnreview);
         txtReview= findViewById(R.id.txtReview);
+        countReview= findViewById(R.id.countReview);
 
         rt = (RatingBar) findViewById(R.id.ratingbar);
         LayerDrawable stars=(LayerDrawable)rt.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-//        showReviewList();
+        showReviewList();
 
 
 //        hotelIdTextView.setText("Hotel ID: " + hotelId);
@@ -106,6 +110,8 @@ public class HotelDetailActivity extends AppCompatActivity {
 
     }
 
+
+
     private void showReviewList() {
         HotelModel hotel = (HotelModel) getIntent().getSerializableExtra("hotel");
         recyclerView = findViewById(R.id.recyclerView);
@@ -114,6 +120,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(verticalLayoutManager);
         rvList = new ArrayList<>();
         adapter = new ReviewAdapter(this, rvList);
+
 
 
         recyclerView.setAdapter(adapter);
@@ -128,7 +135,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         HotelModel hotel = (HotelModel) getIntent().getSerializableExtra("hotel");
 
         if (hotel != null) {
-
+            DatabaseHelper.updateAverageRatingForHotel(this , hotelId);
             hotelNameTxt.setText(hotel.getHotelName());
             Log.d(TAG, "hotelNameTxt: "+hotelNameTxt);
             locationTxt.setText(hotel.getLocation());
@@ -142,6 +149,15 @@ public class HotelDetailActivity extends AppCompatActivity {
             minPrice = hotel.getMinRoomPrice();
             Log.d(TAG, "minPrice: "+minPrice);
             priceTxt.setText(String.format(Locale.getDefault(), "%.2f VND", minPrice));
+
+            //hiển số lượng đánh giá
+            int countrv = DatabaseHelper.countReviewHotel(this, hotel.getId());
+            Log.d(TAG, "showReviewList: count"+ countrv);
+            countReview.setText(String.valueOf(countrv));
+            Log.d(TAG, "setVariable:countReview "+countReview);
+
+
+
 
             displayCurrentDate();
         }
@@ -199,13 +215,25 @@ public class HotelDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "Cho chúng tôi biết chi tiết đánh giá của bạn", Toast.LENGTH_SHORT).show();
         }
         else{
+            SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+            String username = preferences.getString("username", "");
+
+            DatabaseHelper databaseHelper = new DatabaseHelper(this);
+
+           int  usId = DatabaseHelper.getIdByUsername(this, username);
+
+
             ReviewModel review = new ReviewModel();
             review.setRating(rating);
             review.setReviewDetail(reviewDetail);
             review.setHotel_id(hotelId);
-            review.setUser_id(2);
+            review.setUser_id(usId);
             addReview(review);
             Toast.makeText(this, "Đánh giá thành công", Toast.LENGTH_SHORT).show();
+            DatabaseHelper.updateAverageRatingForHotel(this , hotelId);
+            txtReview.setText("");
+            rt.setRating(0);
+
         }
 
 
@@ -213,39 +241,35 @@ public class HotelDetailActivity extends AppCompatActivity {
     public void addReview(ReviewModel review) {
 
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
-
-
         databaseHelper.addReview(review);
 
-//        showReviewList();
+        showReviewList();
     }
 
-    public void loadReviewbyHotelId(String hotel_id) {
+    public void loadReviewbyHotelId(String htid) {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        Log.d(TAG, "loadReviewbyHotelId: " +hotel_id);
-        Cursor cursor = db.rawQuery("SELECT * FROM " +
-                DatabaseHelper.TABLE_REVIEW +
-                " WHERE " + DatabaseHelper.COLUMN_HOTEL_ID +
-                "=?", new String[]{hotel_id});
+        Log.d(TAG, "loadReviewbyHotelId: " + htid);
+        Cursor cursor = db.rawQuery("select * from review where hotel_id =?", new String[]{htid});
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_REVIEW_ID)); // Sử dụng getColumnIndexOrThrow
                 String rvdetail = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_REVIEW_DETAIL)); // Sử dụng getColumnIndexOrThrow
                 double rating = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_RATING));
-                int hotelId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_ID));
-                int user_id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID));
-                ReviewModel rv = new ReviewModel(id, rvdetail,rating,hotelId,user_id  );
+                int hotelId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_HOTEL_ID_FK));
+                int user_id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ID_FK));
+                ReviewModel rv = new ReviewModel(id, rvdetail, rating, hotelId, user_id);
                 rvList.add(rv);
 
             } while (cursor.moveToNext());
         }
 
-
         cursor.close();
-        adapter.notifyDataSetChanged();
         db.close();
 
+        // Cập nhật adapter với danh sách mới
+        adapter.setReviews(rvList);
+        adapter.notifyDataSetChanged();
     }
 
 

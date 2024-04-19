@@ -12,17 +12,13 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import com.tutorial.travel.Activity.PasswordUtils;
 
+import com.tutorial.travel.Adapter.ReviewAdapter;
 import com.tutorial.travel.model.RoomModel;
 
 import com.tutorial.travel.model.Booking;
 import com.tutorial.travel.model.HotelModel;
 import com.tutorial.travel.model.ReviewModel;
-import com.tutorial.travel.model.RoomModel;
 import com.tutorial.travel.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
 
     @Override
@@ -252,6 +249,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return roleId;
     }
 
+
     private void insertRole(SQLiteDatabase db, String roleName) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ROLE_NAME, roleName);
@@ -279,13 +277,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_HOTEL_ID_FK, review.getHotel_id());
         values.put(COLUMN_USER_ID_FK, review.getUser_id());
 
-
-
         db.insert(TABLE_REVIEW, null, values);
         db.close();
 
 
 
+    }
+    public static String getUsernameById(Context context, int userId) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        String username = null;
+
+        String selectQuery = "SELECT " + COLUMN_USERNAME + " FROM " + TABLE_USERS + " WHERE " + COLUMN_ID + " = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            username = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME));
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+
+        return username;
+    }
+    //đếm số lượng review từng khách sạn
+    public static int countReviewHotel(Context context,int hotelId) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        int count = 0;
+
+        String query = "SELECT COUNT(*) FROM " + TABLE_REVIEW +
+                " WHERE " + COLUMN_HOTEL_ID_FK + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(hotelId)});
+        if (cursor != null && cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+            cursor.close();
+        }
+
+        db.close();
+        return count;
     }
 
 
@@ -470,8 +503,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public int getIdByUsername(String username) {
-        SQLiteDatabase db = this.getReadableDatabase();
+    public static int getIdByUsername(Context context, String username) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
         String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_USERS +
                 " WHERE " + COLUMN_USERNAME + " = ?";
 
@@ -641,6 +675,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        // Trả về đối tượng HotelModel hoặc null nếu không tìm thấy
 //        return hotel;
 //    }
+// Kiểm tra xem username đã tồn tại trong cơ sở dữ liệu hay chưa
+public boolean checkUsernameExists(String username) {
+    SQLiteDatabase db = this.getReadableDatabase();
+    String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERNAME + " = ?";
+    Cursor cursor = db.rawQuery(query, new String[]{username});
+    boolean exists = cursor.getCount() > 0;
+    cursor.close();
+    return exists;
+}
+
+    // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu hay chưa
+    public boolean checkEmailExists(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_EMAIL + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{email});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
+    }
+
+    // Kiểm tra xem phone đã tồn tại trong cơ sở dữ liệu hay chưa
+    public boolean checkPhoneExists(String phone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_PHONE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{phone});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
+    }
     public boolean updateHotel(long hotelId, String hotelName, String location, float starRating, String imageUrl) {
         // Khởi tạo đối tượng SQLiteDatabase để ghi dữ liệu
         SQLiteDatabase db = this.getWritableDatabase();
@@ -799,7 +862,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result > 0;
     }
 
+    //TÍNH TRUNG BÌNH   rating
+    public static void updateAverageRatingForHotel(Context context, int hotelId) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
+
+        Cursor cursor = db.rawQuery("SELECT AVG(" + COLUMN_RATING + ") FROM " + TABLE_REVIEW +
+                " WHERE " + COLUMN_HOTEL_ID_FK + " = ?", new String[]{String.valueOf(hotelId)});
+        double averageRating = 5.0;
+
+        // Lấy giá trị trung bình nếu có
+        if (cursor != null && cursor.moveToFirst()) {
+            averageRating = cursor.getDouble(0);
+            Log.d(TAG, "updateAverageRatingForHotel: " + averageRating);
+            cursor.close();
+        }
+        double roundedAverageRating = Math.round(averageRating * 10.0) / 10.0;
+        // Cập nhật giá trị trung bình vào bảng hotel
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_STAR_RATING, roundedAverageRating);
+
+        db.update(TABLE_HOTEL, values, COLUMN_HOTEL_ID + " = ?", new String[]{String.valueOf(hotelId)});
+
+        db.close();
+    }
 
 }
 

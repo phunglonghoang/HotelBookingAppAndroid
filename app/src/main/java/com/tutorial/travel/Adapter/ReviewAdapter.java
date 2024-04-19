@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tutorial.travel.R;
+import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.ReviewModel;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>{
     private List<ReviewModel> rvList;
 
-private Context context;
+    private Context context;
 
 
     public ReviewAdapter(Context context, List<ReviewModel> rvList) {
@@ -26,28 +27,23 @@ private Context context;
         this.rvList = rvList;
 
     }
-    public ReviewAdapter(ArrayList<ReviewModel> rvList) {
-        this.rvList = rvList;
+    public void setReviews(List<ReviewModel> reviews) {
+        this.rvList = reviews;
     }
-    static class ReviewViewHolder extends RecyclerView.ViewHolder {
-        TextView txtnamereview, scoreRating;
 
-        ReviewViewHolder(@NonNull View itemView) {
-            super(itemView);
-            txtnamereview = itemView.findViewById(R.id.txtnamereview);
-            scoreRating = itemView.findViewById(R.id.scoreRating);
-        }
-    }
     @NonNull
     @Override
-    public ReviewAdapter.ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_review, parent, false);
-        return new ReviewAdapter.ReviewViewHolder(view);
+        return new ReviewViewHolder(view);
     }
     @Override
     public void onBindViewHolder(@NonNull ReviewAdapter.ReviewViewHolder holder, int position) {
+
         ReviewModel rv = rvList.get(position);
-        holder.txtnamereview.setText(rv.getReviewDetail());
+        String uname = DatabaseHelper.getUsernameById(context, rv.getUser_id());
+        holder.txtnamereview.setText(uname);
+        holder.txtreview.setText(rv.getReviewDetail());
         holder.scoreRating.setText(String.valueOf(rv.getRating()));
 
     }
@@ -56,18 +52,15 @@ private Context context;
     public int getItemCount() {
         return rvList.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ReviewViewHolder extends RecyclerView.ViewHolder {
 
+        TextView txtnamereview, scoreRating,txtreview;
 
-
-        TextView txtnamereview, scoreRating;
-
-        public ViewHolder(@NonNull View itemView) {
+        public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
             txtnamereview = itemView.findViewById(R.id.txtnamereview);
+            txtreview = itemView.findViewById(R.id.txtreview);
             scoreRating = itemView.findViewById(R.id.scoreRating);
-
-//
         }
     }
 }
