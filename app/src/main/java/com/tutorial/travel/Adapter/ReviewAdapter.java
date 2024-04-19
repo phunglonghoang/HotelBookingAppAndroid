@@ -1,6 +1,7 @@
 package com.tutorial.travel.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ private Context context;
     public void onBindViewHolder(@NonNull ReviewAdapter.ReviewViewHolder holder, int position) {
         ReviewModel rv = rvList.get(position);
         holder.txtnamereview.setText(rv.getReviewDetail());
+        Log.d("TAG", "onBindViewHolder: " +  rv.getReviewDetail() );
         holder.scoreRating.setText(String.valueOf(rv.getRating()));
 
     }

@@ -84,6 +84,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_ID_FK = "userId";
     public static final String COLUMN_CHECK_IN_DATE = "checkIn";
     public static final String COLUMN_CHECK_OUT_DATE = "checkOut";
+    public static final String COLUMN_PAYMENT_METHOD = "payment";
+    public static final String COLUMN_TOTAL_AMOUNT = "total";
+
     public static final String COLUMN_IS_CONFIRMED = "isConfirmed";
 
 
@@ -109,17 +112,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_ROLE_NAME + " TEXT"
                 + ")";
         db.execSQL(CREATE_ROLE_TABLE);
-        //Tạo bảng REVIEW
-        String CREATE_REVIEW_TABLE = "CREATE TABLE " + TABLE_REVIEW + "("
-                + COLUMN_REVIEW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_REVIEW_DETAIL + " TEXT,"
-                + COLUMN_RATING + " INTEGER,"
-                + COLUMN_HOTEL_ID_FK + " INTEGER,"
-                + COLUMN_USER_ID_FK + " INTEGER,"
-                + "FOREIGN KEY(" + COLUMN_HOTEL_ID_FK + ") REFERENCES " + TABLE_HOTEL + "(" + COLUMN_HOTEL_ID + "),"
-                + "FOREIGN KEY(" + COLUMN_USER_ID_FK + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_ID + ")"
-                + ")";
-        db.execSQL(CREATE_REVIEW_TABLE);
 
 
 
@@ -146,6 +138,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_HOTEL_TABLE);
 
+    //Tạo bảng REVIEW
+        String CREATE_REVIEW_TABLE = "CREATE TABLE " + TABLE_REVIEW + "("
+                + COLUMN_REVIEW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_REVIEW_DETAIL + " TEXT,"
+                + COLUMN_RATING + " INTEGER,"
+                + COLUMN_HOTEL_ID_FK + " INTEGER,"
+                + COLUMN_USER_ID_FK + " INTEGER,"
+                + "FOREIGN KEY(" + COLUMN_HOTEL_ID_FK + ") REFERENCES " + TABLE_HOTEL + "(" + COLUMN_HOTEL_ID + "),"
+                + "FOREIGN KEY(" + COLUMN_USER_ID_FK + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_ID + ")"
+                + ")";
+        db.execSQL(CREATE_REVIEW_TABLE);
 
         // Tạo bảng roomType
         String CREATE_ROOM_TYPE_TABLE = "CREATE TABLE " + TABLE_ROOM_TYPE + "("
@@ -181,6 +184,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_CHECK_IN_DATE + " TEXT,"
                 + COLUMN_CHECK_OUT_DATE + " TEXT,"
                 + COLUMN_IS_CONFIRMED + " INTEGER,"
+                + COLUMN_PAYMENT_METHOD + " TEXT,"
+                + COLUMN_TOTAL_AMOUNT + " REAL,"
                 + "FOREIGN KEY(" + COLUMN_ROOM_ID_FK + ") REFERENCES " + TABLE_ROOM + "(" + COLUMN_ROOM_ID + "),"
                 + "FOREIGN KEY(" + COLUMN_USER_ID_FK + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_ID + ")"
                 + ")";
@@ -287,10 +292,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     }
-
-
-
-
 
 
 
@@ -744,8 +745,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 room.setRoomImage(cursor.getString(3));
                 room.setRoomStatus(cursor.getString(4));
                 room.setDescription(cursor.getString(5));
-
-
+                room.setHotelId(hotelId);
                 roomList.add(room);
             } while (cursor.moveToNext());
         }

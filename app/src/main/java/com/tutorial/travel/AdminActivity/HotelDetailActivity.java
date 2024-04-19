@@ -101,6 +101,10 @@ public class HotelDetailActivity extends AppCompatActivity {
             intent.putExtra("hotelId", hotelId);
             intent.putExtra("checkInDate", etCheckInDate.getText().toString());
             intent.putExtra("checkOutDate", etCheckOutDate.getText().toString());
+            intent.putExtra("HotelName", hotelNameTxt.getText().toString());
+            Log.d(TAG, "Hotel Name: " + hotelNameTxt.getText().toString());
+            intent.putExtra("Location", locationTxt.getText().toString());
+            Log.d(TAG, "Location: " + locationTxt.getText().toString());
             startActivity(intent);
         });
 
@@ -114,13 +118,8 @@ public class HotelDetailActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(verticalLayoutManager);
         rvList = new ArrayList<>();
         adapter = new ReviewAdapter(this, rvList);
-
-
         recyclerView.setAdapter(adapter);
-
         loadReviewbyHotelId(String.valueOf(hotel.getId()));
-
-
 
     }
 
@@ -175,7 +174,6 @@ public class HotelDetailActivity extends AppCompatActivity {
                     String selectedDate = dateFormat.format(calendar.getTime());
                     etCheckInDate.setText(selectedDate);
 
-                    // Tăng ngày lên 1 để lấy ngày trả phòng
                     calendar.add(Calendar.DAY_OF_MONTH, 1);
                     String checkOutDate = dateFormat.format(calendar.getTime());
                     etCheckOutDate.setText(checkOutDate);
@@ -247,7 +245,4 @@ public class HotelDetailActivity extends AppCompatActivity {
         db.close();
 
     }
-
-
-
 }

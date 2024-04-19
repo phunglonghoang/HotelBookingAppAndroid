@@ -30,11 +30,16 @@ public class RoomModelAdapter extends RecyclerView.Adapter<RoomModelAdapter.Room
     private String defaultCheckInDate;
     private String defaultCheckOutDate;
 
-    public RoomModelAdapter(Context context, List<RoomModel> roomList, String defaultCheckInDate, String defaultCheckOutDate) {
+    private int hotelId;
+
+    public RoomModelAdapter(Context context, List<RoomModel> roomList, String defaultCheckInDate, String defaultCheckOutDate,  int hotelId) {
         this.context = context;
         this.roomList = roomList;
         this.defaultCheckInDate = defaultCheckInDate;
         this.defaultCheckOutDate = defaultCheckOutDate;
+        this.hotelId = hotelId;
+        Log.d(TAG, "Hotel ID received in RoomModelAdapter: " + hotelId); // Thêm log ở đây
+
     }
     @NonNull
     @Override
@@ -46,7 +51,7 @@ public class RoomModelAdapter extends RecyclerView.Adapter<RoomModelAdapter.Room
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         RoomModel room = roomList.get(position);
-
+        Log.d(TAG, "onBindViewHolder: room = " + room);
         if (room == null || room.getRoomStatus() == null) {
             return;
         }
@@ -70,13 +75,15 @@ public class RoomModelAdapter extends RecyclerView.Adapter<RoomModelAdapter.Room
         }
 
         holder.roomStatusTxt.setText("Status: " + room.getRoomStatus());
-
+        holder.idHotelTxt.setText("Hotel ID: " + hotelId);
+        Log.d(TAG, "onBindViewHolder: " + hotelId);
         holder.bookRoombtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BookingActivity.class);
                 intent.putExtra("roomId", room.getId());
                 intent.putExtra("hotelId", room.getHotelId());
+                Log.d(TAG, "onClick: id hotel truyen qua inten? " + room.getHotelId());
                 intent.putExtra("price", room.getPrice());
                 intent.putExtra("checkInDate", defaultCheckInDate);
                 intent.putExtra("checkOutDate", defaultCheckOutDate);
@@ -106,7 +113,7 @@ public class RoomModelAdapter extends RecyclerView.Adapter<RoomModelAdapter.Room
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
         ImageView roomImage;
-        TextView roomNameTxt, priceTxt, descriptionTxt, roomStatusTxt;
+        TextView roomNameTxt, priceTxt, descriptionTxt, roomStatusTxt, idHotelTxt;
         Button bookRoombtn;
 
         public RoomViewHolder(@NonNull View itemView) {
@@ -118,6 +125,8 @@ public class RoomModelAdapter extends RecyclerView.Adapter<RoomModelAdapter.Room
             roomStatusTxt = itemView.findViewById(R.id.roomStatusTxt);
             descriptionTxt = itemView.findViewById(R.id.descriptionTxt);
             bookRoombtn = itemView.findViewById(R.id.bookRoombtn);
+            idHotelTxt = itemView.findViewById(R.id.idHotelTxt);
+
         }
     }
 }
