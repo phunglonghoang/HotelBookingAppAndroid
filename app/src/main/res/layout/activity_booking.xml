@@ -19,49 +19,68 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Thông tin đặt phòng"
-            android:textStyle="bold"
+            android:textAlignment="center"
             android:textSize="30dp"
-            android:textAlignment="center"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/userNameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tên Khách Hàng" />
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:text="Tên Khách Hàng"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/checkInTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ngày đặt phòng" />
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:text="Ngày đặt phòng"
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/checkOutTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ngày trả phòng" />
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:text="Ngày trả phòng"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/roomNameTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tên phòng" />
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:text="Tên phòng"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/priceTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Giá" />
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:text="Giá"
+            android:textSize="16sp" />
+
         <Button
             android:id="@+id/bookbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đặt Phòng"/>
+            android:text="Đặt Phòng" />
 
     </LinearLayout>
 </LinearLayout>

@@ -4,6 +4,11 @@ import static android.content.ContentValues.TAG;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+<<<<<<< HEAD
+import android.nfc.Tag;
+import android.os.Bundle;
+import android.util.Log;
+=======
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -12,6 +17,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+>>>>>>> 77f9e4154963482019db3852267261318d2b9ea8
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -135,7 +141,11 @@ public class HotelDetailActivity extends AppCompatActivity {
             locationTxt.setText(hotel.getLocation());
             Log.d(TAG, "locationTxt: "+locationTxt);
             startTxt.setText(String.valueOf(hotel.getStarRating()));
+<<<<<<< HEAD
+            Log.d("startTxt", "setVariable: startTxt"+ startTxt);
+=======
             Log.d(TAG, "startTxt: "+startTxt);
+>>>>>>> 77f9e4154963482019db3852267261318d2b9ea8
             Picasso.get().load(hotel.getImage()).into(imageHotelDetail);
             Log.d(TAG, "getImage: "+imageHotelDetail);
             hotelId = hotel.getId();
@@ -155,7 +165,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         String currentDate = dateFormat.format(calendar.getTime());
         etCheckInDate.setText(currentDate);
 
-        // Thiết lập ngày trả phòng là ngày tiếp theo của ngày nhận phòng
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         String nextDay = dateFormat.format(calendar.getTime());
         etCheckOutDate.setText(nextDay);

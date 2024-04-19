@@ -33,9 +33,8 @@ public class RoomListActivity extends AppCompatActivity {
 
         hotelId = getIntent().getIntExtra("hotelId", -1);
         if (hotelId == -1) {
-            // Xử lý trường hợp hotelId không hợp lệ
             Toast.makeText(this, "Invalid hotelId", Toast.LENGTH_SHORT).show();
-            finish(); // Kết thúc activity hiện tại
+            finish();
             return;
         }
 
