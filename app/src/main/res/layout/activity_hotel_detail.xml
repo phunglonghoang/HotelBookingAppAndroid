@@ -9,137 +9,158 @@
     tools:context=".AdminActivity.HotelDetailActivity">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imageHotelDetail"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/pic3" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/imageHotelDetail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/star" />
-
-                <TextView
-                    android:id="@+id/startTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="sao " />
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Số lượt đánh giá" />
-
-            </LinearLayout>
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/pic3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/star"
+                        />
+
+                    <TextView
+                        android:id="@+id/startTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="20dp"
+                        android:text="sao " />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/hotelNameTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="Tên Khách Sạn"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/locationTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        android:text="Địa chỉ" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/border">
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Số lượt đánh giá"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/countReview"
+                            android:layout_width="50dp"
+                            android:textSize="16dp"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+                    </LinearLayout>
+
+
+                    <EditText
+                        android:id="@+id/txtReview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Đánh giá của bạn" />
+
+                    <RatingBar
+                        android:id="@+id/ratingbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+
+                    <Button
+
+                        android:id="@+id/btnreview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="gửi đánh giá" />
+
+
+                </LinearLayout>
+
                 <TextView
-                    android:id="@+id/hotelNameTxt"
+                    android:id="@+id/textView14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="Tên Khách Sạn"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:text="Đánh giá"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    tools:ignore="TextSizeCheck" />
 
-                <TextView
-                    android:id="@+id/locationTxt"
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:layout_marginTop="8dp"
-                    android:text="Địa chỉ" />
-            </LinearLayout>
+                    android:background="@drawable/border_background" />
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Đánh giá"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                tools:ignore="TextSizeCheck" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/txtReview"
+                <TextView
+                    android:id="@+id/idHotelTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Đánh giá của bạn" />
-
-                <RatingBar
-                    android:id="@+id/ratingbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-                <TextView
-                    android:id="@+id/ratingText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="star"
-                    />
-
-                <Button
-
-                    android:id="@+id/btnreview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:text="gửi đánh giá" />
-
+                    android:text="mã số khách sạn" />
 
             </LinearLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
-
-            <TextView
-                android:id="@+id/idHotelTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="mã số khách sạn" />
-
         </LinearLayout>
-    </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.bottomappbar.BottomAppBar

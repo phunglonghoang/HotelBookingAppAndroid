@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.PolicyActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/blue"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Chính sách Bảo mật và Điều khoản Sử dụng Ứng dụng H2TBooking"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/effectiveDateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ngày có hiệu lực: 01/01/2024"
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/policyContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Thu thập Thông tin:\n\n- H2TBooking thu thập thông tin cá nhân từ người dùng, bao gồm tên, địa chỉ email, số điện thoại và thông tin thanh toán, để cung cấp dịch vụ đặt phòng khách sạn.\n- H2TBooking sẽ không chia sẻ thông tin cá nhân của bạn với bất kỳ bên thứ ba nào mà không được sự cho phép của bạn.\n\n2. Bảo mật Thông tin:\n\n- H2TBooking cam kết bảo mật thông tin cá nhân của người dùng và sử dụng các biện pháp bảo vệ thông tin hiện đại để ngăn chặn truy cập trái phép và sử dụng sai mục đích của dữ liệu.\n\n3. Quyền lợi của Người dùng:\n\n- Người dùng có quyền truy cập, chỉnh sửa hoặc xóa thông tin cá nhân của mình từ hệ thống H2TBooking bất kỳ lúc nào.\n- Người dùng có quyền rút lại sự đồng ý cho phép H2TBooking thu thập và sử dụng thông tin cá nhân của mình.\n\n4. Sử dụng Dịch vụ:\n\n- Người dùng đồng ý sử dụng dịch vụ của H2TBooking theo các điều khoản và điều kiện được quy định trong ứng dụng và trên trang web của chúng tôi.\n- Người dùng đồng ý tuân thủ các quy định và hạn chế khi sử dụng tính năng đặt phòng khách sạn trên ứng dụng H2TBooking.\n\n5. Liên hệ:\n\n- Nếu có bất kỳ câu hỏi hoặc ý kiến phản hồi nào về chính sách bảo mật và điều khoản sử dụng của chúng tôi, vui lòng liên hệ với chúng tôi qua email support@h2tbooking.com.\n\nChính sách này có hiệu lực từ ngày 1 tháng 1 năm 2024 và có thể được điều chỉnh hoặc cập nhật bởi H2TBooking theo yêu cầu hoặc thay đổi về quy định pháp luật."
+                android:textSize="14sp"
+                android:padding="16dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
