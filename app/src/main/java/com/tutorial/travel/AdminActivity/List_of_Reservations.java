@@ -11,7 +11,6 @@ import android.widget.ListView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.tutorial.travel.Activity.ListAdapter;
 import com.tutorial.travel.Activity.MainActivity;
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;

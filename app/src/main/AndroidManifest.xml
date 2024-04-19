@@ -20,7 +20,7 @@
             android:exported="false"
             />
         <activity
-            android:name=".Activity.EditDeleteBookingActivity"
+            android:name=".AdminActivity.EditDeleteBookingActivity"
             android:exported="false" />
         <activity
             android:name=".AdminActivity.SearchBookingAdminView"
@@ -110,7 +110,7 @@
             android:name=".AdminActivity.BookingAdmin"
             android:exported="false" />
         <activity
-            android:name=".Activity.BillAdmin"
+            android:name=".AdminActivity.BillAdmin"
             android:exported="false" />
         <activity
             android:name=".AdminActivity.AccountManagement"

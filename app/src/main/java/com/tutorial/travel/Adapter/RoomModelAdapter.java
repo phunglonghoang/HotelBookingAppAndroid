@@ -1,5 +1,7 @@
 package com.tutorial.travel.Adapter;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -37,7 +39,7 @@ public class RoomModelAdapter extends RecyclerView.Adapter<RoomModelAdapter.Room
     @NonNull
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_room, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_room, parent, false);
         return new RoomViewHolder(view);
     }
 
@@ -57,8 +59,10 @@ public class RoomModelAdapter extends RecyclerView.Adapter<RoomModelAdapter.Room
             holder.itemView.setVisibility(View.VISIBLE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
+        Log.d(TAG, "onBindViewHolder:roomNameTxt "+room.getRoomName() );
 
-        holder.roomNameTxt.setText(room.getRoomName());
+        String rn = room.getRoomName();
+        holder.roomNameTxt.setText(rn);
         holder.priceTxt.setText(String.format("%s VND", room.getPrice()));
 
         if (holder.descriptionTxt != null) {
