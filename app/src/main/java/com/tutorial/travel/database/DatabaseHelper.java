@@ -12,6 +12,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import com.tutorial.travel.Activity.PasswordUtils;
 
+import com.tutorial.travel.model.Room;
 import com.tutorial.travel.model.RoomModel;
 
 import com.tutorial.travel.model.Booking;
@@ -488,7 +489,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return userId;
     }
-    public long getHotelIdByName(String hotelName) {
+    public int getHotelIdByName(String hotelName) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_HOTEL_ID};
         String selection = COLUMN_HOTEL_NAME + "=?";
@@ -500,7 +501,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.close();
         }
         db.close();
-        return hotelId;
+        return (int) hotelId;
+    }
+
+    public int getRoomIdByName(String roomName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ROOM_ID};
+        String selection = COLUMN_ROOM_NAME + "=?";
+        String[] selectionArgs = {roomName};
+        Cursor cursor = db.query(TABLE_ROOM, columns, selection, selectionArgs, null, null, null);
+        long roomId = -1;
+        if (cursor != null && cursor.moveToFirst()) {
+            roomId = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ROOM_ID));
+            cursor.close();
+        }
+        db.close();
+        return (int) roomId;
     }
 
 
@@ -511,6 +527,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 searchResults.add(cursor.getString(cursor.getColumnIndexOrThrow("hotelName")));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return searchResults;
+
+
+    }
+
+    public ArrayList<String> searchRooms(String searchString) {
+        ArrayList<String> searchResults = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM room WHERE roomName LIKE ?", new String[]{"%" + searchString + "%"});
+        if (cursor.moveToFirst()) {
+            do {
+                searchResults.add(cursor.getString(cursor.getColumnIndexOrThrow("roomName")));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -641,22 +672,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        // Trả về đối tượng HotelModel hoặc null nếu không tìm thấy
 //        return hotel;
 //    }
-    public boolean updateHotel(long hotelId, String hotelName, String location, float starRating, String imageUrl) {
-        // Khởi tạo đối tượng SQLiteDatabase để ghi dữ liệu
+public boolean updateHotel(String hotelId, String hotelName, String location, int starRating, String image) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put(COLUMN_HOTEL_NAME, hotelName);
+    contentValues.put(COLUMN_LOCATION, location);
+    contentValues.put(COLUMN_STAR_RATING, starRating);
+    contentValues.put(COLUMN_IMAGE, image);
+
+    // Xác định điều kiện để cập nhật khách sạn
+    String selection = COLUMN_HOTEL_ID + " = ?";
+    String[] selectionArgs = { hotelId };
+
+    // Thực hiện cập nhật và kiểm tra kết quả
+    int rowsAffected = db.update(TABLE_HOTEL, contentValues, selection, selectionArgs);
+    return rowsAffected > 0;
+}
+
+    public boolean updateRoom(String roomId, String roomName, String typeRoomid, String price, String image) {
         SQLiteDatabase db = this.getWritableDatabase();
-        // Khởi tạo đối tượng ContentValues để chứa các cặp giá trị cần cập nhật
-        ContentValues values = new ContentValues();
-        // Đưa các giá trị mới vào đối tượng ContentValues
-        values.put(COLUMN_HOTEL_NAME, hotelName);
-        values.put(COLUMN_LOCATION, location);
-        values.put(COLUMN_STAR_RATING, starRating);
-        values.put(COLUMN_IMAGE, imageUrl);
-        // Thực hiện cập nhật thông tin trong bảng khách sạn dựa trên hotelId
-        int affectedRows = db.update(TABLE_HOTEL, values, COLUMN_HOTEL_ID + " = ?", new String[]{String.valueOf(hotelId)});
-        // Đóng kết nối với cơ sở dữ liệu
-        db.close();
-        // Trả về true nếu có ít nhất một hàng được cập nhật, ngược lại trả về false
-        return affectedRows > 0;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ROOM_NAME, roomName);
+        contentValues.put(COLUMN_ROOM_TYPE_ID_FK, typeRoomid);
+        contentValues.put(COLUMN_PRICE, price);
+        contentValues.put(COLUMN_ROOM_IMAGE, image);
+
+        // Xác định điều kiện để cập nhật khách sạn
+        String selection = COLUMN_ROOM_ID + " = ?";
+        String[] selectionArgs = { roomId };
+
+        // Thực hiện cập nhật và kiểm tra kết quả
+        int rowsAffected = db.update(TABLE_ROOM, contentValues, selection, selectionArgs);
+        return rowsAffected > 0;
     }
 
     public boolean deleteHotel(String hotelName) {
@@ -668,35 +715,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsAffected > 0;
     }
 
-    public HotelModel getHotelByName(String hotelName) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        HotelModel hotel = null;
-
-        // Câu truy vấn SQL để lấy thông tin của khách sạn dựa trên tên
-        String query = "SELECT * FROM " + TABLE_HOTEL + " WHERE " + COLUMN_HOTEL_NAME + " = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{hotelName});
-
-        // Kiểm tra xem có dữ liệu không và di chuyển con trỏ đến hàng đầu tiên
-        if (cursor.moveToFirst()) {
-            // Lấy thông tin từ cột tương ứng trong cơ sở dữ liệu
-            int hotelId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_ID));
-            String location = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION));
-            int starRating = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_STAR_RATING));
-            String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE));
-//            Double minprice = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_PRICE));
-
-
-            // Tạo một đối tượng HotelModel từ dữ liệu truy vấn
-            hotel = new HotelModel(hotelId, hotelName, location, starRating, imageUrl );
-        }
-
-        // Đóng con trỏ và đóng kết nối đến cơ sở dữ liệu
-        cursor.close();
+    public boolean deleteRoom(String roomName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Xóa phòng từ bảng room dựa trên tên phòng
+        int rowsAffected = db.delete(TABLE_ROOM, COLUMN_ROOM_NAME + " = ?", new String[]{roomName});
         db.close();
-
-        // Trả về đối tượng HotelModel hoặc null nếu không tìm thấy
-        return hotel;
+        // Trả về true nếu có ít nhất một hàng được xóa thành công, ngược lại trả về false
+        return rowsAffected > 0;
     }
+
     public ArrayList<Booking> getAllBookings() {
         List<Booking> bookingList = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -778,28 +805,108 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return bookingList;
     }
 
-    public boolean deleteBooking(String bookingId) {
+    public boolean updateHotel1(HotelModel hotel) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete(TABLE_BOOKING, COLUMN_BOOKING_ID + " = ?", new String[]{bookingId});
-        db.close();
-        return result > 0;
-    }
-    public boolean updateBooking(String bookingId, String roomId, String userId, String checkInDate, String checkOutDate, int isConfirmed) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        // Khởi tạo đối tượng ContentValues để chứa các cặp giá trị cần cập nhật
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ROOM_ID_FK, roomId);
-        values.put(COLUMN_USER_ID_FK, userId);
-        values.put(COLUMN_CHECK_IN_DATE, checkInDate);
-        values.put(COLUMN_CHECK_OUT_DATE, checkOutDate);
-        values.put(COLUMN_IS_CONFIRMED, isConfirmed);
-
-        int result = db.update(TABLE_BOOKING, values, COLUMN_BOOKING_ID + " = ?", new String[]{bookingId});
+        // Đưa các giá trị mới vào đối tượng ContentValues
+        values.put(COLUMN_HOTEL_NAME, hotel.getHotelName());
+        values.put(COLUMN_LOCATION, hotel.getLocation());
+        values.put(COLUMN_STAR_RATING, hotel.getStarRating());
+        values.put(COLUMN_IMAGE, hotel.getImage());
+        // Thực hiện cập nhật thông tin trong bảng khách sạn dựa trên hotelId
+        int affectedRows = db.update(TABLE_HOTEL, values, COLUMN_HOTEL_ID + " = ?", new String[]{String.valueOf(hotel.getId())});
+        // Đóng kết nối với cơ sở dữ liệu
         db.close();
+        // Trả về true nếu có ít nhất một hàng được cập nhật, ngược lại trả về false
+        return affectedRows > 0;
+    }
 
-        return result > 0;
+    public boolean adminUpdateHotel(HotelModel hotelModel, String hotel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_HOTEL_NAME,hotelModel.getHotelName());
+        cv.put(COLUMN_LOCATION,hotelModel.getLocation());
+        cv.put(COLUMN_STAR_RATING,hotelModel.getStarRating());
+        cv.put(COLUMN_IMAGE,hotelModel.getImage());
+
+        db.update(TABLE_HOTEL,cv,"hotelName = ?", new String[] {hotel});
+        return true;
+    }
+
+    public HotelModel hotelViewHotel(String hotel){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String qry =  "select * from hotel where hotelName = '" + hotel + "' ";
+        Cursor cursor = db.rawQuery(qry, null);
+
+        if(cursor!= null)
+        {
+            cursor.moveToFirst();
+        }
+        HotelModel hotelModel =new HotelModel(cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)), cursor.getString(4));
+
+        hotelModel.setHotelName(cursor.getString(1));
+        hotelModel.setLocation(cursor.getString(2));
+        hotelModel.setStarRating(Integer.parseInt(cursor.getString(3)));
+        hotelModel.setImage(cursor.getString(4));
+
+
+        db.close();
+        cursor.close();
+        return hotelModel;
     }
 
 
+    public Room hotelViewRoom(String room){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String qry =  "select * from room where roomName = '" + room + "' ";
+        Cursor cursor = db.rawQuery(qry, null);
+
+        if(cursor!= null)
+        {
+            cursor.moveToFirst();
+        }
+        Room roomModel =new Room(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+
+        roomModel.setRoomName(cursor.getString(1));
+        roomModel.setRoomType(cursor.getString(6));
+        roomModel.setPrice(cursor.getString(2));
+        roomModel.setImage(cursor.getString(3));
+
+
+        db.close();
+        cursor.close();
+        return roomModel;
+    }
+
+    public Room getRoomDetails(String roomName) {
+        Room room = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT * FROM " + TABLE_ROOM + " WHERE " + COLUMN_ROOM_NAME + " = ?";
+            cursor = db.rawQuery(query, new String[]{roomName});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                // Lấy thông tin từ Cursor và tạo một đối tượng Room
+                int roomId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ROOM_ID));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ROOM_TYPE_ID_FK));
+                int price = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PRICE));
+                String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ROOM_IMAGE));
+
+                // Khởi tạo đối tượng Room
+                room = new Room(roomId, roomName, type, price, imageUrl);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return room;
+    }
 
 }
 

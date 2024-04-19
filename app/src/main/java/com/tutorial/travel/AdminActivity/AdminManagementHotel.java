@@ -50,5 +50,12 @@ public class AdminManagementHotel extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        CardView searchRoomCardView = findViewById(R.id.SearchRoomCardView);
+        searchRoomCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminManagementHotel.this, SearchRoomAdmin.class );
+            startActivity(intent);
+            finish();
+        });
     }
 }

@@ -15,6 +15,15 @@
         android:theme="@style/Theme.Travel"
         tools:targetApi="31">
         <activity
+            android:name=".AdminActivity.ModifyDeleteRoomAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity.SearchRoomAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity.SearchTypeRoom"
+            android:exported="false" />
+        <activity
             android:name=".AdminActivity.EditBookingAdmin"
             android:exported="false" />
         <activity
