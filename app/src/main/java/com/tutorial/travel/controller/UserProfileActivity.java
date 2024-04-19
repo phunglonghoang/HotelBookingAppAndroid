@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -48,6 +49,13 @@ public class UserProfileActivity extends AppCompatActivity {
             String username = extras.getString("USERNAME");
             loadUser(username);
         }
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(UserProfileActivity.this, MainActivity.class);
+                startActivity(intent1);
+            }
+        });
     }
     private void loadUser(String username) {
         // Khởi tạo DatabaseHelper và SQLiteDatabase
