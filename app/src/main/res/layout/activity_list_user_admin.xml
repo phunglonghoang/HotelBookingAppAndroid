@@ -10,14 +10,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewUserList"
         android:layout_width="match_parent"
+        android:layout_below="@id/buttonBackListUserAdmin"
         android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/buttonBackListUserAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recyclerViewUserList"
+
         android:text="Back"
+        android:layout_marginTop="30dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="229dp" />
 </RelativeLayout>

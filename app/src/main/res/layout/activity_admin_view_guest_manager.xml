@@ -77,20 +77,8 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp" />
-        <TextView
-            android:id="@+id/creditName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Password"
-            android:layout_marginTop="10dp"
-            android:textColor="#000000"
-            android:textSize="16dp"/>
-        <EditText
-            android:id="@+id/admin_roleGM"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp" />
+
+
 
         <RadioGroup
             android:id="@+id/radioGrRole"

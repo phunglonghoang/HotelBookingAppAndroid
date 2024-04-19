@@ -1,12 +1,15 @@
 package com.tutorial.travel.AdminActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.List;
+
+import com.tutorial.travel.Activity.MainActivity;
 import com.tutorial.travel.R;
 
 import androidx.annotation.NonNull;
@@ -22,8 +25,8 @@ public class BookingListAdapter extends ArrayAdapter<Booking> {
 
     public BookingListAdapter(Context context, int resource, List<Booking> objects) {
         super(context, resource, objects);
-        this.mContext = mContext;
-        this.mResource = mResource;
+        this.mContext = context;
+        this.mResource = resource;
     }
 
     @Override
@@ -50,6 +53,8 @@ public class BookingListAdapter extends ArrayAdapter<Booking> {
         checkInDateTextView.setText("Check-in: " + checkInDate);
         checkOutDateTextView.setText("Check-out: " + checkOutDate);
         isConfirmedTextView.setText("Confirmed: " + isConfirmed);
+
+
 
         return convertView;
     }
