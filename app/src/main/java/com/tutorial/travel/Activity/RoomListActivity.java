@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.tutorial.travel.Adapter.RoomAdapter;
+
+import com.tutorial.travel.Adapter.RoomModelAdapter;
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.RoomModel;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class RoomListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RoomAdapter roomAdapter;
+    private RoomModelAdapter RoomAdapter;
     private int hotelId;
     private TextView hotelIdTextView;
     private String checkInDate;
@@ -53,7 +54,7 @@ public class RoomListActivity extends AppCompatActivity {
     private void showRoomList() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         List<RoomModel> roomList = databaseHelper.getRoomsByHotelId(hotelId);
-        roomAdapter = new RoomAdapter(this, roomList, checkInDate, checkOutDate);
-        recyclerView.setAdapter(roomAdapter);
+        RoomAdapter = new RoomModelAdapter(this, roomList, checkInDate, checkOutDate);
+        recyclerView.setAdapter(RoomAdapter);
     }
 }

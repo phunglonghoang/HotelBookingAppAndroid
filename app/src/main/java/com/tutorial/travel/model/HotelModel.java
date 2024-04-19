@@ -10,14 +10,40 @@ public class HotelModel implements Serializable {
     private String image;
     private double minRoomPrice;
 
+    public HotelModel(int id, String hotelName, int starRating, String image) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.starRating = starRating;
+        this.image = image;
+    }
 
-    public HotelModel(int id, String hotelName, String location, int starRating, String image,  double minRoomPrice) {
+    public HotelModel(int id, String hotelName, String location, int starRating, String image, double minRoomPrice) {
         this.id = id;
         this.hotelName = hotelName;
         this.location = location;
         this.starRating = starRating;
         this.image = image;
         this.minRoomPrice = minRoomPrice;
+    }
+
+    public HotelModel(int id, String hotelName, String location) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.location = location;
+    }
+
+    public HotelModel(String hotelName, String location, int starRating, String image) {
+        this.hotelName = hotelName;
+        this.location = location;
+        this.starRating = starRating;
+        this.image = image;
+    }
+
+    public HotelModel() {
+
+    }
+//
+    public HotelModel(int hotelId, String hotelName, String location, int starRating, String imageUrl) {
     }
 
     public int getId() {

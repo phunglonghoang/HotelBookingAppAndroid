@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/userNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên người dùng"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/dateEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ngày đặt (dd/MM/yyyy)"
+        android:layout_below="@id/userNameEditText"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/roomNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên phòng"
+        android:layout_below="@id/dateEditText"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tìm kiếm"
+        android:layout_below="@id/roomNameEditText"
+        android:layout_margin="16dp"/>
+
+    <ListView
+        android:id="@+id/bookingListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchButton"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
