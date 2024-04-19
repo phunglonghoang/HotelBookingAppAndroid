@@ -98,17 +98,10 @@ public class HotelDetailActivity extends AppCompatActivity {
         etCheckInDate.setOnClickListener(v -> showDatePickerDialog());
 
         btnSelectRoom.setOnClickListener(v -> {
-            HotelModel hotel = (HotelModel) getIntent().getSerializableExtra("hotel");
             Intent intent = new Intent(HotelDetailActivity.this, RoomListActivity.class);
-
             intent.putExtra("hotelId", hotelId);
             intent.putExtra("checkInDate", etCheckInDate.getText().toString());
             intent.putExtra("checkOutDate", etCheckOutDate.getText().toString());
-
-            int hotelId =hotel.getId() ;
-            intent.putExtra("hotelId", hotelId);
-
-
             startActivity(intent);
         });
 
@@ -134,14 +127,21 @@ public class HotelDetailActivity extends AppCompatActivity {
 
     private void setVariable() {
         HotelModel hotel = (HotelModel) getIntent().getSerializableExtra("hotel");
+
         if (hotel != null) {
+
             hotelNameTxt.setText(hotel.getHotelName());
+            Log.d(TAG, "hotelNameTxt: "+hotelNameTxt);
             locationTxt.setText(hotel.getLocation());
+            Log.d(TAG, "locationTxt: "+locationTxt);
             startTxt.setText(String.valueOf(hotel.getStarRating()));
+            Log.d(TAG, "startTxt: "+startTxt);
             Picasso.get().load(hotel.getImage()).into(imageHotelDetail);
+            Log.d(TAG, "getImage: "+imageHotelDetail);
             hotelId = hotel.getId();
             idHotelTxt.setText(String.valueOf(hotelId));
             minPrice = hotel.getMinRoomPrice();
+            Log.d(TAG, "minPrice: "+minPrice);
             priceTxt.setText(String.format(Locale.getDefault(), "%.2f VND", minPrice));
 
             displayCurrentDate();
@@ -197,7 +197,7 @@ public class HotelDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "Hãy đánh giá sao", Toast.LENGTH_SHORT).show();
 
         }
-        else if (reviewDetail==null){
+        else if (reviewDetail.isEmpty() ){
             Toast.makeText(this, "Cho chúng tôi biết chi tiết đánh giá của bạn", Toast.LENGTH_SHORT).show();
         }
         else{

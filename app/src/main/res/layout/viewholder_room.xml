@@ -1,43 +1,55 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-    <!--  Hình ảnh của phòng  -->
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
     <ImageView
         android:id="@+id/roomImage"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="350dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/pic2"/>
-    <!--  Tên phòng  -->
+        tools:ignore="ImageContrastCheck" />
+
     <TextView
         android:id="@+id/roomNameTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp" android:textStyle="bold"
-        android:paddingTop="8dp" android:text="Room Name"/>
-    <!--  Giá phòng  -->
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingTop="8dp"
+        android:text="Room Name" />
+
+    <!-- Giá phòng -->
     <TextView
         android:id="@+id/priceTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="Price: 0 VND"/>
-    <!--  Mô tả phòng  -->
-    <LinearLayout
+        android:text="Price: 0 VND" />
+
+    <TextView
+        android:id="@+id/roomStatusTxt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-        android:id="@+id/descriptionTxt"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:paddingTop="8dp"
-        android:text="Description of the room"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đặt phòng"
-            android:layout_gravity="end"
-            />
-    </LinearLayout>
+        android:text="Status" />
+
+    <TextView
+        android:id="@+id/descriptionTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:paddingTop="8dp"
+        android:text="Description " />
+
+    <Button
+        android:id="@+id/bookRoombtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đặt phòng" />
+
 </LinearLayout>

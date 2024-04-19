@@ -91,9 +91,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView3.setAdapter(adapter);
 
         TextView txtUserName = findViewById(R.id.userNameTxt);
+        // Lấy tên người dùng từ SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        String username = preferences.getString("username", "");
 
-        Bundle bundle = getIntent().getExtras();
-        String username = bundle.getString("username");
+//        Bundle bundle = getIntent().getExtras();
+//        String username = bundle.getString("username");
         loadHotels();
         addRoomToHotel();
         addReviewToData();
@@ -101,9 +104,7 @@ public class MainActivity extends AppCompatActivity {
         txtUserName.setText(username);
 
 
-        // Lấy tên người dùng từ SharedPreferences
-        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
-        String username = preferences.getString("username", "");
+
 
         profileImg = findViewById(R.id.profileImg);
         profileImg.setOnClickListener(new View.OnClickListener() {
@@ -294,22 +295,6 @@ public class MainActivity extends AppCompatActivity {
         addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Confirmed","Xịn xò", 2);
 
 
-        addRoomForRoomType(db, standardRoomTypeId, "Phòng đơn", 100, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available", "Xịn xò",1);
-
-        // Thêm phòng cho loại phòng "Deluxe"
-        addRoomForRoomType(db, deluxeRoomTypeId, "Phòng đôi", 150, "https://gachxinh.com/wp-content/uploads/2021/06/Picture19-14.jpg", "Confirmed","Xịn xò", 1);
-
-        // Thêm phòng cho loại phòng "Suite"
-        addRoomForRoomType(db, suiteRoomTypeId, "Phòng đẹp", 200, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available","Xịn xò", 1);
-
-        // Thêm phòng cho loại phòng "Standard"
-        addRoomForRoomType(db, standardRoomTypeId, "P01", 100, "https://example.com/room_image.jpg", "Available", 1);
-
-        // Thêm phòng cho loại phòng "Deluxe"
-        addRoomForRoomType(db, deluxeRoomTypeId, "P02", 150, "https://example.com/room_image.jpg", "Available", 1);
-
-        // Thêm phòng cho loại phòng "Suite"
-        addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://example.com/room_image.jpg", "Available", 1);
 
 
         db.close();

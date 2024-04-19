@@ -72,6 +72,23 @@ public class LoginActivity extends AppCompatActivity {
 
                     case 2: // Customer
 
+//                        // Lưu tên người dùng vào SharedPreferences
+//                        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = preferences.edit();
+//                        editor.putString("username", username);
+//                        editor.apply();
+//
+//                        // Chuyển đến MainActivity và gửi tên người dùng dùng SharedPreferences
+//
+//
+//                        Intent customerIntent = new Intent(LoginActivity.this,
+//                                MainActivity.class);
+//
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("username", username);
+//                        customerIntent.putExtras(bundle);
+//
+//                        startActivity(customerIntent);
                         // Lưu tên người dùng vào SharedPreferences
                         SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
@@ -79,17 +96,8 @@ public class LoginActivity extends AppCompatActivity {
                         editor.apply();
 
                         // Chuyển đến MainActivity và gửi tên người dùng dùng SharedPreferences
-
-
-                        Intent customerIntent = new Intent(LoginActivity.this,
-                                MainActivity.class);
-
-                        Bundle bundle = new Bundle();
-                        bundle.putString("username", username);
-                        customerIntent.putExtras(bundle);
-
+                        Intent customerIntent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(customerIntent);
-
                         break;
                     default:
                         // Xử lý trường hợp không chính xác

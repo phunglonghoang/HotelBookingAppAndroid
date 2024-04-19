@@ -39,6 +39,10 @@ public class HotelModel implements Serializable {
         this.image = image;
     }
 
+    public HotelModel() {
+
+    }
+//
     public HotelModel(int hotelId, String hotelName, String location, int starRating, String imageUrl) {
     }
 
@@ -58,9 +62,12 @@ public class HotelModel implements Serializable {
         this.hotelName = hotelName;
     }
 
-
-    public String getLocation(){
+    public String getLocation() {
         return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public int getStarRating() {
@@ -79,7 +86,6 @@ public class HotelModel implements Serializable {
         this.image = image;
     }
 
-
     public double getMinRoomPrice() {
         return minRoomPrice;
     }
@@ -87,6 +93,4 @@ public class HotelModel implements Serializable {
     public void setMinRoomPrice(double minRoomPrice) {
         this.minRoomPrice = minRoomPrice;
     }
-
-
 }
