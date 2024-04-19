@@ -1,6 +1,7 @@
 package com.tutorial.travel.controller;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.tutorial.travel.Activity.MainActivity;
 import com.tutorial.travel.Activity.PasswordUtils;
 import com.tutorial.travel.R;
 import com.tutorial.travel.database.DatabaseHelper;
@@ -84,6 +86,9 @@ public class UserProfileActivity extends AppCompatActivity {
         db.close();
         if (rowsAffected > 0) {
             Toast.makeText(UserProfileActivity.this, "Thông tin của bạn đã được cập nhật thành công", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(UserProfileActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         } else {
             Toast.makeText(UserProfileActivity.this, "Đã xảy ra lỗi khi thay đổi thông tin", Toast.LENGTH_SHORT).show();
         }

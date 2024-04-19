@@ -1,7 +1,6 @@
 package com.tutorial.travel.Activity;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;

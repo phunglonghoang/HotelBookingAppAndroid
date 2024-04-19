@@ -19,7 +19,6 @@ public class BookingActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         String username = preferences.getString("username", "");
 
-        // Hiển thị dữ liệu trên giao diện
         TextView userNameTxt = findViewById(R.id.userNameTxt);
         TextView checkInTxt = findViewById(R.id.checkInTxt);
         TextView checkOutTxt = findViewById(R.id.checkOutTxt);

@@ -2,7 +2,9 @@ package com.tutorial.travel.Activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,6 +63,7 @@ public class HotelDetailActivity extends AppCompatActivity {
             hotelNameTxt.setText(hotel.getHotelName());
             locationTxt.setText(hotel.getLocation());
             startTxt.setText(String.valueOf(hotel.getStarRating()));
+            Log.d("startTxt", "setVariable: startTxt"+ startTxt);
             Picasso.get().load(hotel.getImage()).into(imageHotelDetail);
             hotelId = hotel.getId();
             idHotelTxt.setText(String.valueOf(hotelId));
@@ -78,7 +81,6 @@ public class HotelDetailActivity extends AppCompatActivity {
         String currentDate = dateFormat.format(calendar.getTime());
         etCheckInDate.setText(currentDate);
 
-        // Thiết lập ngày trả phòng là ngày tiếp theo của ngày nhận phòng
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         String nextDay = dateFormat.format(calendar.getTime());
         etCheckOutDate.setText(nextDay);
