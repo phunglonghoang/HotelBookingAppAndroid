@@ -74,13 +74,30 @@ public class Stastistical extends AppCompatActivity {
     }
     private double sumRoomPrices() {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT SUM(" + DatabaseHelper.COLUMN_PRICE + ") FROM " + DatabaseHelper.TABLE_ROOM, null);
-        cursor.moveToFirst();
-        double sum = cursor.getDouble(0);
-        cursor.close();
+
+        double sum = 0;
+
+        // Truy vấn SQL để lấy tổng giá của các phòng đã được đặt
+        String query = "SELECT SUM(" + DatabaseHelper.TABLE_ROOM + "." + DatabaseHelper.COLUMN_PRICE + ") " +
+                "FROM " + DatabaseHelper.TABLE_BOOKING +
+                " INNER JOIN " + DatabaseHelper.TABLE_ROOM +
+                " ON " + DatabaseHelper.TABLE_BOOKING + "." + DatabaseHelper.COLUMN_ROOM_ID_FK +
+                " = " + DatabaseHelper.TABLE_ROOM + "." + DatabaseHelper.COLUMN_ROOM_ID;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            // Lấy tổng giá từ Cursor
+            sum = cursor.getDouble(0);
+            cursor.close();
+        }
+
         db.close();
+
         return sum;
     }
+
+
 
     private int getBookingCount() {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
