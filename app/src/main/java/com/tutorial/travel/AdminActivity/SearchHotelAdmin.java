@@ -27,10 +27,10 @@ public class SearchHotelAdmin extends AppCompatActivity {
     private ListView listViewSearchRS;
     private DatabaseHelper db;
     private ArrayAdapter<String> searchHotelArrayAdapter;
-    ArrayList<HotelModel> arrayListht;
-    HotelAdapter htAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_search_hotel_admin);
@@ -87,4 +87,6 @@ public class SearchHotelAdmin extends AppCompatActivity {
         searchHotelArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, searchResults);
         listViewSearchRS.setAdapter(searchHotelArrayAdapter);
     }
+
 }
+

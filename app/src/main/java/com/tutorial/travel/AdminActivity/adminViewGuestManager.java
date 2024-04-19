@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -29,10 +29,10 @@ public class adminViewGuestManager extends AppCompatActivity {
     public static final String SHARED_PREF_NAME = "mypref";
     RadioGroup radioGroupRole;
     RadioButton ButtonAdmin, ButtonUser;
-    String roleId ; // Mặc định là 2 (User)
+
     Button admin_modifyGM, admin_deleteGM, home;
     EditText admin_userGM, admin_pwdGM, admin_emailGM, admin_phone;
-    TextView admin_title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
