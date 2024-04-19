@@ -81,6 +81,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_BOOKING = "booking";
     public static final String COLUMN_BOOKING_ID = "id";
     public static final String COLUMN_ROOM_ID_FK = "roomId";
+    public static final String COLUMN_HOTEL_NAME_BOOKING = "nameHotelBooking";
+    public static final String COLUMN_HOTEL_LOCATION_BOOKING = "locationBooking";
     public static final String COLUMN_USER_ID_FK = "userId";
     public static final String COLUMN_CHECK_IN_DATE = "checkIn";
     public static final String COLUMN_CHECK_OUT_DATE = "checkOut";
@@ -181,11 +183,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_BOOKING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_ROOM_ID_FK + " INTEGER,"
                 + COLUMN_USER_ID_FK + " INTEGER,"
+                + COLUMN_HOTEL_NAME_BOOKING + " TEXT,"
+                + COLUMN_HOTEL_LOCATION_BOOKING + " TEXT,"
                 + COLUMN_CHECK_IN_DATE + " TEXT,"
                 + COLUMN_CHECK_OUT_DATE + " TEXT,"
-                + COLUMN_IS_CONFIRMED + " INTEGER,"
                 + COLUMN_PAYMENT_METHOD + " TEXT,"
                 + COLUMN_TOTAL_AMOUNT + " REAL,"
+                + COLUMN_IS_CONFIRMED + " INTEGER,"
                 + "FOREIGN KEY(" + COLUMN_ROOM_ID_FK + ") REFERENCES " + TABLE_ROOM + "(" + COLUMN_ROOM_ID + "),"
                 + "FOREIGN KEY(" + COLUMN_USER_ID_FK + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_ID + ")"
                 + ")";
