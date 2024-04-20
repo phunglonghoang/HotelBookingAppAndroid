@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
             values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "Hữu Nghị");
             values.put(DatabaseHelper.COLUMN_LOCATION, "Viet Nam");
             values.put(DatabaseHelper.COLUMN_STAR_RATING, 5);
-            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://www.hoteljob.vn/files/quang-ba-khach-san.jpg");
             db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
 
             values.clear();
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "H2T");
             values.put(DatabaseHelper.COLUMN_LOCATION, "Hồ Chí Minh");
             values.put(DatabaseHelper.COLUMN_STAR_RATING, 4.5);
-            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://www.hoteljob.vn/files/Pic/Th%C3%A1ng%204/Khach-san-la-gi-01.jpg");
             db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
 
 
@@ -225,14 +225,14 @@ public class MainActivity extends AppCompatActivity {
             values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "Thanh Bình");
             values.put(DatabaseHelper.COLUMN_LOCATION, "Hà Nội");
             values.put(DatabaseHelper.COLUMN_STAR_RATING, 2);
-            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://travelhanoi.com.vn/UserFiles/images/CN1.jpg");
             db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
 
 
             values.put(DatabaseHelper.COLUMN_HOTEL_NAME, "Phúc Long");
             values.put(DatabaseHelper.COLUMN_LOCATION, "Đà Lạt");
             values.put(DatabaseHelper.COLUMN_STAR_RATING, 1);
-            values.put(DatabaseHelper.COLUMN_IMAGE, "https://i.redd.it/j6myfqglup501.jpg");
+            values.put(DatabaseHelper.COLUMN_IMAGE, "https://katahome.com/wp-content/uploads/2021/10/Thiet-ke-khach-san-5-sao-tan-co-dien-phap-dep-kata-81065-04.jpg");
             db.insert(DatabaseHelper.TABLE_HOTEL, null, values);
 
             ContentValues values1 = new ContentValues();
