@@ -33,6 +33,7 @@ import com.tutorial.travel.AdminActivity.HotelDetailActivity;
 import com.tutorial.travel.Domain.CategoryDomain;
 import com.tutorial.travel.Domain.PopularDomain;
 import com.tutorial.travel.R;
+import com.tutorial.travel.controller.HistoryBookingActivity;
 import com.tutorial.travel.controller.UserProfileActivity;
 import com.tutorial.travel.database.DatabaseHelper;
 import com.tutorial.travel.model.HotelModel;
@@ -54,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imgSearch;
     EditText edtSearchLocation;
-    TextView txtSeeAllHotel;
-
-
+    TextView txtSeeAllHotel, historyTxt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,6 +107,17 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(MainActivity.this, UserProfileActivity.class);
                 intent1.putExtra("USERNAME", username);
                 startActivity(intent1);
+            }
+        });
+        historyTxt = findViewById(R.id.historyTxt);
+        historyTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+                String username = preferences.getString("username", "");
+                Intent intent = new Intent(MainActivity.this, HistoryBookingActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
             }
         });
 
