@@ -312,13 +312,13 @@ public class MainActivity extends AppCompatActivity {
         int suiteRoomTypeId = getRoomTypeIdByName("Suite");
 
         // Thêm phòng cho loại phòng "Standard"
-        addRoomForRoomType(db, standardRoomTypeId, "P01", 100, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available", "Xịn xò",2);
+        addRoomForRoomType(db, standardRoomTypeId, "P01", 100, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available", "Phòng tiêu chuẩn có một giường đôi, wifi, nhà vệ sinh và TV",2);
 
         // Thêm phòng cho loại phòng "Deluxe"
-        addRoomForRoomType(db, deluxeRoomTypeId, "P02", 150, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available","Xịn xò", 2);
+        addRoomForRoomType(db, deluxeRoomTypeId, "P02", 150, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available","Phòng deluxe có một giường đôi và 1 giường đơn,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 2);
 
         // Thêm phòng cho loại phòng "Suite"
-        addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Confirmed","Xịn xò", 2);
+        addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Confirmed","Phòng Suite có 2 giường đôi, view sông ,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 2);
 
 
 
