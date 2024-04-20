@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         loadHotels();
         addRoomToHotel();
         addReviewToData();
-        initRecyclerView();
+//        initRecyclerView();
         txtUserName.setText(username);
 
 
@@ -121,59 +121,80 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loadHotels();
-        addRoomToHotel();
-        initRecyclerView();
-        txtUserName.setText(username);
+
 
     }
 
 
-    private void initRecyclerView() {
-
-        ArrayList<PopularDomain> items = new ArrayList<>();
-        String str = getString(R.string.description);
-        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.9, "pic1", true, 1000));
-        items.add(new PopularDomain("Passo Rolle, TN", "Hawaii Beach", str, 2, false, 5.0, "pic2", false, 2500));
-        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.3, "pic3", true, 30000));
-
-        recyclerViewPopular = findViewById(R.id.recyclerview1);
-        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(
-                this,
-                LinearLayoutManager.HORIZONTAL,
-                false
-        ));
-        adapterPopular = new PopularAdapter(items);
-        recyclerViewPopular.setAdapter(adapterPopular);
-
-        // For Category RecyclerView
-        ArrayList<CategoryDomain> catsList = new ArrayList<>();
-        catsList.add(new CategoryDomain("Beaches", "cat1"));
-        catsList.add(new CategoryDomain("Camps", "cat2"));
-        catsList.add(new CategoryDomain("Forest", "cat3"));
-        catsList.add(new CategoryDomain("Desert", "cat4"));
-        catsList.add(new CategoryDomain("Mountain", "cat5"));
-
-        recyclerViewCategory = findViewById(R.id.recyclerview2);
-        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(
-                this,
-                LinearLayoutManager.HORIZONTAL,
-                false
-        ));
-
-        adapterCat = new CategoryAdapter(catsList);
-        recyclerViewCategory.setAdapter(adapterCat);
-    }
-    private  void   addReviewToData(){
+//    private void initRecyclerView() {
+//
+//        ArrayList<PopularDomain> items = new ArrayList<>();
+//        String str = getString(R.string.description);
+//        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.9, "pic1", true, 1000));
+//        items.add(new PopularDomain("Passo Rolle, TN", "Hawaii Beach", str, 2, false, 5.0, "pic2", false, 2500));
+//        items.add(new PopularDomain("Mar caible avendia lago", "Miami Beach", str, 2, true, 4.3, "pic3", true, 30000));
+//
+//        recyclerViewPopular = findViewById(R.id.recyclerview1);
+//        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(
+//                this,
+//                LinearLayoutManager.HORIZONTAL,
+//                false
+//        ));
+//        adapterPopular = new PopularAdapter(items);
+//        recyclerViewPopular.setAdapter(adapterPopular);
+//
+//        // For Category RecyclerView
+//        ArrayList<CategoryDomain> catsList = new ArrayList<>();
+//        catsList.add(new CategoryDomain("Beaches", "cat1"));
+//        catsList.add(new CategoryDomain("Camps", "cat2"));
+//        catsList.add(new CategoryDomain("Forest", "cat3"));
+//        catsList.add(new CategoryDomain("Desert", "cat4"));
+//        catsList.add(new CategoryDomain("Mountain", "cat5"));
+//
+//        recyclerViewCategory = findViewById(R.id.recyclerview2);
+//        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(
+//                this,
+//                LinearLayoutManager.HORIZONTAL,
+//                false
+//        ));
+//
+//        adapterCat = new CategoryAdapter(catsList);
+//        recyclerViewCategory.setAdapter(adapterCat);
+//    }
+    private void addReviewToData() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        ReviewModel review1 = new ReviewModel(1,"Great hotel!", 5.0, 1, 2);
-        databaseHelper.addReview(review1);
 
-        ReviewModel review2 = new ReviewModel(2,"Needs improvement", 3.5, 2, 2);
-        databaseHelper.addReview(review2);
+        // Kiểm tra xem dữ liệu đã tồn tại trong bảng review chưa
+        if (!isReviewDataExists(databaseHelper)) {
+            // Nếu chưa tồn tại, thêm dữ liệu mới vào
+            ReviewModel review1 = new ReviewModel(1,"Great hotel!", 5.0, 1, 2);
+            databaseHelper.addReview(review1);
+
+            ReviewModel review2 = new ReviewModel(2,"Needs improvement", 3.5, 2, 2);
+            databaseHelper.addReview(review2);
+            ReviewModel review3 = new ReviewModel(3,"Bad hotel!", 1.0, 3, 2);
+            databaseHelper.addReview(review3);
+
+            ReviewModel review4 = new ReviewModel(4,"sample", 3.5, 4, 2);
+            databaseHelper.addReview(review4);
+        } else {
+            // Nếu dữ liệu đã tồn tại, không thực hiện thêm mới
+            Log.d(TAG, "Review data already exists. No need to add.");
+        }
     }
+    private boolean isReviewDataExists(DatabaseHelper databaseHelper) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
+        // Truy vấn kiểm tra xem có bất kỳ dữ liệu nào trong bảng review hay không
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + DatabaseHelper.TABLE_REVIEW, null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        cursor.close();
+
+        // Nếu số lượng dòng lớn hơn 0, tức là đã có dữ liệu tồn tại
+        return count > 0;
+    }
     private void addDataToDatabase() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();

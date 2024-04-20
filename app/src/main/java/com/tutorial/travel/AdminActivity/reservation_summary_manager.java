@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -56,6 +57,19 @@ public class reservation_summary_manager extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedHotelName = (String) parent.getItemAtPosition(position);
+
+
+                Intent intent = new Intent(reservation_summary_manager.this, AdminMainActivity.class);
+
+                intent.putExtra("selectedHotelName", selectedHotelName);
+
+                startActivity(intent);
+            }
+        });
         buttonHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

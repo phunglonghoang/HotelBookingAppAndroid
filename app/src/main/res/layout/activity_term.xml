@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.TermActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/blue"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Term"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/serviceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dịch Vụ:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/serviceContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="H2T cung cấp một nền tảng để người dùng đặt phòng khách sạn trực tuyến và tìm kiếm thông tin về các điểm đến du lịch.\nH2T không phải là một nhà cung cấp dịch vụ khách sạn, mà chỉ là một nền tảng trung gian giữa người dùng và các khách sạn."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/userTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Người Dùng:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/userContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Người dùng phải đăng ký tài khoản để sử dụng các dịch vụ của H2T.\nThông tin cá nhân của người dùng sẽ được bảo mật và không được tiết lộ cho bên thứ ba mà không có sự đồng ý của người dùng."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/bookingTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đặt Phòng:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/bookingContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Khi đặt phòng thông qua H2T, người dùng cần cung cấp thông tin chính xác về thời gian và số lượng khách.\nH2T không chịu trách nhiệm đối với bất kỳ sự cố nào phát sinh sau khi người dùng đặt phòng thành công."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/paymentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thanh Toán:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/paymentContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="H2T có các phương thức thanh toán an toàn và bảo mật. Người dùng có thể sử dụng thẻ tín dụng hoặc các phương thức thanh toán trực tuyến khác để thanh toán cho đặt phòng của mình.\nMọi giao dịch thanh toán qua H2T được mã hóa để đảm bảo tính bảo mật của thông tin tài khoản ngân hàng của người dùng."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/cancellationTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hủy Đặt Phòng:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/cancellationContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chính sách hủy phòng của mỗi khách sạn sẽ được áp dụng khi người dùng yêu cầu hủy đặt phòng.\nNgười dùng cần tham khảo và tuân thủ chính sách hủy của khách sạn được đặt phòng."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/securityTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bảo Mật:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/securityContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="H2T cam kết bảo vệ thông tin cá nhân của người dùng và tuân thủ các quy định về bảo mật dữ liệu."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/acceptanceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chấp Nhận Sử Dụng:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/acceptanceContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Việc sử dụng ứng dụng H2T đồng nghĩa với việc người dùng chấp nhận tất cả các điều khoản và điều kiện được quy định trong Điều khoản Sử dụng này."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/changeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thay Đổi Điều Khoản:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/changeContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="H2T có quyền thay đổi hoặc cập nhật Điều khoản và Điều Kiện này mà không cần thông báo trước.\nViệc tiếp tục sử dụng dịch vụ sau khi có bất kỳ thay đổi nào đều tượng trưng cho sự chấp nhận của người dùng đối với những thay đổi đó."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/contactTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Liên Hệ:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/contactContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Để biết thêm thông tin hoặc giải đáp các thắc mắc liên quan đến Điều khoản và Điều Kiện này, vui lòng liên hệ với chúng tôi qua địa chỉ email support@h2tapp.com."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/understandTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hiểu Biết và Đồng Ý:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:padding="16dp"/>
+
+            <TextView
+                android:id="@+id/understandContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Việc sử dụng ứng dụng H2T đồng nghĩa với việc người dùng hiểu và đồng ý tuân thủ tất cả các điều khoản và điều kiện được quy định trong Điều khoản Sử dụng này."
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -15,7 +15,33 @@
         android:theme="@style/Theme.Travel"
         tools:targetApi="31">
         <activity
+
             android:name=".controller.HistoryBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity.ModifyDeleteRoomAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity.SearchRoomAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity.SearchTypeRoom"
+
+          
+            android:exported="false" />
+        <activity
+        android:name=".Activity.ContactActivity"
+       android:exported="false" />
+        <activity
+            android:name=".Activity.TermActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.PolicyActivity"
+
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity.EditBookingAdmin"
+
             android:exported="false" />
         <activity
             android:name=".Activity.BookingActivity"
@@ -145,6 +171,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -51,6 +51,23 @@ public class RegisterActivity extends AppCompatActivity {
             String dob = edtDOB.getText().toString().trim();
 
             if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+                // Kiểm tra xem username đã tồn tại chưa
+                if (dbHelper.checkUsernameExists(username)) {
+                    Toast.makeText(RegisterActivity.this, "Username đã tồn tại", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Kiểm tra xem email đã tồn tại chưa
+                if (dbHelper.checkEmailExists(email)) {
+                    Toast.makeText(RegisterActivity.this, "Email đã tồn tại", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Kiểm tra xem phone đã tồn tại chưa
+                if (dbHelper.checkPhoneExists(phone)) {
+                    Toast.makeText(RegisterActivity.this, "Số điện thoại đã tồn tại", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 User user = new User();
                 user.setUsername(username);
                 user.setEmail(email);

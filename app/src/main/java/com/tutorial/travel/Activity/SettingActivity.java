@@ -9,6 +9,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
+import android.widget.TextView;
+
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,11 +20,21 @@ import com.tutorial.travel.controller.LoginActivity;
 
 public class SettingActivity extends LoginActivity {
     SharedPreferences sharedPreferences;
+    private TextView txtuserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_setting);
+        SharedPreferences preferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+        String username = preferences.getString("username", "");
+
+        txtuserName = findViewById(R.id.txtuserName);
+        txtuserName.setText(username);
+
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -33,6 +45,19 @@ public class SettingActivity extends LoginActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    public void onPolicyClick(View v){
+        Intent intent = new Intent(this, PolicyActivity.class);
+        startActivity(intent);
+    }
+    public void onTermClick(View v){
+        Intent intent = new Intent(this, TermActivity.class);
+        startActivity(intent);
+    }
+    public void onContactClick(View v){
+        Intent intent = new Intent(this, ContactActivity.class);
+        startActivity(intent);
+    }
+
 
     public void onLogOutClick (View view){
 
