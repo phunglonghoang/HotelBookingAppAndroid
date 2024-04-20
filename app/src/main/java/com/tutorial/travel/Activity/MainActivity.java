@@ -315,10 +315,46 @@ public class MainActivity extends AppCompatActivity {
         addRoomForRoomType(db, standardRoomTypeId, "P01", 100, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available", "Phòng tiêu chuẩn có một giường đôi, wifi, nhà vệ sinh và TV",2);
 
         // Thêm phòng cho loại phòng "Deluxe"
-        addRoomForRoomType(db, deluxeRoomTypeId, "P02", 150, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available","Phòng deluxe có một giường đôi và 1 giường đơn,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 2);
+        addRoomForRoomType(db, deluxeRoomTypeId, "P02", 150, "https://huyhoanhotel.com/wp-content/uploads/2016/05/IMG_0439.jpg", "Available","Phòng deluxe có một giường đôi và 1 giường đơn,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 2);
 
         // Thêm phòng cho loại phòng "Suite"
-        addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Confirmed","Phòng Suite có 2 giường đôi, view sông ,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 2);
+        addRoomForRoomType(db, suiteRoomTypeId, "P03", 200, "https://acihome.vn/uploads/15/mau-thiet-ke-noi-that-phong-2-giuong-don-ben-trong-khach-san-3-4-5-sao-2.JPG", "Confirmed","Phòng Suite có 2 giường đôi, view sông ,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 2);
+
+        // Thêm phòng cho loại phòng "Standard"
+        addRoomForRoomType(db, standardRoomTypeId, "P11", 150, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Confirmed", "Phòng tiêu chuẩn có một giường đôi, wifi, nhà vệ sinh và TV",1);
+
+        // Thêm phòng cho loại phòng "Deluxe"
+        addRoomForRoomType(db, deluxeRoomTypeId, "P12", 200, "https://huyhoanhotel.com/wp-content/uploads/2016/05/IMG_0439.jpg", "Available","Phòng deluxe có một giường đôi và 1 giường đơn,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 1);
+
+        // Thêm phòng cho loại phòng "Suite"
+        addRoomForRoomType(db, suiteRoomTypeId, "P13", 300, "https://acihome.vn/uploads/15/mau-thiet-ke-noi-that-phong-2-giuong-don-ben-trong-khach-san-3-4-5-sao-2.JPG", "Available","Phòng Suite có 2 giường đôi, view sông ,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 1);
+
+        // Thêm phòng cho loại phòng "Standard"
+        addRoomForRoomType(db, standardRoomTypeId, "P21", 250, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Confirmed", "Phòng tiêu chuẩn có một giường đôi, wifi, nhà vệ sinh và TV",3);
+
+        // Thêm phòng cho loại phòng "Deluxe"
+        addRoomForRoomType(db, deluxeRoomTypeId, "P22", 300, "https://huyhoanhotel.com/wp-content/uploads/2016/05/IMG_0439.jpg", "Confirmed","Phòng deluxe có một giường đôi và 1 giường đơn,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 3);
+
+        // Thêm phòng cho loại phòng "Suite"
+        addRoomForRoomType(db, suiteRoomTypeId, "P23", 500, "https://acihome.vn/uploads/15/mau-thiet-ke-noi-that-phong-2-giuong-don-ben-trong-khach-san-3-4-5-sao-2.JPG", "Available","Phòng Suite có 2 giường đôi, view sông ,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 3);
+
+        addRoomForRoomType(db, standardRoomTypeId, "P31", 100, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Available", "Phòng tiêu chuẩn có một giường đôi, wifi, nhà vệ sinh và TV",4);
+
+        // Thêm phòng cho loại phòng "Deluxe"
+        addRoomForRoomType(db, deluxeRoomTypeId, "P32", 150, "https://huyhoanhotel.com/wp-content/uploads/2016/05/IMG_0439.jpg", "Available","Phòng deluxe có một giường đôi và 1 giường đơn,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 4);
+
+        // Thêm phòng cho loại phòng "Suite"
+        addRoomForRoomType(db, suiteRoomTypeId, "P33", 200, "https://acihome.vn/uploads/15/mau-thiet-ke-noi-that-phong-2-giuong-don-ben-trong-khach-san-3-4-5-sao-2.JPG", "Available","Phòng Suite có 2 giường đôi, view sông ,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 4);
+
+
+        addRoomForRoomType(db, standardRoomTypeId, "P41", 100, "https://noithatgialinh.vn/wp-content/uploads/2021/12/n1.jpg", "Confirmed", "Phòng tiêu chuẩn có một giường đôi, wifi, nhà vệ sinh và TV",5);
+
+        // Thêm phòng cho loại phòng "Deluxe"
+        addRoomForRoomType(db, deluxeRoomTypeId, "P42", 150, "https://huyhoanhotel.com/wp-content/uploads/2016/05/IMG_0439.jpg", "Confirmed","Phòng deluxe có một giường đôi và 1 giường đơn,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 5);
+
+        // Thêm phòng cho loại phòng "Suite"
+        addRoomForRoomType(db, suiteRoomTypeId, "P43", 200, "https://acihome.vn/uploads/15/mau-thiet-ke-noi-that-phong-2-giuong-don-ben-trong-khach-san-3-4-5-sao-2.JPG", "Available","Phòng Suite có 2 giường đôi, view sông ,máy lạnh, tủ lạnh, wifi, nhà vệ sinh và TV", 5);
+
 
 
 
@@ -346,7 +382,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.e("addRoomForRoomType", "Thêm mới phòng không thành công");
                 }
-            } else {
+            }
+            else {
                 // Phòng đã tồn tại
                 Log.w("addRoomForRoomType", "Phòng đã tồn tại");
             }
