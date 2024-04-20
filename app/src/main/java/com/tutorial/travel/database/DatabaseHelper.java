@@ -998,6 +998,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             return room;
         }
+        //chuyen state room
+
+    public void updateRoomStatus(int roomId, String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ROOM_STATUS, status);
+
+        db.update(TABLE_ROOM, values, COLUMN_ROOM_ID + " = ?", new String[]{String.valueOf(roomId)});
+        db.close();
+    }
 
         //TÍNH TRUNG BÌNH   rating
         public static void updateAverageRatingForHotel (Context context,int hotelId){
@@ -1021,46 +1031,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put(COLUMN_STAR_RATING, roundedAverageRating);
 
 
-    public List<BookingModel> getBookingHistoryByUsername(String username) {
-        List<BookingModel> bookingHistory = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        // Câu truy vấn để lấy lịch sử đặt phòng của một người dùng
-        String query = "SELECT * FROM " + TABLE_BOOKING + " WHERE " + COLUMN_USER_ID_FK + " = ?";
-
-        // Thực hiện truy vấn với đối số là username
-        Cursor cursor = db.rawQuery(query, new String[]{username});
-
-        // Kiểm tra cursor có dữ liệu không
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                // Lấy dữ liệu từ cursor và tạo mới đối tượng BookingModel
-                int roomId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ROOM_ID_FK));
-                String hotelName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_NAME_BOOKING));
-                String hotelLocation = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_LOCATION_BOOKING));
-                String checkInDate = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CHECK_IN_DATE));
-                String checkOutDate = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CHECK_OUT_DATE));
-                String paymentMethod = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PAYMENT_METHOD));
-                double totalAmount = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_TOTAL_AMOUNT));
-                int isConfirmed = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_CONFIRMED));
-
-                // Tạo đối tượng BookingModel và thêm vào danh sách bookingHistory
-                BookingModel booking = new BookingModel(roomId, username, hotelName, hotelLocation, checkInDate, checkOutDate, paymentMethod, totalAmount, isConfirmed);
-                bookingHistory.add(booking);
-            } while (cursor.moveToNext());
-        }
 
         // Đóng cursor và database
         if (cursor != null) {
             cursor.close();
-        }
+        } db.update(TABLE_HOTEL, values, COLUMN_HOTEL_ID + " = ?", new String[]{String.valueOf(hotelId)});
+
+            db.close();}
+
+            public List<BookingModel> getBookingHistoryByUsername(String username) {
+                List<BookingModel> bookingHistory = new ArrayList<>();
+                SQLiteDatabase db = this.getReadableDatabase();
+
+                // Câu truy vấn để lấy lịch sử đặt phòng của một người dùng
+                String query = "SELECT * FROM " + TABLE_BOOKING + " WHERE " + COLUMN_USER_ID_FK + " = ?";
+
+                // Thực hiện truy vấn với đối số là username
+                Cursor cursor = db.rawQuery(query, new String[]{username});
+
+                // Kiểm tra cursor có dữ liệu không
+                if (cursor != null && cursor.moveToFirst()) {
+                    do {
+                        // Lấy dữ liệu từ cursor và tạo mới đối tượng BookingModel
+                        int roomId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ROOM_ID_FK));
+                        String hotelName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_NAME_BOOKING));
+                        String hotelLocation = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_HOTEL_LOCATION_BOOKING));
+                        String checkInDate = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CHECK_IN_DATE));
+                        String checkOutDate = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CHECK_OUT_DATE));
+                        String paymentMethod = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PAYMENT_METHOD));
+                        double totalAmount = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_TOTAL_AMOUNT));
+                        int isConfirmed = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_CONFIRMED));
+
+                        // Tạo đối tượng BookingModel và thêm vào danh sách bookingHistory
+                        BookingModel booking = new BookingModel(roomId, username, hotelName, hotelLocation, checkInDate, checkOutDate, paymentMethod, totalAmount, isConfirmed);
+                        bookingHistory.add(booking);
+                    } while (cursor.moveToNext());
+                }
         db.close();
 
         return bookingHistory;
 
-            db.update(TABLE_HOTEL, values, COLUMN_HOTEL_ID + " = ?", new String[]{String.valueOf(hotelId)});
 
-            db.close();
 
         }
 

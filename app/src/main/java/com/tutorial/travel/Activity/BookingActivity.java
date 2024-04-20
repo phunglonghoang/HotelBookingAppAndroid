@@ -107,6 +107,7 @@ public class BookingActivity extends AppCompatActivity {
 
         // Chèn dữ liệu vào bảng booking
         long newRowId = db.insert(DatabaseHelper.TABLE_BOOKING, null, values);
+        databaseHelper.updateRoomStatus(roomId, "Confirmed");
 
         db.close();
     }
